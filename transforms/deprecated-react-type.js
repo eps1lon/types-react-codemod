@@ -14,12 +14,11 @@ const transformer = (file, api) => {
 			return j.identifier("ElementType");
 		});
 
-	// Unfortunately, this will mark files without changes as "skipped".
-	// However, always returning `ast.toSource()` will change some formatting in rare cases.
-	// This is not acceptable because even if it only affects 1% of files you'd end up with 100s of changed files which you need to audit.
+	// Otherwise some files will be marked as "modified" because formatting changed
 	if (changedIdentifiers.length > 0) {
 		return ast.toSource();
 	}
+	return file.source;
 };
 
 export default transformer;
