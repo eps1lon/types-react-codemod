@@ -14,10 +14,12 @@ const transformer = (file, api) => {
 			return j.identifier("ElementType");
 		});
 
-	// jscodeshift will sometimes change only formatting.
-	// we could return nothing if we didn't rename anything.
-	// However, returning nothing will mark the file as "skipped" which is not what we want.
-	return ast.toSource();
+	// Unfortunately, this will mark files without changes as "skipped".
+	// However, always returning `ast.toSource()` will change some formatting in rare cases.
+	// This is not acceptable because even if it only affects 1% of files you'd end up with 100s of changed files which you need to audit.
+	if (changedIdentifiers.length > 0) {
+		return ast.toSource();
+	}
 };
 
 export default transformer;
