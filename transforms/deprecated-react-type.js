@@ -6,14 +6,18 @@ const transformer = (file, api) => {
 	const j = api.jscodeshift;
 	const ast = j(file.source);
 
-	return ast
+	const changedIdentifiers = ast
 		.find(j.Identifier, (node) => {
 			return node.name === "ReactType";
 		})
-		.forEach((path) => {
-			path.node.name = "ElementType";
-		})
-		.toSource();
+		.replaceWith(() => {
+			return j.identifier("ElementType");
+		});
+
+	// jscodeshift will sometimes change only formatting.
+	// we could return nothing if we didn't rename anything.
+	// However, returning nothing will mark the file as "skipped" which is not what we want.
+	return ast.toSource();
 };
 
 export default transformer;
