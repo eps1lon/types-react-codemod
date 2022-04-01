@@ -1,0 +1,17 @@
+{
+	"scripts": {
+		"format": "prettier . --write",
+		"format:check": "prettier . --check"
+	},
+	"devDependencies": {
+		"prettier": "^2.6.1"
+	},
+	"license": "MIT",
+	"packageManager": "yarn@3.2.0",
+	"prettier": {
+		"useTabs": true
+	},
+	"volta": {
+		"node": "16.10.0"
+	}
+}
