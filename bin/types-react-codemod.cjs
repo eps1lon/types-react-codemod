@@ -10,9 +10,14 @@ const path = require("path");
 
 async function main() {
 	const transformsRoot = path.join(__dirname, "../transforms");
-	const transforms = fs.readdirSync(transformsRoot).map((transformPath) => {
-		return path.basename(transformPath, ".js");
-	});
+	const transforms = fs
+		.readdirSync(transformsRoot)
+		.filter((transformPath) => {
+			return transformPath.endsWith(".js");
+		})
+		.map((transformPath) => {
+			return path.basename(transformPath, ".js");
+		});
 
 	yargs(hideBin(process.argv))
 		.scriptName("types-react-codemod")
@@ -48,7 +53,6 @@ async function main() {
 				const args = [
 					"--extensions=tsx,ts,jsx,js,cjs,mjs",
 					"--ignore-pattern=**/node_modules/**",
-					"--parser tsx",
 					`--transform ${path.join(transformsRoot, `${codemod}.js`)}`,
 				];
 
