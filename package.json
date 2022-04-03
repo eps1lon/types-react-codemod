@@ -9,6 +9,7 @@
 		"test:types": "tsc -p  tsconfig.json --noEmit"
 	},
 	"devDependencies": {
+		"@changesets/cli": "^2.22.0",
 		"@types/jscodeshift": "^0.11.3",
 		"@types/node": "^16.10.0",
 		"@types/yargs": "^17.0.10",
