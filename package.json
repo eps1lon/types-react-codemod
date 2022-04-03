@@ -5,12 +5,14 @@
 	"scripts": {
 		"format": "prettier . --write",
 		"format:check": "prettier . --check",
+		"test:lint": "eslint bin/**/*.{cjs,js,mjs} transforms/**/*.{cjs,js,mjs}",
 		"test:types": "tsc -p  tsconfig.json --noEmit"
 	},
 	"devDependencies": {
 		"@types/jscodeshift": "^0.11.3",
 		"@types/node": "^16.10.0",
 		"@types/yargs": "^17.0.10",
+		"eslint": "^8.12.0",
 		"prettier": "^2.6.1",
 		"typescript": "^4.6.3"
 	},

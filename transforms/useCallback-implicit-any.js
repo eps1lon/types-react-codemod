@@ -64,7 +64,7 @@ const transformer = (file, api) => {
 
 			return false;
 		})
-		.forEach((callExpression, index) => {
+		.forEach((callExpression) => {
 			let paramsInferrable = false;
 			const parentNode = callExpression.parent.value;
 			if (parentNode != null) {

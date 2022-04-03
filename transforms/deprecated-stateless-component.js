@@ -1,5 +1,6 @@
 const parseSync = require("./utils/parseSync");
 
+/* eslint-disable no-unreachable */
 throw new Error("not implemented");
 
 /**

@@ -5,7 +5,6 @@ const fs = require("fs");
 const process = require("process");
 const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
-const { option, positional } = require("yargs");
 const path = require("path");
 
 async function main() {
