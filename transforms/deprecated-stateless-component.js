@@ -1,18 +1,20 @@
 const parseSync = require("./utils/parseSync");
 
-/* eslint-disable no-unreachable */
-throw new Error("not implemented");
-
 /**
  * @type {import('jscodeshift').Transform}
- * test:
+ * test: https://astexplorer.net/#/gist/ebd4c5257e3b5385a860de26edab25a0/a9df97df215041311c96c309683bdb9cad5b7b01
  */
 const transformer = (file, api) => {
-	// eslint-disable-next-line no-unused-vars
 	const j = api.jscodeshift;
 	const ast = parseSync(file);
 
-	const changedIdentifiers = [];
+	const changedIdentifiers = ast
+		.find(j.Identifier, (node) => {
+			return node.name === "StatelessComponent";
+		})
+		.replaceWith(() => {
+			return j.identifier("FunctionComponent");
+		});
 
 	// Otherwise some files will be marked as "modified" because formatting changed
 	if (changedIdentifiers.length > 0) {
