@@ -8,6 +8,7 @@ throw new Error("not implemented");
  * test:
  */
 const transformer = (file, api) => {
+	// eslint-disable-next-line no-unused-vars
 	const j = api.jscodeshift;
 	const ast = parseSync(file);
 
