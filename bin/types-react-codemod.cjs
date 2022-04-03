@@ -23,7 +23,7 @@ async function main() {
 		.scriptName("types-react-codemod")
 		.command(
 			"$0 <codemod> <paths...>",
-			"default",
+			"",
 			(builder) => {
 				return builder
 					.positional("codemod", {
