@@ -51,7 +51,7 @@ async function main() {
 				 * @type {string[]}
 				 */
 				const args = [
-					"--extensions=tsx,ts,jsx,js,cjs,mjs",
+					"--extensions=tsx,ts",
 					"--ignore-pattern=**/node_modules/**",
 					`--transform ${path.join(transformsRoot, `${codemod}.js`)}`,
 				];

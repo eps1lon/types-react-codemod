@@ -14,12 +14,6 @@ const parseSync = require("./utils/parseSync");
  * BUT this gets increasingly complicated if this becomes `const foo = () => useCallback(event => {})`
  */
 const useCallbackImplicitAnyTransform = (file, api) => {
-	const fileSupportsTypeAnnotations =
-		file.path.endsWith(".ts") || file.path.endsWith(".tsx");
-	if (!fileSupportsTypeAnnotations) {
-		return;
-	}
-
 	const j = api.jscodeshift;
 	const ast = parseSync(file);
 
