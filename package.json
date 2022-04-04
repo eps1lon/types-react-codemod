@@ -12,6 +12,7 @@
 	"devDependencies": {
 		"@changesets/changelog-github": "^0.4.4",
 		"@changesets/cli": "^2.22.0",
+		"@types/inquirer": "^8.2.1",
 		"@types/jscodeshift": "^0.11.3",
 		"@types/node": "^16.10.0",
 		"@types/yargs": "^17.0.10",
@@ -30,6 +31,7 @@
 	"dependencies": {
 		"@babel/core": "^7.17.8",
 		"@babel/preset-env": "^7.16.11",
+		"inquirer": "^8.2.2",
 		"jscodeshift": "^0.13.1",
 		"yargs": "^17.4.0"
 	}

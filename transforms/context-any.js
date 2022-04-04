@@ -12,7 +12,7 @@ const parseSync = require("./utils/parseSync");
  * 2 false-positive due to `path['context']` access
  * 1 false-positive due to `constructor(props, context)`
  */
-const transformer = (file, api) => {
+const contextAnyTransform = (file, api) => {
 	const j = api.jscodeshift;
 	const ast = parseSync(file);
 
@@ -109,4 +109,4 @@ const transformer = (file, api) => {
 	return file.source;
 };
 
-export default transformer;
+export default contextAnyTransform;

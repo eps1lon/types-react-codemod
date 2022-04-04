@@ -4,7 +4,7 @@ const parseSync = require("./utils/parseSync");
  * @type {import('jscodeshift').Transform}
  * test: https://astexplorer.net/#/gist/ebd4c5257e3b5385a860de26edab25a0/a9df97df215041311c96c309683bdb9cad5b7b01
  */
-const transformer = (file, api) => {
+const deprecatedStatelessComponentTransform = (file, api) => {
 	const j = api.jscodeshift;
 	const ast = parseSync(file);
 
@@ -23,4 +23,4 @@ const transformer = (file, api) => {
 	return file.source;
 };
 
-export default transformer;
+export default deprecatedStatelessComponentTransform;

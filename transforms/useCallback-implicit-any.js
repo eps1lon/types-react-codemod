@@ -13,7 +13,7 @@ const parseSync = require("./utils/parseSync");
  * `const foo: Type = () => useCallback(event => {})`
  * BUT this gets increasingly complicated if this becomes `const foo = () => useCallback(event => {})`
  */
-const transformer = (file, api) => {
+const useCallbackImplicitAnyTransform = (file, api) => {
 	const fileSupportsTypeAnnotations =
 		file.path.endsWith(".ts") || file.path.endsWith(".tsx");
 	if (!fileSupportsTypeAnnotations) {
@@ -110,4 +110,4 @@ const transformer = (file, api) => {
 	return file.source;
 };
 
-export default transformer;
+export default useCallbackImplicitAnyTransform;
