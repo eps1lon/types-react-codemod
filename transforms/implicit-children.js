@@ -3,6 +3,11 @@ const parseSync = require("./utils/parseSync");
 /**
  * @type {import('jscodeshift').Transform}
  * test: https://astexplorer.net/#/gist/d3b8fc23045213d7ab8568048f99d786/e95e6f7022ed017162d4ae593ba033d2f81958d2
+ *
+ * Summary for Klarna's klapp@19fc4dafed84670398644298bf19c8c2a781dcf8/clients
+ * 25718 Files unmodified
+ * 11 skipped
+ * 2459 Ok
  */
 const transformer = (file, api) => {
 	const j = api.jscodeshift;

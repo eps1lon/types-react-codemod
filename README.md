@@ -25,6 +25,11 @@ Options:
 
 ## Available transforms
 
+Some transforms change code they shouldn't actually change.
+Fixing all of these requires a lot of implementation effort.
+When considering false-positives vs false-negatives, I opt for false-positives.
+The reason being that a false-positive can be reverted easily (assuming you use have the changed code in Version Control e.g. git) while a false-negative requires manual input.
+
 - `deprecated-react-type`
 - `deprecated-sfc-element`
 - `deprecated-sfc`
@@ -33,13 +38,6 @@ Options:
 - `useCallback-implicit-any`
 - `context-any` (not implemented)
 
-## False-Positives
-
-Some transforms change code they shouldn't actually change.
-Fixing all of these requires a lot of implementation effort.
-When considering false-positives vs false-negatives, I opt for false-positives.
-The reason being that a false-positive can be reverted easily (assuming you use have the changed code in Version Control e.g. git) while a false-negative requires manual input.
-
 ### All `deprecated-` transforms
 
 They simply rename identifiers with a specific name.
@@ -47,6 +45,10 @@ If you have a type with the same name from a different package, then the rename 
 For example, `ink` also has a `StatelessComponent` but you don't need to rename that type since it's not deprecated.
 
 ### `implicit-children`
+
+This transform will wrap the props type of `React.FunctionComponent` (and `FC`, `SFC` and `StatelessComponent`) with `React.PropsWithChildrne`.
+Note, that the transform assumes `React.PropsWithChildren` is available.
+We can't add that import since `React.PropsWithChildren` can be available via `tsconfig.json`.
 
 #### `implicit-children` false-positive pattern A
 
