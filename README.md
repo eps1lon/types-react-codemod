@@ -34,9 +34,53 @@ The reason being that a false-positive can be reverted easily (assuming you use 
 - `deprecated-sfc-element`
 - `deprecated-sfc`
 - `deprecated-stateless-component`
+- `context-any`
 - `implicit-children`
 - `useCallback-implicit-any`
-- `context-any` (not implemented)
+
+### `context-any`
+
+You should only apply this codemod to files where the type-checker complains about access of `unknown` in `this.context`.
+We'll check for any occurence of `context` (case-sensitive) in a `React.Component` body (or `React.PureComponent`).
+If we find any occurence of `context` we'll add `context: any` declaration to the class body.
+
+#### false-positive on `context` usage
+
+We'll add `context: any` even if you write `const { context } = props`.
+This simplifies the implementation tremendously and follows the overall rationale for false-positives: it can be reverted easily and at worst restores the behavior of React 17 typings.
+
+#### false-negative when inheriting from another component
+
+Class inheritance chains are not handled.
+
+```tsx
+class A extends React.Component {}
+
+class B extends A {
+	render() {
+		// will error since the transform does not add `context: any` to the declaration of `A` nor `B`.
+		// It's up to you to decide whether `A` or `B` should have this declaration
+		return this.context.value;
+	}
+}
+```
+
+We'll also miss usage of `context` if it's accessed outside of the class body e.g.
+
+```tsx
+function getValue(that) {
+	return that.context.value;
+}
+
+class A extends React.Component {
+	render() {
+		return getValue(this);
+	}
+}
+```
+
+This doesn't really follow the general transform rationale of "over-applying" since at worst we restore React 17 behavior.
+I just think that most class components do not use `this.context` (or already have a type declaration) somewhere else.
 
 ### All `deprecated-` transforms
 

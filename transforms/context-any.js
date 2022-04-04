@@ -1,21 +1,102 @@
 const parseSync = require("./utils/parseSync");
 
-/* eslint-disable no-unreachable */
-throw new Error("not implemented");
-
 /**
  * @type {import('jscodeshift').Transform}
- * test:
+ * test: https://astexplorer.net/#/gist/efb6993a6dda29edfa15087323d95d8b/649afe43341d87843b0e90d737ceefc8f90c321b
  */
 const transformer = (file, api) => {
 	// eslint-disable-next-line no-unused-vars
 	const j = api.jscodeshift;
 	const ast = parseSync(file);
 
-	const changedIdentifiers = [];
+	let changedSome = false;
+
+	ast
+		.find(j.ClassDeclaration, (classDeclaration) => {
+			const { superClass } = classDeclaration;
+			if (superClass == null) {
+				return false;
+			}
+
+			/**
+			 * @type {string}
+			 */
+			let identifierName;
+			switch (superClass.type) {
+				case "Identifier":
+					identifierName = superClass.name;
+					break;
+				case "MemberExpression":
+					identifierName = /** @type {any} */ (superClass.property).name;
+					break;
+				default:
+					return false;
+			}
+
+			return ["Component", "PureComponent"].includes(identifierName);
+		})
+		.forEach((classDeclaration) => {
+			/**
+			 * Not sure why `tokens` don't exist in the type-defs.
+			 * The implementation of `readsContext` was tested in astexplorer.com but is rejected by TS.
+			 * @type {any}
+			 */
+			const classDeclarationLoc = classDeclaration.node.loc;
+			if (classDeclarationLoc == null) {
+				// unable to check for `this.context` usage
+				return;
+			}
+
+			/**
+			 * @type {Array<{ value: string }>}
+			 */
+			const classBodyTokens = classDeclarationLoc.tokens.slice(
+				classDeclarationLoc.start.token,
+				classDeclarationLoc.end.token
+			);
+			const readsContext = classBodyTokens.some((token) => {
+				return token.value === "context";
+			});
+
+			if (readsContext) {
+				const classBody = classDeclaration.get("body").get("body").value;
+				const hasTypedContext = classBody.some(
+					/**
+					 * @param {any} node
+					 */
+					(node) => {
+						const isClassProperty = node.type === "ClassProperty";
+						if (isClassProperty) {
+							return (
+								node.key.type === "Identifier" &&
+								node.key.name === "context" &&
+								node.typeAnnotation != null
+							);
+						}
+
+						return false;
+					}
+				);
+
+				if (!hasTypedContext) {
+					// Ideally we'd clone the `body` path and add `context: any` class property.
+					// But I don't know if there's an API or better pattern for it.
+					classDeclaration.value.body = j.classBody([
+						// context: any;
+						j.classProperty(
+							j.identifier("context"),
+							null,
+							j.tsTypeAnnotation(j.tsAnyKeyword())
+						),
+						...classBody,
+					]);
+					changedSome = true;
+				}
+			}
+		});
 
 	// Otherwise some files will be marked as "modified" because formatting changed
-	if (changedIdentifiers.length > 0) {
+	if (changedSome) {
 		return ast.toSource();
 	}
 	return file.source;
