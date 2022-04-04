@@ -5,7 +5,6 @@ const parseSync = require("./utils/parseSync");
  * test: https://astexplorer.net/#/gist/efb6993a6dda29edfa15087323d95d8b/649afe43341d87843b0e90d737ceefc8f90c321b
  */
 const transformer = (file, api) => {
-	// eslint-disable-next-line no-unused-vars
 	const j = api.jscodeshift;
 	const ast = parseSync(file);
 
