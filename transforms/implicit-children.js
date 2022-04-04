@@ -9,7 +9,7 @@ const parseSync = require("./utils/parseSync");
  * 11 skipped
  * 2459 Ok
  */
-const transformer = (file, api) => {
+const implicitChildrenTransform = (file, api) => {
 	const j = api.jscodeshift;
 	const ast = parseSync(file);
 
@@ -72,4 +72,4 @@ const transformer = (file, api) => {
 	return file.source;
 };
 
-export default transformer;
+export default implicitChildrenTransform;

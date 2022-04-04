@@ -2,6 +2,7 @@
 // @ts-check
 const childProcess = require("child_process");
 const fs = require("fs");
+const inquirer = require("inquirer");
 const process = require("process");
 const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
@@ -40,7 +41,7 @@ async function main() {
 					.option("verbose", { default: false, type: "boolean" })
 					.demandOption(["codemod", "paths"]);
 			},
-			(argv) => {
+			async (argv) => {
 				const { codemod, dry, paths, verbose } = argv;
 
 				// TODO: npx instead?
@@ -54,6 +55,26 @@ async function main() {
 					"--ignore-pattern=**/node_modules/**",
 					`--transform ${path.join(transformsRoot, `${codemod}.js`)}`,
 				];
+
+				if (codemod === "preset-18") {
+					const { presets } = await inquirer.prompt([
+						{
+							message: "Pick transforms to apply",
+							name: "presets",
+							type: "checkbox",
+							choices: [
+								{ checked: false, value: "context-any" },
+								{ checked: true, value: "deprecated-react-type" },
+								{ checked: true, value: "deprecated-sfc-element" },
+								{ checked: true, value: "deprecated-sfc" },
+								{ checked: true, value: "deprecated-stateless-component" },
+								{ checked: false, value: "implicit-children" },
+								{ checked: false, value: "useCallback-implicit-any" },
+							],
+						},
+					]);
+					args.push(`--preset18Transforms="${presets.join(",")}"`);
+				}
 
 				if (dry) {
 					args.push("--dry");
