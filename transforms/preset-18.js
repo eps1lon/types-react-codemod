@@ -48,8 +48,6 @@ const transform = (file, api, options) => {
 		transforms.push(implicitAnyTransform);
 	}
 
-	console.log(transformNames, transforms);
-
 	let wasAlwaysSkipped = true;
 	const newSource = transforms.reduce((currentFileSource, transform) => {
 		// TODO: currently we parse -> transform -> print on every transform
