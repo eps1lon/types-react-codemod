@@ -3,6 +3,14 @@ const parseSync = require("./utils/parseSync");
 /**
  * @type {import('jscodeshift').Transform}
  * test: https://astexplorer.net/#/gist/efb6993a6dda29edfa15087323d95d8b/649afe43341d87843b0e90d737ceefc8f90c321b
+ * 
+ * Summary for Klarna's klapp@19fc4dafed84670398644298bf19c8c2a781dcf8/clients
+ * 28172 Files unmodified
+ * 11 skipped
+ * 5 Ok 
+ * 1 false-positive due to `this.props.context` access
+ * 2 false-positive due to `path['context']` access
+ * 1 false-positive due to `constructor(props, context)`
  */
 const transformer = (file, api) => {
 	const j = api.jscodeshift;
