@@ -32,6 +32,9 @@
 	"prettier": {
 		"useTabs": true
 	},
+	"publishConfig": {
+		"access": "public"
+	},
 	"volta": {
 		"node": "16.10.0"
 	}
