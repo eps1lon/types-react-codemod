@@ -2,18 +2,41 @@
 
 Collection of transforms for [jscodeshift](https://github.com/facebook/jscodeshift) related to `@types/react`.
 
+## Getting started
+
+The codemod helps to fix potential TypeScript compile errors when upgrading to `@types/react@^18.0.0`.
+However, we recommend to apply this codemod if you're using `@types/react@^17.0.30`.
+
+```bash
+$ npx types-react-codemod preset-18 ./src
+? Pick transforms to apply (Press <space> to select, <a> to toggle all, <i> to invert selection, and <enter> to proce
+ed)
+❯◯ context-any
+ ◉ deprecated-react-type
+ ◉ deprecated-sfc-element
+ ◉ deprecated-sfc
+ ◉ deprecated-stateless-component
+ ◯ implicit-children
+ ◯ useCallback-implicit-any
+All done.
+Results:
+0 errors
+20 unmodified
+0 skipped
+3 ok
+Time elapsed: 0.229seconds
+```
+
 ## Usage
 
 ```bash
 $ npx types-react-codemod --help
 types-react-codemod <codemod> <paths...>
 
-default
-
 Positionals:
   codemod  [string] [required] [choices: "context-any", "deprecated-react-type",
    "deprecated-sfc-element", "deprecated-sfc", "deprecated-stateless-component",
-                                "implicit-children", "useCallback-implicit-any"]
+                   "implicit-children", "preset-18", "useCallback-implicit-any"]
   paths                                                      [string] [required]
 
 Options:
@@ -36,6 +59,7 @@ Fixing all of these requires a lot of implementation effort.
 When considering false-positives vs false-negatives, I opt for false-positives.
 The reason being that a false-positive can be reverted easily (assuming you use have the changed code in Version Control e.g. git) while a false-negative requires manual input.
 
+- `preset-18`
 - `deprecated-react-type`
 - `deprecated-sfc-element`
 - `deprecated-sfc`
@@ -44,7 +68,24 @@ The reason being that a false-positive can be reverted easily (assuming you use 
 - `implicit-children`
 - `useCallback-implicit-any`
 
+### `preset-18`
+
+This codemod combines all codemods for React 18 types.
+You can interactively pick the codemods included.
+By default, we the codemods that are definitely required to upgrade to `@types/react@^18.0.0` are selected.
+The other codemods may or may not be required.
+You should select all and audit the changed files regardless.
+
 ### `context-any`
+
+```diff
+ class Component extends React.Component<Props> {
++  context: any
+   render() {
+		 return this.context.someContextProperty;
+	 }
+ }
+```
 
 You should only apply this codemod to files where the type-checker complains about access of `unknown` in `this.context`.
 We'll check for any occurence of `context` (case-sensitive) in a `React.Component` body (or `React.PureComponent`).
@@ -90,11 +131,29 @@ I just think that most class components do not use `this.context` (or already ha
 
 ### All `deprecated-` transforms
 
+```diff
+-React.ReactType
++React.ElementType
+-React.SFC
++React.FC
+-React.StatelessComponent
++React.FunctionComponent
+-React.SFCElement
++React.FunctionComponentElement
+```
+
 They simply rename identifiers with a specific name.
 If you have a type with the same name from a different package, then the rename results in a false positive.
 For example, `ink` also has a `StatelessComponent` but you don't need to rename that type since it's not deprecated.
 
 ### `implicit-children`
+
+```diff
+-React.FunctionComponent<Props>
++React.FunctionComponent<React.PropsWithChildren<Props>>
+-React.FunctionComponent
++React.FunctionComponent<React.PropsWithChildren<unknown>>
+```
 
 This transform will wrap the props type of `React.FunctionComponent` (and `FC`, `SFC` and `StatelessComponent`) with `React.PropsWithChildrne`.
 Note, that the transform assumes `React.PropsWithChildren` is available.
@@ -113,3 +172,24 @@ Redundant `PropsWithChildren` are only problematic stylistically.
 `MyFunctionComponent<Props>` where `MyFunctionComponent` comes from `import { FunctionComponent as MyFunctionComponent } from 'react'` will be ignored.
 In other words, the transform will not wrap `Props` in `React.PropsWithChildren`.
 The transform would need to implement scope tracking for this pattern to get fixed.
+
+### `useCallback-implicit-any`
+
+```diff
+-React.useCallback((event) => {})
++React.useCallback((event: any) => {})
+```
+
+This transform should only be applied to files where TypeScript errors with "Parameter '*' implicitly has an 'any' type.(7006)" in `useCallback`.
+
+#### `useCallback-implicit-any` false-positive pattern A
+
+If the callback param is inferrable by TypeScript we might apply `any` without need.
+In the example below the type of `event` is inferrable and adding `any` essentially reduces type coverage.
+This is why it's recommended to only apply `useCallback-implicit-any` to files that produce "Parameter '*' implicitly has an 'any' type.(7006)" when type-checking with `@types/react@^18.0.0`.
+
+```diff
+type CreateCallback = () => (event: Event) => void;
+-const createCallback: CreateCallback = () => useCallback((event) => {}, [])
++const createCallback: CreateCallback = () => useCallback((event: any) => {}, [])
+```
