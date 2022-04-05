@@ -1,5 +1,14 @@
 # types-react-codemod
 
+## 1.0.0
+
+### Major Changes
+
+- [#22](https://github.com/eps1lon/types-react-codemod/pull/22) [`18339c2`](https://github.com/eps1lon/types-react-codemod/commit/18339c20e36b4355bed924c6aa3b069317a34c1c) Thanks [@eps1lon](https://github.com/eps1lon)! - Release 1.0.0
+
+  Includes no breaking changes.
+  Just marking this release as mature by not using the 0.x range.
+
 ## 0.1.0
 
 ### Minor Changes
