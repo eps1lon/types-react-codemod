@@ -180,13 +180,13 @@ The transform would need to implement scope tracking for this pattern to get fix
 +React.useCallback((event: any) => {})
 ```
 
-This transform should only be applied to files where TypeScript errors with "Parameter '*' implicitly has an 'any' type.(7006)" in `useCallback`.
+This transform should only be applied to files where TypeScript errors with "Parameter '\*' implicitly has an 'any' type.(7006)" in `useCallback`.
 
 #### `useCallback-implicit-any` false-positive pattern A
 
 If the callback param is inferrable by TypeScript we might apply `any` without need.
 In the example below the type of `event` is inferrable and adding `any` essentially reduces type coverage.
-This is why it's recommended to only apply `useCallback-implicit-any` to files that produce "Parameter '*' implicitly has an 'any' type.(7006)" when type-checking with `@types/react@^18.0.0`.
+This is why it's recommended to only apply `useCallback-implicit-any` to files that produce "Parameter '\*' implicitly has an 'any' type.(7006)" when type-checking with `@types/react@^18.0.0`.
 
 ```diff
 type CreateCallback = () => (event: Event) => void;
