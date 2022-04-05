@@ -25,21 +25,32 @@ async function main() {
 			"$0 <codemod> <paths...>",
 			"",
 			(builder) => {
-				return builder
-					.positional("codemod", {
-						choices: transforms,
-						type: "string",
-					})
-					.positional("paths", {
-						array: true,
-						type: "string",
-					})
-					.option("dry", {
-						default: false,
-						type: "boolean",
-					})
-					.option("verbose", { default: false, type: "boolean" })
-					.demandOption(["codemod", "paths"]);
+				return (
+					builder
+						.positional("codemod", {
+							choices: transforms,
+							type: "string",
+						})
+						.positional("paths", {
+							array: true,
+							type: "string",
+						})
+						.option("dry", {
+							default: false,
+							type: "boolean",
+						})
+						.option("ignore-pattern", {
+							default: "**/node_modules/**",
+							type: "string",
+						})
+						.option("verbose", { default: false, type: "boolean" })
+						// Ignoring `build`: https://www.digitalocean.com/community/tools/glob?comments=true&glob=%2A%2A%2F%7Bnode_modules%2Cbuild%7D%2F%2A%2A&matches=false&tests=package%2Fnode_modules%2Ftest.js&tests=package%2Fbuild%2Ftest.js&tests=package%2Ftest.js
+						.example(
+							'$0 preset-18 ./ --ignore-pattern "**/{node_modules,build}/**"',
+							"Ignores `node_modules` and `build` folders"
+						)
+						.demandOption(["codemod", "paths"])
+				);
 			},
 			async (argv) => {
 				const { codemod, dry, paths, verbose } = argv;
@@ -52,7 +63,7 @@ async function main() {
 				 */
 				const args = [
 					"--extensions=tsx,ts",
-					"--ignore-pattern=**/node_modules/**",
+					`"--ignore-pattern=${argv.ignorePattern}"`,
 					`--transform ${path.join(transformsRoot, `${codemod}.js`)}`,
 				];
 
