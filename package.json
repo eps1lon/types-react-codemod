@@ -5,7 +5,7 @@
 	"scripts": {
 		"format": "prettier . --write",
 		"format:check": "prettier . --check",
-		"release": "echo 'nothing to do yet'",
+		"release": "yarn changeset publish",
 		"test:lint": "eslint bin/**/*.{cjs,js,mjs} transforms/**/*.{cjs,js,mjs}",
 		"test:types": "tsc -p  tsconfig.json --noEmit"
 	},
