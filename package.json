@@ -9,6 +9,13 @@
 		"test:lint": "eslint bin/**/*.{cjs,js,mjs} transforms/**/*.{cjs,js,mjs}",
 		"test:types": "tsc -p  tsconfig.json --noEmit"
 	},
+	"dependencies": {
+		"@babel/core": "^7.17.8",
+		"@babel/preset-env": "^7.16.11",
+		"inquirer": "^8.2.2",
+		"jscodeshift": "^0.13.1",
+		"yargs": "^17.4.0"
+	},
 	"devDependencies": {
 		"@changesets/changelog-github": "^0.4.4",
 		"@changesets/cli": "^2.22.0",
@@ -27,12 +34,5 @@
 	},
 	"volta": {
 		"node": "16.10.0"
-	},
-	"dependencies": {
-		"@babel/core": "^7.17.8",
-		"@babel/preset-env": "^7.16.11",
-		"inquirer": "^8.2.2",
-		"jscodeshift": "^0.13.1",
-		"yargs": "^17.4.0"
 	}
 }

@@ -1,0 +1,10 @@
+# not including files from .gitignore since release happens in a clean repo.
+# If you release locally, do a `git clean -fdx` before.
+
+.changeset/
+.github/
+.yarn/
+.eslintrc.js
+.prettierignore
+.yarnrc.yml
+tsconfig.json
