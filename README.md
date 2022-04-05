@@ -17,10 +17,16 @@ Positionals:
   paths                                                      [string] [required]
 
 Options:
-  --version  Show version number                                       [boolean]
-  --help     Show help                                                 [boolean]
+  --version         Show version number                                [boolean]
+  --help            Show help                                          [boolean]
   --dry                                               [boolean] [default: false]
+  --ignore-pattern                      [string] [default: "**/node_modules/**"]
   --verbose                                           [boolean] [default: false]
+
+Examples:
+  types-react-codemod preset-18 ./          Ignores `node_modules` and `build`
+  --ignore-pattern                          folders
+  "**/{node_modules,build}/**"
 ```
 
 ## Available transforms
