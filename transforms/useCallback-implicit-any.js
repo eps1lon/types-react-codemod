@@ -8,10 +8,6 @@ const parseSync = require("./utils/parseSync");
  * 23154 Files unmodified
  * 4790 skipped
  * 99 Ok (6 of which are false-positive but quickly identified)
- *
- * False-Positive Pattern #1
- * `const foo: Type = () => useCallback(event => {})`
- * BUT this gets increasingly complicated if this becomes `const foo = () => useCallback(event => {})`
  */
 const useCallbackImplicitAnyTransform = (file, api) => {
 	const j = api.jscodeshift;
