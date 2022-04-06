@@ -2,7 +2,6 @@ const parseSync = require("./utils/parseSync");
 
 /**
  * @type {import('jscodeshift').Transform}
- * test: https://astexplorer.net/#/gist/e63cf2776df94790a14280da12128019/3e82bd47dc3df1bb555c595e6b4423855d3f3277
  */
 const deprecatedSFCElementTransform = (file, api) => {
 	const j = api.jscodeshift;
