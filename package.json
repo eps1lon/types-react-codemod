@@ -7,7 +7,7 @@
 		"format:check": "prettier . --check",
 		"release": "yarn changeset publish",
 		"test:lint": "eslint bin/**/*.{cjs,js,mjs} transforms/**/*.{cjs,js,mjs}",
-		"test:types": "tsc -p  tsconfig.json --noEmit",
+		"test:types": "tsc -p tsconfig.json --noEmit",
 		"test:unit": "jest"
 	},
 	"dependencies": {
