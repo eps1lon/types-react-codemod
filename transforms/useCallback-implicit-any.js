@@ -2,7 +2,6 @@ const parseSync = require("./utils/parseSync");
 
 /**
  * @type {import('jscodeshift').Transform}
- * test: https://astexplorer.net/#/gist/d3b8fc23045213d7ab8568048f99d786/7c08ceff8b4f1219f8c122a313a72615c4c70238
  *
  * Summary for Klarna's klapp@19fc4dafed84670398644298bf19c8c2a781dcf8/clients
  * 23154 Files unmodified
