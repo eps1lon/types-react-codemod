@@ -45,6 +45,16 @@ describe("transform implicit-children", () => {
 		);
 	});
 
+	test("ComponentType", () => {
+		expect(
+			applyTransform(`
+      const A: React.ComponentType<{}>;
+    `)
+		).toMatchInlineSnapshot(
+			`"const A: React.ComponentType<React.PropsWithChildren<{}>>;"`
+		);
+	});
+
 	test("without type parameter list", () => {
 		expect(
 			applyTransform(`
