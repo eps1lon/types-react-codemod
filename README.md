@@ -155,7 +155,7 @@ For example, `ink` also has a `StatelessComponent` but you don't need to rename 
 +React.FunctionComponent<React.PropsWithChildren<unknown>>
 ```
 
-This transform will wrap the props type of `React.FunctionComponent` (and `FC`, `SFC` and `StatelessComponent`) with `React.PropsWithChildrne`.
+This transform will wrap the props type of `React.FunctionComponent` (and `FC`, `ComponentType`, `SFC` and `StatelessComponent`) with `React.PropsWithChildren`.
 Note, that the transform assumes `React.PropsWithChildren` is available.
 We can't add that import since `React.PropsWithChildren` can be available via `tsconfig.json`.
 
