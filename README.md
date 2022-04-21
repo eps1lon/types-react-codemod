@@ -56,8 +56,8 @@ Examples:
 
 Some transforms change code they shouldn't actually change.
 Fixing all of these requires a lot of implementation effort.
-When considering false-positives vs false-negatives, I opt for false-positives.
-The reason being that a false-positive can be reverted easily (assuming you use have the changed code in Version Control e.g. git) while a false-negative requires manual input.
+When considering false-positives vs false-negatives, codemods opt for false-positives.
+The reason being that a false-positive can be reverted easily (assuming you have the changed code in Version Control e.g. git) while a false-negative requires manual input.
 
 - `preset-18`
 - `deprecated-react-type`
@@ -72,7 +72,7 @@ The reason being that a false-positive can be reverted easily (assuming you use 
 
 This codemod combines all codemods for React 18 types.
 You can interactively pick the codemods included.
-By default, we the codemods that are definitely required to upgrade to `@types/react@^18.0.0` are selected.
+By default, the codemods that are definitely required to upgrade to `@types/react@^18.0.0` are selected.
 The other codemods may or may not be required.
 You should select all and audit the changed files regardless.
 
