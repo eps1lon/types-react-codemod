@@ -1,5 +1,21 @@
 # types-react-codemod
 
+## 1.0.2
+
+### Patch Changes
+
+- [#46](https://github.com/eps1lon/types-react-codemod/pull/46) [`c0784a7`](https://github.com/eps1lon/types-react-codemod/commit/c0784a7b9d76d480a4e5aaa5dcaf1313a3effe5e) Thanks [@eps1lon](https://github.com/eps1lon)! - Parse .ts files without JSX plugin.
+
+  Otherwise code such as
+
+  ```ts
+  (<RegExp>expected).test(object);
+  ```
+
+  -- https://github.com/DefinitelyTyped/DefinitelyTyped/blob/3eacc5e0b7c56d2670a5a0e68735f7638e8f38f3/types/chai-like/chai-like-tests.ts#L15
+
+  could not be parsed.
+
 ## 1.0.1
 
 ### Patch Changes
