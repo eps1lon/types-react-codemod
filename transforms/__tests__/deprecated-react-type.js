@@ -15,6 +15,18 @@ function applyTransform(source, options = {}) {
 }
 
 describe("transform deprecated-react-type", () => {
+	test("not modified", () => {
+		expect(
+			applyTransform(`
+				import { ElementType } from 'react';
+				ElementType;
+    `)
+		).toMatchInlineSnapshot(`
+		"import { ElementType } from 'react';
+						ElementType;"
+	`);
+	});
+
 	test("named import", () => {
 		expect(
 			applyTransform(`

@@ -15,6 +15,18 @@ function applyTransform(source, options = {}) {
 }
 
 describe("transform deprecated-stateless-component", () => {
+	test("not modified", () => {
+		expect(
+			applyTransform(`
+				import { FunctionComponent } from 'react';
+				FunctionComponent;
+    `)
+		).toMatchInlineSnapshot(`
+		"import { FunctionComponent } from 'react';
+						FunctionComponent;"
+	`);
+	});
+
 	test("named import", () => {
 		expect(
 			applyTransform(`
