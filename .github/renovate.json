@@ -1,5 +1,17 @@
 {
-  "extends": [
-    "config:base"
-  ]
+	"extends": ["config:base"],
+	"dependencyDashboard": true,
+	"ignoreDeps": [],
+	"labels": ["dependencies"],
+	"lockFileMaintenance": {
+		"enabled": true,
+		"schedule": "before 6:00am on the first day of the month"
+	},
+	"packageRules": [],
+	"postUpdateOptions": ["yarnDedupeFewer"],
+	"prConcurrentLimit": 99,
+	"prHourlyLimit": 0,
+	"rangeStrategy": "update-lockfile",
+	"schedule": "on monday before 6:00am",
+	"timezone": "UTC"
 }
