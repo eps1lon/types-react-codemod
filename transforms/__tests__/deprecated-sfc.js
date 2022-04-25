@@ -11,6 +11,18 @@ function applyTransform(source, options = {}) {
 }
 
 describe("transform deprecated-sfc", () => {
+	test("not modified", () => {
+		expect(
+			applyTransform(`
+				import { FC } from 'react';
+				FC;
+    `)
+		).toMatchInlineSnapshot(`
+		"import { FC } from 'react';
+						FC;"
+	`);
+	});
+
 	test("named import", () => {
 		expect(
 			applyTransform(`

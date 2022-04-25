@@ -15,6 +15,18 @@ function applyTransform(source, options = {}) {
 }
 
 describe("transform deprecated-sfc-element", () => {
+	test("not modified", () => {
+		expect(
+			applyTransform(`
+				import { FunctionComponentElement } from 'react';
+				FunctionComponentElement;
+    `)
+		).toMatchInlineSnapshot(`
+		"import { FunctionComponentElement } from 'react';
+						FunctionComponentElement;"
+	`);
+	});
+
 	test("named import", () => {
 		expect(
 			applyTransform(`
