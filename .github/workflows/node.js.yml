@@ -24,7 +24,7 @@ jobs:
       - run: yarn install --immutable --immutable-cache
       - name: Check Yarn cache
         # Only run on forks
-        if: ${{ !secrets.NPM_AUTOMATION_TOKEN }}
+        if: ${{ !(secrets.NPM_AUTOMATION_TOKEN) }}
         run: yarn --check-cache
       - run: yarn test:unit
       - run: yarn test:lint
