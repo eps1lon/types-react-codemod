@@ -1,5 +1,18 @@
 # types-react-codemod
 
+## 1.0.1
+
+### Patch Changes
+
+- [#33](https://github.com/eps1lon/types-react-codemod/pull/33) [`59e5624`](https://github.com/eps1lon/types-react-codemod/commit/59e56241e7a3f39b2e7c4983662fcb76691e265b) Thanks [@eps1lon](https://github.com/eps1lon)! - Remove repository config files from release.
+
+  These files are only relevant for development.
+
+* [#40](https://github.com/eps1lon/types-react-codemod/pull/40) [`e425cc9`](https://github.com/eps1lon/types-react-codemod/commit/e425cc954bb083bcde44178ce91d6064269f73a6) Thanks [@eps1lon](https://github.com/eps1lon)! - Remove test files from release.
+
+  There's a charm to having these in the release but nobody reads them anyway.
+  And for testing you need the dev setup which is probably not available if inside node_modules.
+
 ## 1.0.0
 
 ### Major Changes
