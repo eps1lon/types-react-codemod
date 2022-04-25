@@ -5,10 +5,7 @@
 	"scripts": {
 		"format": "prettier . --write",
 		"format:check": "prettier . --check",
-		"release": "yarn changeset publish",
-		"test:lint": "eslint bin/**/*.{cjs,js,mjs} transforms/**/*.{cjs,js,mjs}",
-		"test:types": "tsc -p tsconfig.json --noEmit",
-		"test:unit": "jest"
+		"test": "jest"
 	},
 	"dependencies": {
 		"@babel/core": "^7.17.8",
