@@ -6,9 +6,10 @@ Object {
   "stdout": "types-react-codemod <codemod> <paths...>
 
 Positionals:
-  codemod  [string] [required] [choices: \\"context-any\\", \\"deprecated-react-type\\",
-   \\"deprecated-sfc-element\\", \\"deprecated-sfc\\", \\"deprecated-stateless-component\\",
-                   \\"implicit-children\\", \\"preset-18\\", \\"useCallback-implicit-any\\"]
+  codemod  [string] [required] [choices: \\"context-any\\", \\"deprecated-react-text\\",
+            \\"deprecated-react-type\\", \\"deprecated-sfc-element\\", \\"deprecated-sfc\\",
+             \\"deprecated-stateless-component\\", \\"implicit-children\\", \\"preset-18\\",
+                                        \\"preset-19\\", \\"useCallback-implicit-any\\"]
   paths                                                      [string] [required]
 
 Options:

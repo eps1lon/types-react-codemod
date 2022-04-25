@@ -44,7 +44,7 @@ describe("preset-19", () => {
 
 	test("applies all", () => {
 		applyTransform("", {
-			preset18Transforms: ["deprecated-react-text"].join(","),
+			preset19Transforms: ["deprecated-react-text"].join(","),
 		});
 
 		applyTransform("", {
