@@ -1,5 +1,7 @@
 # toMatchInlineSnapshot + --updateSnapshot with source-map@0.8.0-beta
 
+Repro for https://github.com/facebook/jest/issues/6744
+
 ```bash
 $ yarn
 $ yarn test --updateSnapshot
