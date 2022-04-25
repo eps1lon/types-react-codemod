@@ -26,7 +26,6 @@ const baseParserOptions = {
 		"functionBind",
 		"functionSent",
 		"importMeta",
-		"jsx",
 		"nullishCoalescingOperator",
 		"numericSeparator",
 		"objectRestSpread",
@@ -41,9 +40,13 @@ const dtsParserOptions = {
 	...baseParserOptions,
 	plugins: [...baseParserOptions.plugins, ["typescript", { dts: true }]],
 };
-const parserOptions = {
+const tsParserOptions = {
 	...baseParserOptions,
 	plugins: [...baseParserOptions.plugins, ["typescript", { dts: false }]],
+};
+const tsxParserOptions = {
+	...tsParserOptions,
+	plugins: [...tsParserOptions.plugins, "jsx"],
 };
 
 /**
@@ -52,6 +55,7 @@ const parserOptions = {
  */
 function parseSync(fileInfo) {
 	const dts = fileInfo.path.endsWith(".d.ts");
+	const tsx = fileInfo.path.endsWith(".tsx");
 
 	return j(fileInfo.source, {
 		parser: {
@@ -69,7 +73,11 @@ function parseSync(fileInfo) {
 						// So if the parser fails in an ambient context we just try again without ambient context
 					}
 				}
-				return babylon.parse(code, parserOptions);
+				if (tsx) {
+					return babylon.parse(code, tsxParserOptions);
+				} else {
+					return babylon.parse(code, tsParserOptions);
+				}
 			},
 		},
 	});
