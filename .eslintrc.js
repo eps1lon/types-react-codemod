@@ -12,6 +12,12 @@ module.exports = {
 	rules: {},
 	overrides: [
 		{
+			files: "**/__tests__/**/*",
+			parserOptions: {
+				sourceType: "module",
+			},
+		},
+		{
 			files: "transforms/**/*",
 			parserOptions: {
 				sourceType: "module",
