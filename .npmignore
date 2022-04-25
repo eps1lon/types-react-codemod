@@ -7,4 +7,6 @@
 .eslintrc.js
 .prettierignore
 .yarnrc.yml
+babel.config.js
+jest.config.js
 tsconfig.json
