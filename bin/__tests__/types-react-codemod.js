@@ -14,9 +14,7 @@ describe("types-react-codemod", () => {
 	}
 
 	test("provides help", async () => {
-    // TODO: toMatchInlineSnapshot fails with "Couldn't locate all inline snapshots."
-		await expect(
-			execTypesReactCodemod("--help")
-		).resolves.toMatchSnapshot();
+		// TODO: toMatchInlineSnapshot fails with "Couldn't locate all inline snapshots."
+		await expect(execTypesReactCodemod("--help")).resolves.toMatchSnapshot();
 	});
 });
