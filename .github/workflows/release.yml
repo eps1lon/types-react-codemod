@@ -32,3 +32,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}
+
+      - name: Debug release
+        # Shows files included in release
+        run: npm pack
