@@ -1,5 +1,23 @@
 # types-react-codemod
 
+## 1.1.0
+
+### Minor Changes
+
+- [#44](https://github.com/eps1lon/types-react-codemod/pull/44) [`85bae50`](https://github.com/eps1lon/types-react-codemod/commit/85bae50c34a1fd5bc9245dd770ca8893eb0867d2) Thanks [@eps1lon](https://github.com/eps1lon)! - Add `deprecated-react-text` and `preset-19`.
+
+* [#50](https://github.com/eps1lon/types-react-codemod/pull/50) [`769a434`](https://github.com/eps1lon/types-react-codemod/commit/769a434e1fa40c68846bb9a43b84d15b3ae16541) Thanks [@eps1lon](https://github.com/eps1lon)! - Add `deprecated-react-child` transform.
+
+  Part of `preset-19`.
+
+- [#52](https://github.com/eps1lon/types-react-codemod/pull/52) [`d3660ef`](https://github.com/eps1lon/types-react-codemod/commit/d3660ef923ca91ff527071a79bc2241559560199) Thanks [@eps1lon](https://github.com/eps1lon)! - Add `deprecated-void-function-component` transform.
+
+  Part of `preset-19`.
+
+### Patch Changes
+
+- [#51](https://github.com/eps1lon/types-react-codemod/pull/51) [`d5aa8f3`](https://github.com/eps1lon/types-react-codemod/commit/d5aa8f33d502e047d7ed60a180bda08984010cec) Thanks [@eps1lon](https://github.com/eps1lon)! - Display version from package.json instead of hardcoded one.
+
 ## 1.0.2
 
 ### Patch Changes
