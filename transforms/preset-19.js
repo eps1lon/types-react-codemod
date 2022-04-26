@@ -1,5 +1,6 @@
 import deprecatedReactChildTransform from "./deprecated-react-child";
 import deprecatedReactTextTransform from "./deprecated-react-text";
+import deprecatedVoidFunctionComponentTransform from "./deprecated-void-function-component";
 
 /**
  * @type {import('jscodeshift').Transform}
@@ -17,6 +18,9 @@ const transform = (file, api, options) => {
 	}
 	if (transformNames.has("deprecated-react-text")) {
 		transforms.push(deprecatedReactTextTransform);
+	}
+	if (transformNames.has("deprecated-void-function-component")) {
+		transforms.push(deprecatedVoidFunctionComponentTransform);
 	}
 
 	let wasAlwaysSkipped = true;

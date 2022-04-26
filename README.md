@@ -248,3 +248,16 @@ interface Props {
 	label?: MyReactText;
 }
 ```
+
+### `deprecated-void-function-component`
+
+WARNING: Only apply to codebases using `@types/react@^18.0.0`.
+In earlier versions of `@types/react` this codemod would change the typings.
+
+```diff
+ import * as React from "react";
+-const Component: React.VFC = () => {}
++const Component: React.FC = () => {}
+-const Component: React.VoidFunctionComponent = () => {}
++const Component: React.FunctionComponent = () => {}
+```

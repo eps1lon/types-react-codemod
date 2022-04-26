@@ -94,6 +94,7 @@ async function main() {
 							choices: [
 								{ checked: true, value: "deprecated-react-child" },
 								{ checked: true, value: "deprecated-react-text" },
+								{ checked: true, value: "deprecated-void-function-component" },
 							],
 						},
 					]);
