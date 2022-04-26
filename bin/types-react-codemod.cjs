@@ -115,7 +115,7 @@ async function main() {
 				childProcess.execSync(command, { stdio: "inherit" });
 			}
 		)
-		.version("1.0.0")
+		.version()
 		.strict(true)
 		.help()
 		.parse();

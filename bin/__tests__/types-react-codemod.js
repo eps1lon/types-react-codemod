@@ -42,4 +42,10 @@ describe("types-react-codemod", () => {
 					}
 				`);
 	});
+
+	test("provides its version", async () => {
+		const { version } = require("../../package.json");
+		const { stdout } = await execTypesReactCodemod("--version");
+		expect(stdout.trim()).toBe(version);
+	});
 });
