@@ -91,7 +91,10 @@ async function main() {
 							message: "Pick transforms to apply",
 							name: "presets",
 							type: "checkbox",
-							choices: [{ checked: true, value: "deprecated-react-text" }],
+							choices: [
+								{ checked: true, value: "deprecated-react-child" },
+								{ checked: true, value: "deprecated-react-text" },
+							],
 						},
 					]);
 					args.push(`--preset19Transforms="${presets.join(",")}"`);
