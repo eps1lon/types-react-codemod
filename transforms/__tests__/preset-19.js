@@ -4,6 +4,7 @@ import * as JscodeshiftTestUtils from "jscodeshift/dist/testUtils";
 
 describe("preset-19", () => {
 	let preset19Transform;
+	let deprecatedReactChildTransform;
 	let deprecatedReactTextTransform;
 
 	function applyTransform(source, options = {}) {
@@ -29,6 +30,7 @@ describe("preset-19", () => {
 			return transform;
 		}
 
+		deprecatedReactChildTransform = mockTransform("../deprecated-react-child");
 		deprecatedReactTextTransform = mockTransform("../deprecated-react-text");
 
 		preset19Transform = require("../preset-19");
@@ -39,18 +41,19 @@ describe("preset-19", () => {
 			preset19Transforms: "deprecated-react-text",
 		});
 
+		expect(deprecatedReactChildTransform).not.toHaveBeenCalled();
 		expect(deprecatedReactTextTransform).toHaveBeenCalled();
 	});
 
 	test("applies all", () => {
 		applyTransform("", {
-			preset19Transforms: ["deprecated-react-text"].join(","),
+			preset19Transforms: [
+				"deprecated-react-child",
+				"deprecated-react-text",
+			].join(","),
 		});
 
-		applyTransform("", {
-			preset19Transforms: "deprecated-react-text",
-		});
-
+		expect(deprecatedReactChildTransform).toHaveBeenCalled();
 		expect(deprecatedReactTextTransform).toHaveBeenCalled();
 	});
 });

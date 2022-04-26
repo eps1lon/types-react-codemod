@@ -1,3 +1,4 @@
+import deprecatedReactChildTransform from "./deprecated-react-child";
 import deprecatedReactTextTransform from "./deprecated-react-text";
 
 /**
@@ -11,6 +12,9 @@ const transform = (file, api, options) => {
 	 * @type {import('jscodeshift').Transform[]}
 	 */
 	const transforms = [];
+	if (transformNames.has("deprecated-react-child")) {
+		transforms.push(deprecatedReactChildTransform);
+	}
 	if (transformNames.has("deprecated-react-text")) {
 		transforms.push(deprecatedReactTextTransform);
 	}
