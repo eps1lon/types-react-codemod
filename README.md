@@ -34,10 +34,10 @@ $ npx types-react-codemod --help
 types-react-codemod <codemod> <paths...>
 
 Positionals:
-  codemod  [string] [required] [choices: "context-any", "deprecated-react-text",
-            "deprecated-react-type", "deprecated-sfc-element", "deprecated-sfc",
-             "deprecated-stateless-component", "implicit-children", "preset-18",
-                                        "preset-19", "useCallback-implicit-any"]
+  codemod [string] [required] [choices: "context-any", "deprecated-react-child",
+     "deprecated-react-text", "deprecated-react-type", "deprecated-sfc-element",
+        "deprecated-sfc", "deprecated-stateless-component", "implicit-children",
+                           "preset-18", "preset-19", "useCallback-implicit-any"]
   paths                                                      [string] [required]
 
 Options:
@@ -204,6 +204,28 @@ You can interactively pick the codemods included.
 By default, the codemods that are definitely required to upgrade to `@types/react@^19.0.0` are selected.
 The other codemods may or may not be required.
 You should select all and audit the changed files regardless.
+
+### `deprecated-react-child`
+
+```diff
+ import * as React from "react";
+ interface Props {
+-  label?: React.ReactChild;
++  label?: React.ReactElement | number | string;
+ }
+```
+
+#### `deprecated-react-text` false-negative pattern A
+
+Importing `ReactChild` via aliased named import will result in the transform being skipped.
+
+```tsx
+import { ReactChild as MyReactChild } from "react";
+interface Props {
+	// not transformed
+	label?: MyReactChild;
+}
+```
 
 ### `deprecated-react-text`
 

@@ -14,7 +14,32 @@ describe("types-react-codemod", () => {
 	}
 
 	test("provides help", async () => {
-		// TODO: toMatchInlineSnapshot fails with "Couldn't locate all inline snapshots."
-		await expect(execTypesReactCodemod("--help")).resolves.toMatchSnapshot();
+		await expect(execTypesReactCodemod("--help")).resolves
+			.toMatchInlineSnapshot(`
+					Object {
+					  "stderr": "",
+					  "stdout": "types-react-codemod <codemod> <paths...>
+
+					Positionals:
+					  codemod [string] [required] [choices: \\"context-any\\", \\"deprecated-react-child\\",
+					     \\"deprecated-react-text\\", \\"deprecated-react-type\\", \\"deprecated-sfc-element\\",
+					        \\"deprecated-sfc\\", \\"deprecated-stateless-component\\", \\"implicit-children\\",
+					                           \\"preset-18\\", \\"preset-19\\", \\"useCallback-implicit-any\\"]
+					  paths                                                      [string] [required]
+
+					Options:
+					  --version         Show version number                                [boolean]
+					  --help            Show help                                          [boolean]
+					  --dry                                               [boolean] [default: false]
+					  --ignore-pattern                      [string] [default: \\"**/node_modules/**\\"]
+					  --verbose                                           [boolean] [default: false]
+
+					Examples:
+					  types-react-codemod preset-18 ./          Ignores \`node_modules\` and \`build\`
+					  --ignore-pattern                          folders
+					  \\"**/{node_modules,build}/**\\"
+					",
+					}
+				`);
 	});
 });
