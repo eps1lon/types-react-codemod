@@ -12,7 +12,9 @@ const deprecatedVoidFunctionComponentTransform = (file, api) => {
 			return node.name === "VFC" || node.name === "VoidFunctionComponent";
 		})
 		.replaceWith((path) => {
-			return j.identifier(path.node.name === "VFC" ? "FC" : "FunctionComponent");
+			return j.identifier(
+				path.node.name === "VFC" ? "FC" : "FunctionComponent"
+			);
 		});
 
 	// Otherwise some files will be marked as "modified" because formatting changed
