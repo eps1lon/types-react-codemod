@@ -34,9 +34,10 @@ $ npx types-react-codemod --help
 types-react-codemod <codemod> <paths...>
 
 Positionals:
-  codemod  [string] [required] [choices: "context-any", "deprecated-react-type",
-   "deprecated-sfc-element", "deprecated-sfc", "deprecated-stateless-component",
-                   "implicit-children", "preset-18", "useCallback-implicit-any"]
+  codemod  [string] [required] [choices: "context-any", "deprecated-react-text",
+            "deprecated-react-type", "deprecated-sfc-element", "deprecated-sfc",
+             "deprecated-stateless-component", "implicit-children", "preset-18",
+                                        "preset-19", "useCallback-implicit-any"]
   paths                                                      [string] [required]
 
 Options:
@@ -67,6 +68,8 @@ The reason being that a false-positive can be reverted easily (assuming you have
 - `context-any`
 - `implicit-children`
 - `useCallback-implicit-any`
+- `preset-19`
+- `deprecated-react-text`
 
 ### `preset-18`
 
@@ -192,4 +195,34 @@ This is why it's recommended to only apply `useCallback-implicit-any` to files t
 type CreateCallback = () => (event: Event) => void;
 -const createCallback: CreateCallback = () => useCallback((event) => {}, [])
 +const createCallback: CreateCallback = () => useCallback((event: any) => {}, [])
+```
+
+### `preset-19`
+
+This codemod combines all codemods for React 19 types.
+You can interactively pick the codemods included.
+By default, the codemods that are definitely required to upgrade to `@types/react@^19.0.0` are selected.
+The other codemods may or may not be required.
+You should select all and audit the changed files regardless.
+
+### `deprecated-react-text`
+
+```diff
+ import * as React from "react";
+ interface Props {
+-  label?: React.ReactText;
++  label?: number | string;
+ }
+```
+
+#### `deprecated-react-text` false-negative pattern A
+
+Importing `ReactText` via aliased named import will result in the transform being skipped.
+
+```tsx
+import { ReactText as MyReactText } from "react";
+interface Props {
+	// not transformed
+	label?: MyReactText;
+}
 ```

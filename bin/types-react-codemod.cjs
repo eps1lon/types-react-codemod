@@ -85,6 +85,16 @@ async function main() {
 						},
 					]);
 					args.push(`--preset18Transforms="${presets.join(",")}"`);
+				} else if (codemod === "preset-19") {
+					const { presets } = await inquirer.prompt([
+						{
+							message: "Pick transforms to apply",
+							name: "presets",
+							type: "checkbox",
+							choices: [{ checked: true, value: "deprecated-react-text" }],
+						},
+					]);
+					args.push(`--preset19Transforms="${presets.join(",")}"`);
 				}
 
 				if (dry) {
