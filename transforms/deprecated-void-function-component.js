@@ -24,4 +24,4 @@ const deprecatedVoidFunctionComponentTransform = (file, api) => {
 	return file.source;
 };
 
-export default deprecatedVoidFunctionComponentTransform;
+module.exports = deprecatedVoidFunctionComponentTransform;

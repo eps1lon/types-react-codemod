@@ -22,4 +22,4 @@ const deprecatedReactTypeTransform = (file, api) => {
 	return file.source;
 };
 
-export default deprecatedReactTypeTransform;
+module.exports = deprecatedReactTypeTransform;

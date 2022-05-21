@@ -108,4 +108,4 @@ const contextAnyTransform = (file, api) => {
 	return file.source;
 };
 
-export default contextAnyTransform;
+module.exports = contextAnyTransform;

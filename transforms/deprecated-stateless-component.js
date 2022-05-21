@@ -22,4 +22,4 @@ const deprecatedStatelessComponentTransform = (file, api) => {
 	return file.source;
 };
 
-export default deprecatedStatelessComponentTransform;
+module.exports = deprecatedStatelessComponentTransform;

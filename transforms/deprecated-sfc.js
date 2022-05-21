@@ -22,4 +22,4 @@ const deprecatedSFCTransform = (file, api) => {
 	return file.source;
 };
 
-export default deprecatedSFCTransform;
+module.exports = deprecatedSFCTransform;

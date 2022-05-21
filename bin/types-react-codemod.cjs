@@ -64,6 +64,8 @@ async function main() {
 				const args = [
 					"--extensions=tsx,ts",
 					`"--ignore-pattern=${argv.ignorePattern}"`,
+					// The transforms are published as JS compatible with the supported Node.js versions.
+					"--no-babel",
 					`--transform ${path.join(transformsRoot, `${codemod}.js`)}`,
 				];
 

@@ -99,4 +99,4 @@ const useCallbackImplicitAnyTransform = (file, api) => {
 	return file.source;
 };
 
-export default useCallbackImplicitAnyTransform;
+module.exports = useCallbackImplicitAnyTransform;
