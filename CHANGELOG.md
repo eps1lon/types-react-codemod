@@ -1,5 +1,14 @@
 # types-react-codemod
 
+## 1.2.0
+
+### Minor Changes
+
+- [#63](https://github.com/eps1lon/types-react-codemod/pull/63) [`15ec796`](https://github.com/eps1lon/types-react-codemod/commit/15ec79609eae3029abeb2aa22752a74ab508af7a) Thanks [@eps1lon](https://github.com/eps1lon)! - Avoid transpiling transforms
+
+  Previously jscodeshift would transpile the transforms before using them.
+  This was largely unnecessary and resulted in bugs to to usage of undeclared Babel dependencies.
+
 ## 1.1.0
 
 ### Minor Changes
