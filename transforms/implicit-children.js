@@ -71,4 +71,4 @@ const implicitChildrenTransform = (file, api) => {
 	return file.source;
 };
 
-export default implicitChildrenTransform;
+module.exports = implicitChildrenTransform;

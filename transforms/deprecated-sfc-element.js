@@ -22,4 +22,4 @@ const deprecatedSFCElementTransform = (file, api) => {
 	return file.source;
 };
 
-export default deprecatedSFCElementTransform;
+module.exports = deprecatedSFCElementTransform;

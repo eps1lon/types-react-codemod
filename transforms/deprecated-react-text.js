@@ -37,4 +37,4 @@ const deprecatedReactTextTransform = (file, api) => {
 	return file.source;
 };
 
-export default deprecatedReactTextTransform;
+module.exports = deprecatedReactTextTransform;

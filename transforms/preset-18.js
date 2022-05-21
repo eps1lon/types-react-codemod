@@ -71,4 +71,4 @@ const transform = (file, api, options) => {
 	}
 };
 
-export default transform;
+module.exports = transform;

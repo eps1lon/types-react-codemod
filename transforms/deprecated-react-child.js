@@ -44,4 +44,4 @@ const deprecatedReactChildTransform = (file, api) => {
 	return file.source;
 };
 
-export default deprecatedReactChildTransform;
+module.exports = deprecatedReactChildTransform;
