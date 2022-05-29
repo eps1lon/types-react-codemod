@@ -1,5 +1,13 @@
 # types-react-codemod
 
+## 1.2.1
+
+### Patch Changes
+
+- [#69](https://github.com/eps1lon/types-react-codemod/pull/69) [`52da899`](https://github.com/eps1lon/types-react-codemod/commit/52da899062db71f28656b94a0c0b08d1b6c019fd) Thanks [@eps1lon](https://github.com/eps1lon)! - Don't use `import` statement.
+
+  Fixes errors like "SyntaxError: Cannot use import statement outside a module".
+
 ## 1.2.0
 
 ### Minor Changes
