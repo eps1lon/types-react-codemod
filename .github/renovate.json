@@ -8,7 +8,6 @@
 		"schedule": "before 6:00am on the first day of the month"
 	},
 	"packageRules": [],
-	"postUpdateOptions": ["yarnDedupeFewer"],
 	"prConcurrentLimit": 99,
 	"prHourlyLimit": 0,
 	"rangeStrategy": "update-lockfile",
