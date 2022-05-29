@@ -7,21 +7,7 @@ module.exports = {
 	extends: "eslint:recommended",
 	parserOptions: {
 		ecmaVersion: "latest",
-		sourceType: "commonjs",
+		sourceType: "script",
 	},
 	rules: {},
-	overrides: [
-		{
-			files: "**/__tests__/**/*",
-			parserOptions: {
-				sourceType: "module",
-			},
-		},
-		{
-			files: "transforms/**/*",
-			parserOptions: {
-				sourceType: "module",
-			},
-		},
-	],
 };

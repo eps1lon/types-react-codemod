@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, jest, test } from "@jest/globals";
-import dedent from "dedent";
-import * as JscodeshiftTestUtils from "jscodeshift/dist/testUtils";
+const { beforeEach, describe, expect, jest, test } = require("@jest/globals");
+const dedent = require("dedent");
+const JscodeshiftTestUtils = require("jscodeshift/dist/testUtils");
 
 describe("preset-19", () => {
 	let preset19Transform;
@@ -22,10 +22,7 @@ describe("preset-19", () => {
 			const transform = jest.fn();
 
 			jest.doMock(moduleName, () => {
-				return {
-					__esModule: true,
-					default: transform,
-				};
+				return transform;
 			});
 
 			return transform;

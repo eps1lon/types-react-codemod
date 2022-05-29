@@ -1,7 +1,7 @@
-import { describe, expect, test } from "@jest/globals";
-import dedent from "dedent";
-import * as JscodeshiftTestUtils from "jscodeshift/dist/testUtils";
-import implicitChildrenTransform from "../implicit-children";
+const { describe, expect, test } = require("@jest/globals");
+const dedent = require("dedent");
+const JscodeshiftTestUtils = require("jscodeshift/dist/testUtils");
+const implicitChildrenTransform = require("../implicit-children");
 
 function applyTransform(source, options = {}) {
 	return JscodeshiftTestUtils.applyTransform(

@@ -1,7 +1,7 @@
-import { describe, expect, test } from "@jest/globals";
-import dedent from "dedent";
-import * as JscodeshiftTestUtils from "jscodeshift/dist/testUtils";
-import deprecatedSFCElementTransform from "../deprecated-sfc-element";
+const { describe, expect, test } = require("@jest/globals");
+const dedent = require("dedent");
+const JscodeshiftTestUtils = require("jscodeshift/dist/testUtils");
+const deprecatedSFCElementTransform = require("../deprecated-sfc-element");
 
 function applyTransform(source, options = {}) {
 	return JscodeshiftTestUtils.applyTransform(

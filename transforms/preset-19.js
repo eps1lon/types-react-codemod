@@ -1,6 +1,6 @@
-import deprecatedReactChildTransform from "./deprecated-react-child";
-import deprecatedReactTextTransform from "./deprecated-react-text";
-import deprecatedVoidFunctionComponentTransform from "./deprecated-void-function-component";
+const deprecatedReactChildTransform = require("./deprecated-react-child");
+const deprecatedReactTextTransform = require("./deprecated-react-text");
+const deprecatedVoidFunctionComponentTransform = require("./deprecated-void-function-component");
 
 /**
  * @type {import('jscodeshift').Transform}

@@ -1,10 +1,10 @@
-import contextAnyTransform from "./context-any";
-import deprecatedReactTypeTransform from "./deprecated-react-type";
-import deprecatedSFCTransform from "./deprecated-sfc";
-import deprecatedSFCElementTransform from "./deprecated-sfc-element";
-import deprecatedStatelessComponentTransform from "./deprecated-stateless-component";
-import implicitChildrenTransform from "./implicit-children";
-import implicitAnyTransform from "./useCallback-implicit-any";
+const contextAnyTransform = require("./context-any");
+const deprecatedReactTypeTransform = require("./deprecated-react-type");
+const deprecatedSFCTransform = require("./deprecated-sfc");
+const deprecatedSFCElementTransform = require("./deprecated-sfc-element");
+const deprecatedStatelessComponentTransform = require("./deprecated-stateless-component");
+const implicitChildrenTransform = require("./implicit-children");
+const implicitAnyTransform = require("./useCallback-implicit-any");
 
 /**
  * @type {import('jscodeshift').Transform}
