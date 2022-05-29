@@ -10,12 +10,4 @@ module.exports = {
 		sourceType: "script",
 	},
 	rules: {},
-	overrides: [
-		{
-			files: "**/__tests__/**/*",
-			parserOptions: {
-				sourceType: "module",
-			},
-		},
-	],
 };
