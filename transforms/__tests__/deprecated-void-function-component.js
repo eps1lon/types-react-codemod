@@ -1,7 +1,7 @@
-import { describe, expect, test } from "@jest/globals";
-import dedent from "dedent";
-import * as JscodeshiftTestUtils from "jscodeshift/dist/testUtils";
-import deprecatedVoidFunctionComponentTransform from "../deprecated-void-function-component";
+const { describe, expect, test } = require("@jest/globals");
+const dedent = require("dedent");
+const JscodeshiftTestUtils = require("jscodeshift/dist/testUtils");
+const deprecatedVoidFunctionComponentTransform = require("../deprecated-void-function-component");
 
 function applyTransform(source, options = {}) {
 	return JscodeshiftTestUtils.applyTransform(

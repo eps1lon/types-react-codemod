@@ -1,7 +1,7 @@
-import { describe, expect, test } from "@jest/globals";
-import * as childProcess from "child_process";
-import * as path from "path";
-import { promisify } from "util";
+const { describe, expect, test } = require("@jest/globals");
+const childProcess = require("child_process");
+const path = require("path");
+const { promisify } = require("util");
 
 describe("types-react-codemod", () => {
 	const exec = promisify(childProcess.exec);

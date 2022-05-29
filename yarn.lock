@@ -2460,7 +2460,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-jest@npm:^28.0.0, babel-jest@npm:^28.1.0":
+"babel-jest@npm:^28.1.0":
   version: 28.1.0
   resolution: "babel-jest@npm:28.1.0"
   dependencies:
@@ -7289,7 +7289,6 @@ __metadata:
     "@types/jscodeshift": ^0.11.3
     "@types/node": ^16.10.0
     "@types/yargs": ^17.0.10
-    babel-jest: ^28.0.0
     dedent: ^0.7.0
     eslint: ^8.12.0
     inquirer: ^8.2.2

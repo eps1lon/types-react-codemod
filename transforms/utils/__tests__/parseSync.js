@@ -1,5 +1,5 @@
-import { describe, expect, test } from "@jest/globals";
-import parseSync from "../parseSync";
+const { describe, expect, test } = require("@jest/globals");
+const parseSync = require("../parseSync");
 
 describe("parseSync", () => {
 	test("oldschool type casts in ts files", () => {
