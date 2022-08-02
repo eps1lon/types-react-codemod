@@ -11,4 +11,13 @@ describe("parseSync", () => {
 			})
 		).not.toThrow();
 	});
+
+	test("TSInstantiationExpression", () => {
+		expect(() =>
+			parseSync({
+				path: "test.ts",
+				source: `const makeStringBox = makeBox<string>;`,
+			})
+		).not.toThrow();
+	});
 });
