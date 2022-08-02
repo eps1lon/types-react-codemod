@@ -1,5 +1,13 @@
 # types-react-codemod
 
+## 1.3.0
+
+### Minor Changes
+
+- [#92](https://github.com/eps1lon/types-react-codemod/pull/92) [`0d92140`](https://github.com/eps1lon/types-react-codemod/commit/0d92140edabcb94e25aa4b7cef9340a7b13c110b) Thanks [@eps1lon](https://github.com/eps1lon)! - Ensure TypeScript instantiation expressions can be parsed
+
+  [Instantiation expressions](https://devblogs.microsoft.com/typescript/announcing-typescript-4-7/#instantiation-expressions) were added in TypeScript 4.7.
+
 ## 1.2.1
 
 ### Patch Changes
