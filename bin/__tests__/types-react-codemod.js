@@ -16,32 +16,32 @@ describe("types-react-codemod", () => {
 	test("provides help", async () => {
 		await expect(execTypesReactCodemod("--help")).resolves
 			.toMatchInlineSnapshot(`
-					Object {
-					  "stderr": "",
-					  "stdout": "types-react-codemod <codemod> <paths...>
+		{
+		  "stderr": "",
+		  "stdout": "types-react-codemod <codemod> <paths...>
 
-					Positionals:
-					  codemod [string] [required] [choices: \\"context-any\\", \\"deprecated-react-child\\",
-					     \\"deprecated-react-text\\", \\"deprecated-react-type\\", \\"deprecated-sfc-element\\",
-					                             \\"deprecated-sfc\\", \\"deprecated-stateless-component\\",
-					         \\"deprecated-void-function-component\\", \\"implicit-children\\", \\"preset-18\\",
-					                                        \\"preset-19\\", \\"useCallback-implicit-any\\"]
-					  paths                                                      [string] [required]
+		Positionals:
+		  codemod [string] [required] [choices: "context-any", "deprecated-react-child",
+		     "deprecated-react-text", "deprecated-react-type", "deprecated-sfc-element",
+		                             "deprecated-sfc", "deprecated-stateless-component",
+		         "deprecated-void-function-component", "implicit-children", "preset-18",
+		                                        "preset-19", "useCallback-implicit-any"]
+		  paths                                                      [string] [required]
 
-					Options:
-					  --version         Show version number                                [boolean]
-					  --help            Show help                                          [boolean]
-					  --dry                                               [boolean] [default: false]
-					  --ignore-pattern                      [string] [default: \\"**/node_modules/**\\"]
-					  --verbose                                           [boolean] [default: false]
+		Options:
+		  --version         Show version number                                [boolean]
+		  --help            Show help                                          [boolean]
+		  --dry                                               [boolean] [default: false]
+		  --ignore-pattern                      [string] [default: "**/node_modules/**"]
+		  --verbose                                           [boolean] [default: false]
 
-					Examples:
-					  types-react-codemod preset-18 ./          Ignores \`node_modules\` and \`build\`
-					  --ignore-pattern                          folders
-					  \\"**/{node_modules,build}/**\\"
-					",
-					}
-				`);
+		Examples:
+		  types-react-codemod preset-18 ./          Ignores \`node_modules\` and \`build\`
+		  --ignore-pattern                          folders
+		  "**/{node_modules,build}/**"
+		",
+		}
+	`);
 	});
 
 	test("provides its version", async () => {

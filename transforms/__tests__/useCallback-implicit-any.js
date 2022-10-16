@@ -93,7 +93,7 @@ describe("transform useCallback-any", () => {
         useBuiltinCallback((event) => {});
     `)
 		).toMatchInlineSnapshot(`
-		"import { useCallback as useBuiltinCallback } from \\"react\\";
+		"import { useCallback as useBuiltinCallback } from "react";
 		useBuiltinCallback((event) => {});"
 	`);
 	});
