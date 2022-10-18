@@ -40,6 +40,6 @@
 		"access": "public"
 	},
 	"volta": {
-		"node": "16.17.1"
+		"node": "16.18.0"
 	}
 }
