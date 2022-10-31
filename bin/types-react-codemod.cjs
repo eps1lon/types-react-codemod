@@ -2,7 +2,7 @@
 // @ts-check
 const childProcess = require("child_process");
 const fs = require("fs");
-const inquirer = require("inquirer");
+const inquirerImport = import("inquirer");
 const process = require("process");
 const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
@@ -70,6 +70,7 @@ async function main() {
 				];
 
 				if (codemod === "preset-18") {
+					const { default: inquirer } = await inquirerImport;
 					const { presets } = await inquirer.prompt([
 						{
 							message: "Pick transforms to apply",
@@ -88,6 +89,7 @@ async function main() {
 					]);
 					args.push(`--preset18Transforms="${presets.join(",")}"`);
 				} else if (codemod === "preset-19") {
+					const { default: inquirer } = await inquirerImport;
 					const { presets } = await inquirer.prompt([
 						{
 							message: "Pick transforms to apply",
