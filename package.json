@@ -23,7 +23,7 @@
 		"@jest/globals": "^29.0.0",
 		"@types/inquirer": "^8.2.1",
 		"@types/jscodeshift": "^0.11.3",
-		"@types/node": "^16.10.0",
+		"@types/node": "^18.0.0",
 		"@types/yargs": "^17.0.10",
 		"dedent": "^0.7.0",
 		"eslint": "^8.12.0",
@@ -40,6 +40,6 @@
 		"access": "public"
 	},
 	"volta": {
-		"node": "16.18.0"
+		"node": "18.12.0"
 	}
 }

@@ -2253,10 +2253,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^16.10.0":
-  version: 16.18.0
-  resolution: "@types/node@npm:16.18.0"
-  checksum: 4eb4b88012c7d3f527c1b4989cf085479d44ce418fb047fb8d3b545601a3e1fc436de8491b9734debeda8eae241963fb802cea87a5a5698bf5f6f3d489d446a8
+"@types/node@npm:^18.0.0":
+  version: 18.11.8
+  resolution: "@types/node@npm:18.11.8"
+  checksum: 60b358f97c1a029722dc785811b217615ef20249c3fbde60a65869cfd7a5cd5b1872ee95c79c187ef70e5a078f4ac7670d2129803985268b1f021ad6e8040af8
   languageName: node
   linkType: hard
 
@@ -6922,7 +6922,7 @@ __metadata:
     "@jest/globals": ^29.0.0
     "@types/inquirer": ^8.2.1
     "@types/jscodeshift": ^0.11.3
-    "@types/node": ^16.10.0
+    "@types/node": ^18.0.0
     "@types/yargs": ^17.0.10
     dedent: ^0.7.0
     eslint: ^8.12.0
