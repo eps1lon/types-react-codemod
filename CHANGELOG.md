@@ -1,5 +1,16 @@
 # types-react-codemod
 
+## 2.0.0
+
+### Major Changes
+
+- [#143](https://github.com/eps1lon/types-react-codemod/pull/143) [`b3351d2`](https://github.com/eps1lon/types-react-codemod/commit/b3351d28cad7dade2a70bbec913582aacc7488c2) Thanks [@eps1lon](https://github.com/eps1lon)! - Fail install if used version of Node.js is not officially supported
+
+  Add a list of supported versions of Node.js to `engines` in `package.json`.
+  If the current version does not match, installation will fail (by default in Yarn and in NPM only if the [`engine-strict` config is enabled](https://docs.npmjs.com/cli/v8/using-npm/config#engine-strict)).
+
+  This warning can be ignored either by setting `engine-strict` to `false` in NPM (default) or add `--ignore-engines` to `yarn` (e.g. `yarn --ignore-engines`).
+
 ## 1.3.0
 
 ### Minor Changes
