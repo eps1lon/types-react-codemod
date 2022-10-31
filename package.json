@@ -10,6 +10,9 @@
 		"test:types": "tsc -p tsconfig.json --noEmit",
 		"test:unit": "jest"
 	},
+	"engines": {
+		"node": "14.x || 16.x || 17.x || 18.x || 19.x"
+	},
 	"dependencies": {
 		"@babel/core": "^7.17.8",
 		"@babel/preset-env": "^7.16.11",
