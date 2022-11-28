@@ -2260,7 +2260,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/yargs@npm:^17.0.10, @types/yargs@npm:^17.0.8":
+"@types/yargs@npm:^17.0.10":
+  version: 17.0.14
+  resolution: "@types/yargs@npm:17.0.14"
+  dependencies:
+    "@types/yargs-parser": "*"
+  checksum: 7c571560434e1295b31dfd7f8d3b4a88dbb8bfe8db0054cea35f829f86b1251f67e41eaa0cb5990f17e5ed9b1a508c686b2b9f15c3bafc467ba58989ac9223e8
+  languageName: node
+  linkType: hard
+
+"@types/yargs@npm:^17.0.8":
   version: 17.0.13
   resolution: "@types/yargs@npm:17.0.13"
   dependencies:
