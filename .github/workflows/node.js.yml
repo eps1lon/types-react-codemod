@@ -31,5 +31,6 @@ jobs:
       - run: yarn test:lint
       - run: yarn test:types
       - run: yarn format:check
+      - run: yarn test:renovate
       # for manual inspection of included files
       - run: npm pack
