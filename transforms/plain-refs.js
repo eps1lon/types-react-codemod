@@ -34,23 +34,31 @@ const plainRefsTransform = (file, api) => {
 				const [typeNode] = params;
 
 				/**
-				 * @type {typeof typeNode}
+				 * @type {typeof typeNode | undefined}
 				 */
 				let nullableType;
 				if (typeNode.type === "TSUnionType") {
-					const unionIsApparentlyNullable = typeNode.types.some(
-						(unionMember) => {
-							return unionMember.type === "TSNullKeyword";
-						}
-					);
-					nullableType = unionIsApparentlyNullable
-						? typeNode
-						: j.tsUnionType([...typeNode.types, j.tsNullKeyword()]);
+					const typeIsApparentAny = typeNode.types.some((unionMember) => {
+						return unionMember.type === "TSAnyKeyword";
+					});
+					if (!typeIsApparentAny) {
+						const unionIsApparentlyNullable = typeNode.types.some(
+							(unionMember) => {
+								return unionMember.type === "TSNullKeyword";
+							}
+						);
+
+						nullableType = unionIsApparentlyNullable
+							? typeNode
+							: j.tsUnionType([...typeNode.types, j.tsNullKeyword()]);
+					}
 				} else {
-					nullableType = j.tsUnionType([typeNode, j.tsNullKeyword()]);
+					if (typeNode.type !== "TSAnyKeyword") {
+						nullableType = j.tsUnionType([typeNode, j.tsNullKeyword()]);
+					}
 				}
 
-				if (nullableType !== typeNode) {
+				if (nullableType !== undefined && nullableType !== typeNode) {
 					// Ideally we'd clone the `typeReference` path and add `typeParameters`.
 					// But I don't know if there's an API or better pattern for it.
 					typeReference.value.typeParameters = j.tsTypeParameterInstantiation([

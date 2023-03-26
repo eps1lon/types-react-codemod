@@ -90,4 +90,22 @@ describe("transform plain-refs", () => {
 						const myRef: React.RefObject<null | number> = createRef();"
 	`);
 	});
+
+	test("no change on apparent any", () => {
+		expect(
+			applyTransform(`
+        import * as React from 'react';
+				const anyRef: React.RefObject<any> = createRef();
+				const stillAnyRef: React.RefObject<any | number> = createRef();
+				type AnyAlias = any;
+				const notApparentAny: React.RefObject<AnyAlias> = createRef();
+      `)
+		).toMatchInlineSnapshot(`
+		"import * as React from 'react';
+						const anyRef: React.RefObject<any> = createRef();
+						const stillAnyRef: React.RefObject<any | number> = createRef();
+						type AnyAlias = any;
+						const notApparentAny: React.RefObject<AnyAlias | null> = createRef();"
+	`);
+	});
 });
