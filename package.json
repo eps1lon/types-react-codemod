@@ -1,6 +1,6 @@
 {
 	"name": "types-react-codemod",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"bin": "bin/types-react-codemod.cjs",
 	"scripts": {
 		"format": "prettier . --write",

@@ -1,5 +1,13 @@
 # types-react-codemod
 
+## 2.0.1
+
+### Patch Changes
+
+- [#210](https://github.com/eps1lon/types-react-codemod/pull/210) [`a47bd09`](https://github.com/eps1lon/types-react-codemod/commit/a47bd09809991be0c89922dcbe6ba616a270d94e) Thanks [@eps1lon](https://github.com/eps1lon)! - Ensure jscodeshift can be executed
+
+  Fixes `/usr/bin/env: ‘node\r’: No such file or directory`
+
 ## 2.0.0
 
 ### Major Changes
