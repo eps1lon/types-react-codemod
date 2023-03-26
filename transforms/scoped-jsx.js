@@ -63,10 +63,10 @@ const deprecatedReactChildTransform = (file, api) => {
 			j.stringLiteral("react")
 		);
 
-		const imports = ast.find(j.ImportDeclaration);
+		const lastImport = ast.find(j.ImportDeclaration).at(-1);
 
-		if (imports.length > 0) {
-			imports.insertAfter(jsxNamespaceImport);
+		if (lastImport.length > 0) {
+			lastImport.insertAfter(jsxNamespaceImport);
 		} else {
 			// TODO: Intuitively I wanted to do `ast.insertBefore` but that crashes
 			ast.get("program").get("body").value.unshift(jsxNamespaceImport);

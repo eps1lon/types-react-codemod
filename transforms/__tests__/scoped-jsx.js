@@ -75,4 +75,22 @@ describe("transform scoped-jsx", () => {
 		declare const element: JSX.Element;"
 	`);
 	});
+
+	test("insert position", () => {
+		expect(
+			applyTransform(`
+				import {} from 'react-dom'
+				import {} from '@testing-library/react'
+
+				declare const element: JSX.Element;
+			`)
+		).toMatchInlineSnapshot(`
+		"import {} from 'react-dom'
+		import {} from '@testing-library/react'
+
+		import { JSX } from "react";
+
+		declare const element: JSX.Element;"
+	`);
+	});
 });
