@@ -282,7 +282,7 @@ Importing `RefObject` via aliased named import will result in the transform bein
 import { RefObject as MyRefObject } from "react";
 
 // not transformed
-const myRef: MyRefObject<View>
+const myRef: MyRefObject<View>;
 ```
 
 ## Supported platforms
