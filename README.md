@@ -71,6 +71,7 @@ The reason being that a false-positive can be reverted easily (assuming you have
 - `useCallback-implicit-any`
 - `preset-19`
 - `deprecated-react-text`
+- `scoped-jsx`
 
 ### `preset-18`
 
@@ -285,6 +286,24 @@ import { RefObject as MyRefObject } from "react";
 
 // not transformed
 const myRef: MyRefObject<View>;
+```
+
+### `scoped-jsx`
+
+Ensures access to global JSX namespace is now scoped to React (see TODO DT PR link).
+This codemod tries to match the existing import style but isn't perfect.
+If the import style doesn't match your preferences, you should set up auto-fixable lint rules to match this e.g. [`import/order`](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md).
+
+```diff
++import { JSX } from 'react'
+-const element: JSX.Element = <div />;
++const element: JSX.Element = <div />;
+```
+
+```diff
+ import * as React from 'react';
+-const element: JSX.Element = <div />;
++const element: React.JSX.Element = <div />;
 ```
 
 ## Supported platforms
