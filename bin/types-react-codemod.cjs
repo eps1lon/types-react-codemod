@@ -56,7 +56,9 @@ async function main() {
 				const { codemod, dry, paths, verbose } = argv;
 
 				// TODO: npx instead?
-				const jscodeshiftExecutable = require.resolve(".bin/jscodeshift");
+				const jscodeshiftExecutable = require.resolve(
+					"jscodeshift/bin/jscodeshift.js"
+				);
 
 				/**
 				 * @type {string[]}
@@ -115,7 +117,7 @@ async function main() {
 
 				args.push(...paths);
 
-				const command = `${jscodeshiftExecutable} ${args.join(" ")}`;
+				const command = `node ${jscodeshiftExecutable} ${args.join(" ")}`;
 				console.info(`executing "${command}"`);
 				childProcess.execSync(command, { stdio: "inherit" });
 			}
