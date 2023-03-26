@@ -52,7 +52,8 @@ const deprecatedReactChildTransform = (file, api) => {
 						j.identifier("JSX")
 					),
 					j.identifier(namespaceMember)
-				)
+				),
+				typeReference.value.typeParameters
 			);
 		});
 	} else if (globalNamespaceReferences.length > 0) {

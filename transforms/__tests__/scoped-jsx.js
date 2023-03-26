@@ -93,4 +93,18 @@ describe("transform scoped-jsx", () => {
 		declare const element: JSX.Element;"
 	`);
 	});
+
+	test("type parameters are preserved", () => {
+		expect(
+			applyTransform(`
+				import * as React from 'react'
+
+				declare const attributes: JSX.LibraryManagedAttributes<A, B>;
+			`)
+		).toMatchInlineSnapshot(`
+		"import * as React from 'react'
+
+						declare const attributes: React.JSX.LibraryManagedAttributes<A, B>;"
+	`);
+	});
 });
