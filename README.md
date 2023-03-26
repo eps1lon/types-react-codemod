@@ -36,7 +36,8 @@ types-react-codemod <codemod> <paths...>
 Positionals:
   codemod [string] [required] [choices: "context-any", "deprecated-react-child",
      "deprecated-react-text", "deprecated-react-type", "deprecated-sfc-element",
-        "deprecated-sfc", "deprecated-stateless-component", "implicit-children",
+                             "deprecated-sfc", "deprecated-stateless-component",
+        "deprecated-void-function-component", "implicit-children", "plain-refs",
                            "preset-18", "preset-19", "useCallback-implicit-any"]
   paths                                                      [string] [required]
 
