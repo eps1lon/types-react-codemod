@@ -215,7 +215,7 @@ You should select all and audit the changed files regardless.
  }
 ```
 
-#### `deprecated-react-text` false-negative pattern A
+#### `deprecated-react-child` false-negative pattern A
 
 Importing `ReactChild` via aliased named import will result in the transform being skipped.
 
@@ -260,6 +260,29 @@ In earlier versions of `@types/react` this codemod would change the typings.
 +const Component: React.FC = () => {}
 -const Component: React.VoidFunctionComponent = () => {}
 +const Component: React.FunctionComponent = () => {}
+```
+
+### `plain-refs`
+
+WARNING: Only apply to codebases using `@types/react@^18.0.0`.
+
+`RefObject` no longer makes `current` nullable by default
+
+```diff
+ import * as React from "react";
+-const myRef: React.RefObject<View>
++const myRef: React.RefObject<View | null>
+```
+
+#### `plain-refs` false-negative pattern A
+
+Importing `RefObject` via aliased named import will result in the transform being skipped.
+
+```tsx
+import { RefObject as MyRefObject } from "react";
+
+// not transformed
+const myRef: MyRefObject<View>
 ```
 
 ## Supported platforms
