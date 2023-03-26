@@ -49,4 +49,13 @@ describe("types-react-codemod", () => {
 		const { stdout } = await execTypesReactCodemod("--version");
 		expect(stdout.trim()).toBe(version);
 	});
+
+	test("can execute jscodeshift", async () => {
+		const fixture = path.resolve(__dirname, "./__fixtures__/smoke-test");
+		// Does't matter which transform as long as it is one that doesn't change code in the fixture
+		const { stderr } = await execTypesReactCodemod(`plain-refs ${fixture}`);
+
+		// Everything ok
+		expect(stderr).toMatchInlineSnapshot(`""`);
+	});
 });
