@@ -5,7 +5,12 @@ const traverse = require("@babel/traverse").default;
 /**
  * @type {import('jscodeshift').Transform}
  *
- * Summary for Klarna's klapp TODO
+ * Summary for Klarna's klapp@b560a65cd2
+ * 1 errors
+ * 37561 unmodified
+ * 1 skipped
+ * 82 ok
+ * Fixes all remaining issues outside of n_m
  */
 const refObjectDefaultsTransform = (file) => {
 	const ast = parseSync(file);
