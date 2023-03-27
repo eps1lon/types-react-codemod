@@ -108,4 +108,12 @@ describe("transform refobject-defaults", () => {
 						const notApparentAny: React.RefObject<AnyAlias | null> = createRef();"
 	`);
 	});
+
+	test("regression test discovered in Klarna klapp repo", () => {
+		expect(
+			applyTransform(`new Map<string, React.RefObject<HTMLDivElement>>()`)
+		).toMatchInlineSnapshot(
+			`"new Map<string, React.RefObject<HTMLDivElement | null>>()"`
+		);
+	});
 });
