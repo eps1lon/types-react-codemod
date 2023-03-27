@@ -5,7 +5,7 @@ const parseSync = require("./utils/parseSync");
  *
  * Summary for Klarna's klapp TODO
  */
-const plainRefsTransform = (file, api) => {
+const refObjectDefaultsTransform = (file, api) => {
 	const j = api.jscodeshift;
 	const ast = parseSync(file);
 
@@ -76,4 +76,4 @@ const plainRefsTransform = (file, api) => {
 	return file.source;
 };
 
-module.exports = plainRefsTransform;
+module.exports = refObjectDefaultsTransform;

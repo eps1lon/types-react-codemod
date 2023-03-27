@@ -1,7 +1,7 @@
 const deprecatedReactChildTransform = require("./deprecated-react-child");
 const deprecatedReactTextTransform = require("./deprecated-react-text");
 const deprecatedVoidFunctionComponentTransform = require("./deprecated-void-function-component");
-const plainRefsTransform = require("./plain-refs");
+const refobjectDefaultsTransform = require("./experimental-refobject-defaults");
 
 /**
  * @type {import('jscodeshift').Transform}
@@ -24,7 +24,7 @@ const transform = (file, api, options) => {
 		transforms.push(deprecatedVoidFunctionComponentTransform);
 	}
 	if (transformNames.has("plain-refs")) {
-		transforms.push(plainRefsTransform);
+		transforms.push(refobjectDefaultsTransform);
 	}
 
 	let wasAlwaysSkipped = true;

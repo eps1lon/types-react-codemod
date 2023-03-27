@@ -24,8 +24,8 @@ describe("types-react-codemod", () => {
 		  codemod [string] [required] [choices: "context-any", "deprecated-react-child",
 		     "deprecated-react-text", "deprecated-react-type", "deprecated-sfc-element",
 		                             "deprecated-sfc", "deprecated-stateless-component",
-		        "deprecated-void-function-component", "implicit-children", "plain-refs",
-		                           "preset-18", "preset-19", "useCallback-implicit-any"]
+		        "deprecated-void-function-component", "experimental-refobject-defaults",
+		      "implicit-children", "preset-18", "preset-19", "useCallback-implicit-any"]
 		  paths                                                      [string] [required]
 
 		Options:

@@ -1,11 +1,11 @@
 const { describe, expect, test } = require("@jest/globals");
 const dedent = require("dedent");
 const JscodeshiftTestUtils = require("jscodeshift/dist/testUtils");
-const deprecatedReactChildTransform = require("../plain-refs");
+const refobjectDefaultsTransform = require("../experimental-refobject-defaults");
 
 function applyTransform(source, options = {}) {
 	return JscodeshiftTestUtils.applyTransform(
-		deprecatedReactChildTransform,
+		refobjectDefaultsTransform,
 		options,
 		{
 			path: "test.d.ts",
@@ -14,7 +14,7 @@ function applyTransform(source, options = {}) {
 	);
 }
 
-describe("transform plain-refs", () => {
+describe("transform refobject-defaults", () => {
 	test("not modified", () => {
 		expect(
 			applyTransform(`

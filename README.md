@@ -37,8 +37,8 @@ Positionals:
   codemod [string] [required] [choices: "context-any", "deprecated-react-child",
      "deprecated-react-text", "deprecated-react-type", "deprecated-sfc-element",
                              "deprecated-sfc", "deprecated-stateless-component",
-        "deprecated-void-function-component", "implicit-children", "plain-refs",
-                           "preset-18", "preset-19", "useCallback-implicit-any"]
+        "deprecated-void-function-component", "experimental-refobject-defaults",
+      "implicit-children", "preset-18", "preset-19", "useCallback-implicit-any"]
   paths                                                      [string] [required]
 
 Options:
@@ -263,9 +263,10 @@ In earlier versions of `@types/react` this codemod would change the typings.
 +const Component: React.FunctionComponent = () => {}
 ```
 
-### `plain-refs`
+### `experimental-refobject-defaults`
 
-WARNING: Only apply to codebases using `@types/react@^18.0.0`.
+WARNING: This is an experimental codemod to intended for codebases using published types.
+Only use if you're using https://github.com/DefinitelyTyped/DefinitelyTyped/pull/64896.
 
 `RefObject` no longer makes `current` nullable by default
 
@@ -275,7 +276,7 @@ WARNING: Only apply to codebases using `@types/react@^18.0.0`.
 +const myRef: React.RefObject<View | null>
 ```
 
-#### `plain-refs` false-negative pattern A
+#### `experimental-refobject-defaults` false-negative pattern A
 
 Importing `RefObject` via aliased named import will result in the transform being skipped.
 
