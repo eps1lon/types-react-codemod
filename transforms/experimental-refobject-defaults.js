@@ -12,11 +12,14 @@ const refObjectDefaultsTransform = (file) => {
 
 	let changedSome = false;
 
+	// ast.get("program").value is sufficient for unit tests but not actually running it on files
+	// TODO: How to test?
+	const traverseRoot = ast.paths()[0].value;
 	/**
 	 * @type {import('@babel/types').TSTypeReference[]}
 	 */
 	const refObjectTypeReferences = [];
-	traverse(ast.get("program").value, {
+	traverse(traverseRoot, {
 		TSTypeReference({ node: typeReference }) {
 			const { typeName } = typeReference;
 			const identifier =
