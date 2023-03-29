@@ -7,6 +7,8 @@ describe("preset-19", () => {
 	let deprecatedReactChildTransform;
 	let deprecatedReactTextTransform;
 	let deprecatedVoidFunctionComponentTransform;
+	let refobjectDefaultsTransform;
+	let useRefRequiredInitialTransform;
 
 	function applyTransform(source, options = {}) {
 		return JscodeshiftTestUtils.applyTransform(preset19Transform, options, {
@@ -33,6 +35,12 @@ describe("preset-19", () => {
 		deprecatedVoidFunctionComponentTransform = mockTransform(
 			"../deprecated-void-function-component",
 		);
+		refobjectDefaultsTransform = mockTransform(
+			"../experimental-refobject-defaults"
+		);
+		useRefRequiredInitialTransform = mockTransform(
+			"../experimental-useRef-required-initial"
+		);
 
 		preset19Transform = require("../preset-19");
 	});
@@ -53,11 +61,15 @@ describe("preset-19", () => {
 				"deprecated-react-child",
 				"deprecated-react-text",
 				"deprecated-void-function-component",
+				"experimental-refobject-defaults",
+				"experimental-useRef-required-initial",
 			].join(","),
 		});
 
 		expect(deprecatedReactChildTransform).toHaveBeenCalled();
 		expect(deprecatedReactTextTransform).toHaveBeenCalled();
 		expect(deprecatedVoidFunctionComponentTransform).toHaveBeenCalled();
+		expect(refobjectDefaultsTransform).toHaveBeenCalled();
+		expect(useRefRequiredInitialTransform).toHaveBeenCalled();
 	});
 });
