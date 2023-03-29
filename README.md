@@ -36,8 +36,9 @@ types-react-codemod <codemod> <paths...>
 Positionals:
   codemod [string] [required] [choices: "context-any", "deprecated-react-child",
      "deprecated-react-text", "deprecated-react-type", "deprecated-sfc-element",
-        "deprecated-sfc", "deprecated-stateless-component", "implicit-children",
-                           "preset-18", "preset-19", "useCallback-implicit-any"]
+                             "deprecated-sfc", "deprecated-stateless-component",
+        "deprecated-void-function-component", "experimental-refobject-defaults",
+      "implicit-children", "preset-18", "preset-19", "useCallback-implicit-any"]
   paths                                                      [string] [required]
 
 Options:
@@ -215,7 +216,7 @@ You should select all and audit the changed files regardless.
  }
 ```
 
-#### `deprecated-react-text` false-negative pattern A
+#### `deprecated-react-child` false-negative pattern A
 
 Importing `ReactChild` via aliased named import will result in the transform being skipped.
 
@@ -260,6 +261,30 @@ In earlier versions of `@types/react` this codemod would change the typings.
 +const Component: React.FC = () => {}
 -const Component: React.VoidFunctionComponent = () => {}
 +const Component: React.FunctionComponent = () => {}
+```
+
+### `experimental-refobject-defaults`
+
+WARNING: This is an experimental codemod to intended for codebases using published types.
+Only use if you're using https://github.com/DefinitelyTyped/DefinitelyTyped/pull/64896.
+
+`RefObject` no longer makes `current` nullable by default
+
+```diff
+ import * as React from "react";
+-const myRef: React.RefObject<View>
++const myRef: React.RefObject<View | null>
+```
+
+#### `experimental-refobject-defaults` false-negative pattern A
+
+Importing `RefObject` via aliased named import will result in the transform being skipped.
+
+```tsx
+import { RefObject as MyRefObject } from "react";
+
+// not transformed
+const myRef: MyRefObject<View>;
 ```
 
 ## Supported platforms
