@@ -4,4 +4,4 @@
 
 Add experimental (not for use in published types) codemod for new `RefObject` behavior
 
-TODO link `@types/react` PR that landed this change
+See [[react] Make all refs mutable by default #64896](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/64896)
