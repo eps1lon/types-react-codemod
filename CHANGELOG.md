@@ -1,5 +1,17 @@
 # types-react-codemod
 
+## 2.1.0
+
+### Minor Changes
+
+- [#208](https://github.com/eps1lon/types-react-codemod/pull/208) [`b76beab`](https://github.com/eps1lon/types-react-codemod/commit/b76beabace7314f98157c37d67aca48551bff477) Thanks [@eps1lon](https://github.com/eps1lon)! - Add experimental (not for use in published types) `experimental-refobject-defaults` codemod for new `RefObject` behavior
+
+  See [[react] Make all refs mutable by default #64896](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/64896)
+
+### Patch Changes
+
+- [#248](https://github.com/eps1lon/types-react-codemod/pull/248) [`0dd5d20`](https://github.com/eps1lon/types-react-codemod/commit/0dd5d20181a21cb1212875e5c4e4fab6a1486a46) Thanks [@dgarciamuria](https://github.com/dgarciamuria)! - Add missing `@babel/parser` dependency
+
 ## 2.0.1
 
 ### Patch Changes
