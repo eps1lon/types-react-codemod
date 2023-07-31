@@ -37,7 +37,7 @@
 		"typescript": "^5.0.0"
 	},
 	"license": "MIT",
-	"packageManager": "yarn@3.5.1",
+	"packageManager": "yarn@3.6.1",
 	"prettier": {
 		"useTabs": true
 	},
