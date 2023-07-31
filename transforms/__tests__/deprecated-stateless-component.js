@@ -23,7 +23,7 @@ describe("transform deprecated-stateless-component", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import { FunctionComponent } from 'react';
-						FunctionComponent;"
+		FunctionComponent;"
 	`);
 	});
 
@@ -35,7 +35,7 @@ describe("transform deprecated-stateless-component", () => {
 			`)
 		).toMatchInlineSnapshot(`
 		"import { FunctionComponent } from 'react';
-						FunctionComponent;"
+		FunctionComponent;"
 	`);
 	});
 
@@ -47,7 +47,7 @@ describe("transform deprecated-stateless-component", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import { FunctionComponent as MyStatelessComponent } from 'react';
-						MyStatelessComponent;"
+		MyStatelessComponent;"
 	`);
 	});
 
@@ -59,7 +59,7 @@ describe("transform deprecated-stateless-component", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-						React.FunctionComponent;"
+		React.FunctionComponent;"
 	`);
 	});
 
@@ -71,7 +71,7 @@ describe("transform deprecated-stateless-component", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import * as Preact from 'preact';
-						Preact.FunctionComponent;"
+		Preact.FunctionComponent;"
 	`);
 	});
 });

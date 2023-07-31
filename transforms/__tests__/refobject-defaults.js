@@ -25,9 +25,9 @@ describe("transform refobject-defaults", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-					interface Props {
-						children?: ReactNode;
-					}"
+		interface Props {
+			children?: ReactNode;
+		}"
 	`);
 	});
 
@@ -39,7 +39,7 @@ describe("transform refobject-defaults", () => {
       `)
 		).toMatchInlineSnapshot(`
 		"import { RefObject } from 'react';
-						const myRef: RefObject<View | null> = createRef();"
+		const myRef: RefObject<View | null> = createRef();"
 	`);
 	});
 
@@ -51,7 +51,7 @@ describe("transform refobject-defaults", () => {
       `)
 		).toMatchInlineSnapshot(`
 		"import { RefObject as MyRefObject } from 'react';
-						const myRef: MyRefObject<View> = createRef();"
+		const myRef: MyRefObject<View> = createRef();"
 	`);
 	});
 
@@ -63,7 +63,7 @@ describe("transform refobject-defaults", () => {
       `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-						const myRef: React.RefObject<View | null> = createRef();"
+		const myRef: React.RefObject<View | null> = createRef();"
 	`);
 	});
 
@@ -75,7 +75,7 @@ describe("transform refobject-defaults", () => {
       `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-						const myRef: React.RefObject<number | string | null> = createRef();"
+		const myRef: React.RefObject<number | string | null> = createRef();"
 	`);
 	});
 
@@ -87,7 +87,7 @@ describe("transform refobject-defaults", () => {
       `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-						const myRef: React.RefObject<null | number> = createRef();"
+		const myRef: React.RefObject<null | number> = createRef();"
 	`);
 	});
 
@@ -102,10 +102,10 @@ describe("transform refobject-defaults", () => {
       `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-						const anyRef: React.RefObject<any> = createRef();
-						const stillAnyRef: React.RefObject<any | number> = createRef();
-						type AnyAlias = any;
-						const notApparentAny: React.RefObject<AnyAlias | null> = createRef();"
+		const anyRef: React.RefObject<any> = createRef();
+		const stillAnyRef: React.RefObject<any | number> = createRef();
+		type AnyAlias = any;
+		const notApparentAny: React.RefObject<AnyAlias | null> = createRef();"
 	`);
 	});
 

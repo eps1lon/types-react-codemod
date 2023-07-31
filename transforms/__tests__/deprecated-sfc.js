@@ -19,7 +19,7 @@ describe("transform deprecated-sfc", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import { FC } from 'react';
-						FC;"
+		FC;"
 	`);
 	});
 
@@ -31,7 +31,7 @@ describe("transform deprecated-sfc", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import { FC } from 'react';
-						FC;"
+		FC;"
 	`);
 	});
 
@@ -43,7 +43,7 @@ describe("transform deprecated-sfc", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import { FC as MySFC } from 'react';
-						MySFCElement;"
+		MySFCElement;"
 	`);
 	});
 
@@ -55,7 +55,7 @@ describe("transform deprecated-sfc", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-						React.FC;"
+		React.FC;"
 	`);
 	});
 
@@ -67,7 +67,7 @@ describe("transform deprecated-sfc", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import * as Preact from 'preact';
-						Preact.FC;"
+		Preact.FC;"
 	`);
 	});
 });
