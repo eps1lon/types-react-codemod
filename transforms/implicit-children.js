@@ -39,7 +39,7 @@ const implicitChildrenTransform = (file, api) => {
 			// TODO: Check if `React.PropsWithChildren` or `PropsWithChildren` is available
 			const propsWithChildrenTypeName = j.tsQualifiedName(
 				j.identifier("React"),
-				j.identifier("PropsWithChildren")
+				j.identifier("PropsWithChildren"),
 			);
 
 			const params = typeReference.get("typeParameters").get("params")
@@ -53,7 +53,7 @@ const implicitChildrenTransform = (file, api) => {
 			const paramsWithPropsWithChildren = j.tsTypeParameterInstantiation([
 				j.tsTypeReference(
 					propsWithChildrenTypeName,
-					j.tsTypeParameterInstantiation([params[0]])
+					j.tsTypeParameterInstantiation([params[0]]),
 				),
 				...params.slice(1),
 			]);

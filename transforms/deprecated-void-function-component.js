@@ -13,7 +13,7 @@ const deprecatedVoidFunctionComponentTransform = (file, api) => {
 		})
 		.replaceWith((path) => {
 			return j.identifier(
-				path.node.name === "VFC" ? "FC" : "FunctionComponent"
+				path.node.name === "VFC" ? "FC" : "FunctionComponent",
 			);
 		});
 

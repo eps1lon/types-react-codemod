@@ -10,7 +10,7 @@ function applyTransform(source, options = {}) {
 		{
 			path: "test.d.ts",
 			source: dedent(source),
-		}
+		},
 	);
 }
 
@@ -20,7 +20,7 @@ describe("transform deprecated-react-type", () => {
 			applyTransform(`
 				import { ElementType } from 'react';
 				ElementType;
-    `)
+    `),
 		).toMatchInlineSnapshot(`
 		"import { ElementType } from 'react';
 		ElementType;"
@@ -32,7 +32,7 @@ describe("transform deprecated-react-type", () => {
 			applyTransform(`
       import { ReactType } from 'react';
       ReactType;
-    `)
+    `),
 		).toMatchInlineSnapshot(`
 		"import { ElementType } from 'react';
 		ElementType;"
@@ -44,7 +44,7 @@ describe("transform deprecated-react-type", () => {
 			applyTransform(`
       import { ReactType as MyReactType } from 'react';
       MyReactType;
-    `)
+    `),
 		).toMatchInlineSnapshot(`
 		"import { ElementType as MyReactType } from 'react';
 		MyReactType;"
@@ -56,7 +56,7 @@ describe("transform deprecated-react-type", () => {
 			applyTransform(`
       import * as React from 'react';
       React.ReactType;
-    `)
+    `),
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		React.ElementType;"
@@ -68,7 +68,7 @@ describe("transform deprecated-react-type", () => {
 			applyTransform(`
       import * as Preact from 'preact';
       Preact.ReactType;
-    `)
+    `),
 		).toMatchInlineSnapshot(`
 		"import * as Preact from 'preact';
 		Preact.ElementType;"

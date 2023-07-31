@@ -35,7 +35,7 @@ const transform = (file, api, options) => {
 		const transformResult = transform(
 			{ path: file.path, source: currentFileSource },
 			api,
-			options
+			options,
 		);
 
 		if (transformResult == null) {

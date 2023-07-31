@@ -20,7 +20,7 @@ describe("transform useCallback-any", () => {
 		expect(
 			applyTransform(`
         useCallback();
-    `)
+    `),
 		).toMatchInlineSnapshot(`"useCallback();"`);
 	});
 
@@ -28,7 +28,7 @@ describe("transform useCallback-any", () => {
 		expect(
 			applyTransform(`
         useCallback((event) => {});
-    `)
+    `),
 		).toMatchInlineSnapshot(`"useCallback((event: any) => {});"`);
 	});
 
@@ -36,7 +36,7 @@ describe("transform useCallback-any", () => {
 		expect(
 			applyTransform(`
         useCallback(({ event }) => {});
-    `)
+    `),
 		).toMatchInlineSnapshot(`
 		"useCallback(({
 		  event
@@ -48,9 +48,9 @@ describe("transform useCallback-any", () => {
 		expect(
 			applyTransform(`
         useCallback((event, index: number, more) => {});
-    `)
+    `),
 		).toMatchInlineSnapshot(
-			`"useCallback((event: any, index: number, more: any) => {});"`
+			`"useCallback((event: any, index: number, more: any) => {});"`,
 		);
 	});
 
@@ -58,7 +58,7 @@ describe("transform useCallback-any", () => {
 		expect(
 			applyTransform(`
         useCallback((event: unknown) => {});
-    `)
+    `),
 		).toMatchInlineSnapshot(`"useCallback((event: unknown) => {});"`);
 	});
 
@@ -66,7 +66,7 @@ describe("transform useCallback-any", () => {
 		expect(
 			applyTransform(`
         React.useCallback((event) => {});
-    `)
+    `),
 		).toMatchInlineSnapshot(`"React.useCallback((event: any) => {});"`);
 	});
 
@@ -74,7 +74,7 @@ describe("transform useCallback-any", () => {
 		expect(
 			applyTransform(`
         React.useCallback(function (event) {});
-    `)
+    `),
 		).toMatchInlineSnapshot(`"React.useCallback(function (event: any) {});"`);
 	});
 
@@ -82,7 +82,7 @@ describe("transform useCallback-any", () => {
 		expect(
 			applyTransform(`
         React['useCallback']((event) => {});
-    `)
+    `),
 		).toMatchInlineSnapshot(`"React['useCallback']((event: any) => {});"`);
 	});
 
@@ -91,7 +91,7 @@ describe("transform useCallback-any", () => {
 			applyTransform(`
         import { useCallback as useBuiltinCallback } from "react";
         useBuiltinCallback((event) => {});
-    `)
+    `),
 		).toMatchInlineSnapshot(`
 		"import { useCallback as useBuiltinCallback } from "react";
 		useBuiltinCallback((event) => {});"
@@ -102,7 +102,7 @@ describe("transform useCallback-any", () => {
 		expect(
 			applyTransform(`
         const foo = useCallback((event) => {})
-    `)
+    `),
 		).toMatchInlineSnapshot(`"const foo = useCallback((event: any) => {})"`);
 	});
 
@@ -110,7 +110,7 @@ describe("transform useCallback-any", () => {
 		expect(
 			applyTransform(`
       const bar: Type = useCallback((event) => {})
-    `)
+    `),
 		).toMatchInlineSnapshot(`"const bar: Type = useCallback((event) => {})"`);
 	});
 
@@ -118,7 +118,7 @@ describe("transform useCallback-any", () => {
 		expect(
 			applyTransform(`
       	useCallback<Event>((event) => {})
-    `)
+    `),
 		).toMatchInlineSnapshot(`"useCallback<Event>((event) => {})"`);
 	});
 
@@ -126,7 +126,7 @@ describe("transform useCallback-any", () => {
 		expect(
 			applyTransform(`
         call(useCallback((event) => {}))
-    `)
+    `),
 		).toMatchInlineSnapshot(`"call(useCallback((event: any) => {}))"`);
 	});
 
@@ -134,7 +134,7 @@ describe("transform useCallback-any", () => {
 		expect(
 			applyTransform(`
       useCallback(call)
-    `)
+    `),
 		).toMatchInlineSnapshot(`"useCallback(call)"`);
 	});
 
@@ -142,7 +142,7 @@ describe("transform useCallback-any", () => {
 		expect(
 			applyTransform(`
 				useState(() => {})
-    `)
+    `),
 		).toMatchInlineSnapshot(`"useState(() => {})"`);
 	});
 });
