@@ -33,7 +33,7 @@
 		"dedent": "^1.0.0",
 		"eslint": "^8.12.0",
 		"jest": "^29.0.0",
-		"prettier": "^2.6.1",
+		"prettier": "^3.0.0",
 		"typescript": "^5.0.0"
 	},
 	"license": "MIT",
