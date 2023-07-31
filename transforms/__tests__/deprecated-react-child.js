@@ -25,9 +25,9 @@ describe("transform deprecated-react-child", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-					interface Props {
-						children?: ReactNode;
-					}"
+		interface Props {
+			children?: ReactNode;
+		}"
 	`);
 	});
 
@@ -41,9 +41,9 @@ describe("transform deprecated-react-child", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import { ReactChild } from 'react';
-				interface Props {
-						children?: React.ReactElement | number | string;
-					}"
+		interface Props {
+				children?: React.ReactElement | number | string;
+			}"
 	`);
 	});
 
@@ -58,8 +58,8 @@ describe("transform deprecated-react-child", () => {
 		).toMatchInlineSnapshot(`
 		"import { ReactChild as MyReactChild } from 'react';
 		   interface Props {
-						children?: MyReactChild;
-					}"
+			children?: MyReactChild;
+		}"
 	`);
 	});
 
@@ -74,8 +74,8 @@ describe("transform deprecated-react-child", () => {
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		   interface Props {
-						children?: React.ReactElement | number | string;
-					}"
+			children?: React.ReactElement | number | string;
+		}"
 	`);
 	});
 });

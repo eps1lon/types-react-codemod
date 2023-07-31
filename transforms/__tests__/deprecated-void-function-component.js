@@ -23,7 +23,7 @@ describe("transform deprecated-void-function-component", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import { FC } from 'react';
-						FC;"
+		FC;"
 	`);
 	});
 
@@ -36,8 +36,8 @@ describe("transform deprecated-void-function-component", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import { FC, FunctionComponent } from 'react';
-						FC;
-						FunctionComponent;"
+		FC;
+		FunctionComponent;"
 	`);
 	});
 
@@ -50,8 +50,8 @@ describe("transform deprecated-void-function-component", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import { FC as MyVFC, FunctionComponent as MyVoidFunctionComponent } from 'react';
-						MyVFC;
-						MyVoidFunctionComponent;"
+		MyVFC;
+		MyVoidFunctionComponent;"
 	`);
 	});
 
@@ -64,8 +64,8 @@ describe("transform deprecated-void-function-component", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-						React.FC;
-						React.FunctionComponent;"
+		React.FC;
+		React.FunctionComponent;"
 	`);
 	});
 
@@ -78,8 +78,8 @@ describe("transform deprecated-void-function-component", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import * as Preact from 'preact';
-						Preact.FC;
-						Preact.FunctionComponent;"
+		Preact.FC;
+		Preact.FunctionComponent;"
 	`);
 	});
 });

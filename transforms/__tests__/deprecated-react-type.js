@@ -23,7 +23,7 @@ describe("transform deprecated-react-type", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import { ElementType } from 'react';
-						ElementType;"
+		ElementType;"
 	`);
 	});
 

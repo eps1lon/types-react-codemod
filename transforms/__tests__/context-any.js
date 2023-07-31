@@ -116,10 +116,10 @@ describe("transform context-any", () => {
 		`)
 		).toMatchInlineSnapshot(`
 		"class Component {
-						render() {
-							return this.context.value;
-						}
-					}"
+			render() {
+				return this.context.value;
+			}
+		}"
 	`);
 	});
 });

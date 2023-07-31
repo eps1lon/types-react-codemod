@@ -23,7 +23,7 @@ describe("transform deprecated-sfc-element", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import { FunctionComponentElement } from 'react';
-						FunctionComponentElement;"
+		FunctionComponentElement;"
 	`);
 	});
 
@@ -35,7 +35,7 @@ describe("transform deprecated-sfc-element", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import { FunctionComponentElement } from 'react';
-						FunctionComponentElement;"
+		FunctionComponentElement;"
 	`);
 	});
 
@@ -47,7 +47,7 @@ describe("transform deprecated-sfc-element", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import { FunctionComponentElement as MySFCElement } from 'react';
-						MySFCElement;"
+		MySFCElement;"
 	`);
 	});
 
@@ -59,7 +59,7 @@ describe("transform deprecated-sfc-element", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-						React.FunctionComponentElement;"
+		React.FunctionComponentElement;"
 	`);
 	});
 
@@ -71,7 +71,7 @@ describe("transform deprecated-sfc-element", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import * as Preact from 'preact';
-						Preact.FunctionComponentElement;"
+		Preact.FunctionComponentElement;"
 	`);
 	});
 });
