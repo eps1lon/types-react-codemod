@@ -58,7 +58,7 @@ const contextAnyTransform = (file, api) => {
 			 */
 			const classBodyTokens = classDeclarationLoc.tokens.slice(
 				classDeclarationLoc.start.token,
-				classDeclarationLoc.end.token
+				classDeclarationLoc.end.token,
 			);
 			const readsContext = classBodyTokens.some((token) => {
 				return token.value === "context";
@@ -81,7 +81,7 @@ const contextAnyTransform = (file, api) => {
 						}
 
 						return false;
-					}
+					},
 				);
 
 				if (!hasTypedContext) {
@@ -92,7 +92,7 @@ const contextAnyTransform = (file, api) => {
 						j.classProperty(
 							j.identifier("context"),
 							null,
-							j.tsTypeAnnotation(j.tsAnyKeyword())
+							j.tsTypeAnnotation(j.tsAnyKeyword()),
 						),
 						...classBody,
 					]);

@@ -53,7 +53,7 @@ const refObjectDefaultsTransform = (file) => {
 					const unionIsApparentlyNullable = typeNode.types.some(
 						(unionMember) => {
 							return unionMember.type === "TSNullKeyword";
-						}
+						},
 					);
 
 					nullableType = unionIsApparentlyNullable

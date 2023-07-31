@@ -31,7 +31,7 @@ describe("preset-19", () => {
 		deprecatedReactChildTransform = mockTransform("../deprecated-react-child");
 		deprecatedReactTextTransform = mockTransform("../deprecated-react-text");
 		deprecatedVoidFunctionComponentTransform = mockTransform(
-			"../deprecated-void-function-component"
+			"../deprecated-void-function-component",
 		);
 
 		preset19Transform = require("../preset-19");
