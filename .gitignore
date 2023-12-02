@@ -127,6 +127,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+# macos only that leads to --immutable-cache errors in CI
+.yarn/cache/fsevents-patch-*.zip
 
 # macOS
 .DS_STORE
