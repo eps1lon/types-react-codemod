@@ -25,7 +25,8 @@ describe("types-react-codemod", () => {
 		     "deprecated-react-text", "deprecated-react-type", "deprecated-sfc-element",
 		                             "deprecated-sfc", "deprecated-stateless-component",
 		        "deprecated-void-function-component", "experimental-refobject-defaults",
-		      "implicit-children", "preset-18", "preset-19", "useCallback-implicit-any"]
+		                    "implicit-children", "preset-18", "preset-19", "scoped-jsx",
+		                                                     "useCallback-implicit-any"]
 		  paths                                                      [string] [required]
 
 		Options:
