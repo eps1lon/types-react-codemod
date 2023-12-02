@@ -2297,7 +2297,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
+"@types/node@npm:*, @types/node@npm:^20.0.0":
   version: 20.10.2
   resolution: "@types/node@npm:20.10.2"
   dependencies:
@@ -2310,15 +2310,6 @@ __metadata:
   version: 12.20.55
   resolution: "@types/node@npm:12.20.55"
   checksum: e4f86785f4092706e0d3b0edff8dca5a13b45627e4b36700acd8dfe6ad53db71928c8dee914d4276c7fd3b6ccd829aa919811c9eb708a2c8e4c6eb3701178c37
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^18.0.0":
-  version: 18.19.1
-  resolution: "@types/node@npm:18.19.1"
-  dependencies:
-    undici-types: ~5.26.4
-  checksum: f687338a6f1c463b03232337652804f62f5ae197ae9517a76cf6543ec5a3e358e41f26da0e4fc1afe4871c4a96eec3e3c440fb4ddb616cdc336b42ca203adb29
   languageName: node
   linkType: hard
 
@@ -7399,7 +7390,7 @@ __metadata:
     "@jest/globals": ^29.0.0
     "@types/inquirer": ^9.0.0
     "@types/jscodeshift": ^0.11.3
-    "@types/node": ^18.0.0
+    "@types/node": ^20.0.0
     "@types/yargs": ^17.0.10
     dedent: ^1.0.0
     eslint: ^8.12.0
