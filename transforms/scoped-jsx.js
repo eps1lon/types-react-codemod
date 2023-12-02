@@ -14,7 +14,6 @@ const deprecatedReactChildTransform = (file, api) => {
 	ast.find(j.ImportDeclaration).forEach((importDeclaration) => {
 		const node = importDeclaration.value;
 		if (
-			node.importKind === "value" &&
 			node.source.value === "react" &&
 			node.specifiers?.[0]?.type === "ImportNamespaceSpecifier"
 		) {
@@ -49,28 +48,44 @@ const deprecatedReactChildTransform = (file, api) => {
 				j.tsQualifiedName(
 					j.tsQualifiedName(
 						j.identifier(/** @type {string} */ (reactNamespaceName)),
-						j.identifier("JSX")
+						j.identifier("JSX"),
 					),
-					j.identifier(namespaceMember)
+					j.identifier(namespaceMember),
 				),
-				typeReference.value.typeParameters
+				typeReference.value.typeParameters,
 			);
 		});
 	} else if (globalNamespaceReferences.length > 0) {
-		hasChanges = true;
+		const reactImport = ast.find(j.ImportDeclaration, {
+			source: { value: "react" },
+		});
+		const jsxImportSpecifier = reactImport.find(j.ImportSpecifier, {
+			imported: { name: "JSX" },
+		});
 
-		const jsxNamespaceImport = j.importDeclaration(
-			[j.importSpecifier(j.identifier("JSX"))],
-			j.stringLiteral("react")
-		);
+		if (jsxImportSpecifier.length === 0) {
+			hasChanges = true;
 
-		const lastImport = ast.find(j.ImportDeclaration).at(-1);
+			const hasExistingReactImport = reactImport.length > 0;
+			if (hasExistingReactImport) {
+				reactImport
+					.get("specifiers")
+					.value.push(j.importSpecifier(j.identifier("JSX")));
+			} else {
+				const jsxNamespaceImport = j.importDeclaration(
+					[j.importSpecifier(j.identifier("JSX"))],
+					j.stringLiteral("react"),
+				);
 
-		if (lastImport.length > 0) {
-			lastImport.insertAfter(jsxNamespaceImport);
-		} else {
-			// TODO: Intuitively I wanted to do `ast.insertBefore` but that crashes
-			ast.get("program").get("body").value.unshift(jsxNamespaceImport);
+				const lastImport = ast.find(j.ImportDeclaration).at(-1);
+
+				if (lastImport.length > 0) {
+					lastImport.insertAfter(jsxNamespaceImport);
+				} else {
+					// TODO: Intuitively I wanted to do `ast.insertBefore` but that crashes
+					ast.get("program").get("body").value.unshift(jsxNamespaceImport);
+				}
+			}
 		}
 	}
 
