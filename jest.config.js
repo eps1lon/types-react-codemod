@@ -99,6 +99,10 @@ const config = {
 	// A preset that is used as a base for Jest's configuration
 	// preset: undefined,
 
+	// TODO: Can be removed in Jest 30
+	// https://github.com/jestjs/jest/issues/14305
+	prettierPath: require.resolve("prettier-v2"),
+
 	// Run tests from one or more projects
 	// projects: undefined,
 

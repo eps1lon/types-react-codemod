@@ -7,7 +7,7 @@ describe("types-react-codemod", () => {
 	const exec = promisify(childProcess.exec);
 	const typesReactCodemodBin = path.join(
 		__dirname,
-		"../types-react-codemod.cjs",
+		"../types-react-codemod.cjs"
 	);
 	function execTypesReactCodemod(args) {
 		return exec(`${typesReactCodemodBin} ${args}`, {});
