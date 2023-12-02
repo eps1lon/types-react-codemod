@@ -21,9 +21,9 @@ describe("transform scoped-jsx", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-					interface Props {
-						children?: ReactNode;
-					}"
+		interface Props {
+			children?: ReactNode;
+		}"
 	`);
 	});
 
@@ -46,7 +46,7 @@ describe("transform scoped-jsx", () => {
 			`)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-						declare const element: React.JSX.Element;"
+		declare const element: React.JSX.Element;"
 	`);
 	});
 
@@ -104,7 +104,7 @@ describe("transform scoped-jsx", () => {
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react'
 
-						declare const attributes: React.JSX.LibraryManagedAttributes<A, B>;"
+		declare const attributes: React.JSX.LibraryManagedAttributes<A, B>;"
 	`);
 	});
 });
