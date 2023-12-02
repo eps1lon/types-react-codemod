@@ -1,5 +1,9 @@
 name: Node.js CI
 
+env:
+  # Passes locally on MacOS but not CI for unknown reasons
+  YARN_ENABLE_HARDENED_MODE: 0
+
 on:
   push:
     branches: [main]
