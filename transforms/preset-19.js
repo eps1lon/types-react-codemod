@@ -1,4 +1,5 @@
 const deprecatedReactChildTransform = require("./deprecated-react-child");
+const deprecatedReactChildrenTransform = require("./deprecated-react-children");
 const deprecatedReactTextTransform = require("./deprecated-react-text");
 const deprecatedVoidFunctionComponentTransform = require("./deprecated-void-function-component");
 const refobjectDefaultsTransform = require("./experimental-refobject-defaults");
@@ -17,6 +18,9 @@ const transform = (file, api, options) => {
 	const transforms = [];
 	if (transformNames.has("deprecated-react-child")) {
 		transforms.push(deprecatedReactChildTransform);
+	}
+	if (transformNames.has("deprecated-react-children")) {
+		transforms.push(deprecatedReactChildrenTransform);
 	}
 	if (transformNames.has("deprecated-react-text")) {
 		transforms.push(deprecatedReactTextTransform);
