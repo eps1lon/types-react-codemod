@@ -1,5 +1,25 @@
 # types-react-codemod
 
+## 3.0.0
+
+### Major Changes
+
+- [#304](https://github.com/eps1lon/types-react-codemod/pull/304) [`0730d90553bd7dfc889a1325c9e975c16f367439`](https://github.com/eps1lon/types-react-codemod/commit/0730d90553bd7dfc889a1325c9e975c16f367439) Thanks [@renovate](https://github.com/apps/renovate)! - Update Node.js support matrix
+
+  Drop support for unmaintained Node.js versions (14.x, 16.x, 17.x, and 19.x) to reduce maintenance cost.
+
+### Minor Changes
+
+- [#214](https://github.com/eps1lon/types-react-codemod/pull/214) [`10fb254afbccab5e7e1941bfee49f957ca7ed1a5`](https://github.com/eps1lon/types-react-codemod/commit/10fb254afbccab5e7e1941bfee49f957ca7ed1a5) Thanks [@eps1lon](https://github.com/eps1lon)! - Add scoped-jsx transform
+
+  This replaces usage of the deprecated global JSX namespace with usage of the scoped namespace:
+
+  ```diff
+  +import { JSX } from 'react'
+
+   const element: JSX.Element
+  ```
+
 ## 2.1.0
 
 ### Minor Changes
