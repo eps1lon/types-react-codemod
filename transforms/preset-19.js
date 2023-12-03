@@ -2,6 +2,7 @@ const deprecatedReactChildTransform = require("./deprecated-react-child");
 const deprecatedReactTextTransform = require("./deprecated-react-text");
 const deprecatedVoidFunctionComponentTransform = require("./deprecated-void-function-component");
 const refobjectDefaultsTransform = require("./experimental-refobject-defaults");
+const plainUseRefTransform = require("./plain-use-ref");
 const scopedJsxTransform = require("./scoped-jsx");
 
 /**
@@ -26,6 +27,9 @@ const transform = (file, api, options) => {
 	}
 	if (transformNames.has("plain-refs")) {
 		transforms.push(refobjectDefaultsTransform);
+	}
+	if (transformNames.has("plain-use-ref")) {
+		transforms.push(plainUseRefTransform);
 	}
 	if (transformNames.has("scoped-jsx")) {
 		transforms.push(scopedJsxTransform);
