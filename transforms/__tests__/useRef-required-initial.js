@@ -21,9 +21,9 @@ describe("transform useRef-required-initial", () => {
     `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-					interface Props {
-						children?: ReactNode;
-					}"
+		interface Props {
+			children?: ReactNode;
+		}"
 	`);
 	});
 
@@ -35,7 +35,7 @@ describe("transform useRef-required-initial", () => {
       `)
 		).toMatchInlineSnapshot(`
 		"import { useRef } from 'react';
-						const myRef = useRef<number>(undefined);"
+		const myRef = useRef<number>(undefined);"
 	`);
 	});
 
@@ -59,7 +59,7 @@ describe("transform useRef-required-initial", () => {
       `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-						const myRef = React.useRef<number>(undefined);"
+		const myRef = React.useRef<number>(undefined);"
 	`);
 	});
 });
