@@ -36,10 +36,10 @@ describe("preset-19", () => {
 			"../deprecated-void-function-component",
 		);
 		refobjectDefaultsTransform = mockTransform(
-			"../experimental-refobject-defaults"
+			"../experimental-refobject-defaults",
 		);
 		useRefRequiredInitialTransform = mockTransform(
-			"../experimental-useRef-required-initial"
+			"../experimental-useRef-required-initial",
 		);
 
 		preset19Transform = require("../preset-19");
