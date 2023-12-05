@@ -38,8 +38,8 @@ Positionals:
      "deprecated-react-text", "deprecated-react-type", "deprecated-sfc-element",
                              "deprecated-sfc", "deprecated-stateless-component",
         "deprecated-void-function-component", "experimental-refobject-defaults",
-                    "implicit-children", "preset-18", "preset-19", "scoped-jsx",
-                                                     "useCallback-implicit-any"]
+       "experimental-useRef-required-initial", "implicit-children", "preset-18",
+                          "preset-19", "scoped-jsx", "useCallback-implicit-any"]
   paths                                                      [string] [required]
 
 Options:
@@ -267,7 +267,7 @@ In earlier versions of `@types/react` this codemod would change the typings.
 
 ### `experimental-refobject-defaults`
 
-WARNING: This is an experimental codemod to intended for codebases using published types.
+WARNING: This is an experimental codemod to intended for codebases using unpublished types.
 Only use if you're using https://github.com/DefinitelyTyped/DefinitelyTyped/pull/64896.
 
 `RefObject` no longer makes `current` nullable by default
@@ -305,6 +305,31 @@ If the import style doesn't match your preferences, you should set up auto-fixab
  import * as React from 'react';
 -const element: JSX.Element = <div />;
 +const element: React.JSX.Element = <div />;
+```
+
+### `experimental-useRef-required-initial`
+
+WARNING: This is an experimental codemod to intended for codebases using unpublished types.
+Only use if you're using https://github.com/DefinitelyTyped/DefinitelyTyped/pull/64920.
+
+`useRef` now always requires an initial value.
+Implicit `undefined` is forbidden
+
+```diff
+ import * as React from "react";
+-React.useRef()
++React.useRef(undefined)
+```
+
+#### `experimental-useRef-required-initial` false-negative pattern A
+
+Importing `useRef` via aliased named import will result in the transform being skipped.
+
+```tsx
+import { useRef as useReactRef } from "react";
+
+// not transformed
+useReactRef<number>();
 ```
 
 ## Supported platforms

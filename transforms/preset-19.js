@@ -3,6 +3,7 @@ const deprecatedReactTextTransform = require("./deprecated-react-text");
 const deprecatedVoidFunctionComponentTransform = require("./deprecated-void-function-component");
 const refobjectDefaultsTransform = require("./experimental-refobject-defaults");
 const scopedJsxTransform = require("./scoped-jsx");
+const useRefRequiredInitialTransform = require("./experimental-useRef-required-initial");
 
 /**
  * @type {import('jscodeshift').Transform}
@@ -24,11 +25,14 @@ const transform = (file, api, options) => {
 	if (transformNames.has("deprecated-void-function-component")) {
 		transforms.push(deprecatedVoidFunctionComponentTransform);
 	}
-	if (transformNames.has("plain-refs")) {
+	if (transformNames.has("experimental-refobject-defaults")) {
 		transforms.push(refobjectDefaultsTransform);
 	}
 	if (transformNames.has("scoped-jsx")) {
 		transforms.push(scopedJsxTransform);
+	}
+	if (transformNames.has("experimental-useRef-required-initial")) {
+		transforms.push(useRefRequiredInitialTransform);
 	}
 
 	let wasAlwaysSkipped = true;
