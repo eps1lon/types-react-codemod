@@ -7,7 +7,7 @@ describe("types-react-codemod", () => {
 	const exec = promisify(childProcess.exec);
 	const typesReactCodemodBin = path.join(
 		__dirname,
-		"../types-react-codemod.cjs",
+		"../types-react-codemod.cjs"
 	);
 	function execTypesReactCodemod(args) {
 		return exec(`${typesReactCodemodBin} ${args}`, {});
@@ -24,9 +24,9 @@ describe("types-react-codemod", () => {
 		  codemod [string] [required] [choices: "context-any", "deprecated-react-child",
 		     "deprecated-react-text", "deprecated-react-type", "deprecated-sfc-element",
 		                             "deprecated-sfc", "deprecated-stateless-component",
-		        "deprecated-void-function-component", "experimental-refobject-defaults",
-		       "experimental-useRef-required-initial", "implicit-children", "preset-18",
-		                          "preset-19", "scoped-jsx", "useCallback-implicit-any"]
+		         "deprecated-void-function-component", "implicit-children", "preset-18",
+		    "preset-19", "refobject-defaults", "scoped-jsx", "useCallback-implicit-any",
+		                                                      "useRef-required-initial"]
 		  paths                                                      [string] [required]
 
 		Options:

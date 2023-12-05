@@ -37,9 +37,9 @@ Positionals:
   codemod [string] [required] [choices: "context-any", "deprecated-react-child",
      "deprecated-react-text", "deprecated-react-type", "deprecated-sfc-element",
                              "deprecated-sfc", "deprecated-stateless-component",
-        "deprecated-void-function-component", "experimental-refobject-defaults",
-       "experimental-useRef-required-initial", "implicit-children", "preset-18",
-                          "preset-19", "scoped-jsx", "useCallback-implicit-any"]
+         "deprecated-void-function-component", "implicit-children", "preset-18",
+    "preset-19", "refobject-defaults", "scoped-jsx", "useCallback-implicit-any",
+                                                      "useRef-required-initial"]
   paths                                                      [string] [required]
 
 Options:
@@ -71,8 +71,12 @@ The reason being that a false-positive can be reverted easily (assuming you have
 - `implicit-children`
 - `useCallback-implicit-any`
 - `preset-19`
+- `deprecated-react-child`
 - `deprecated-react-text`
+- `deprecated-void-function-component`
+- `refobject-defaults`
 - `scoped-jsx`
+- `useRef-required-initial`
 
 ### `preset-18`
 
@@ -265,7 +269,7 @@ In earlier versions of `@types/react` this codemod would change the typings.
 +const Component: React.FunctionComponent = () => {}
 ```
 
-### `experimental-refobject-defaults`
+### `refobject-defaults`
 
 WARNING: This is an experimental codemod to intended for codebases using unpublished types.
 Only use if you're using https://github.com/DefinitelyTyped/DefinitelyTyped/pull/64896.
@@ -307,13 +311,10 @@ If the import style doesn't match your preferences, you should set up auto-fixab
 +const element: React.JSX.Element = <div />;
 ```
 
-### `experimental-useRef-required-initial`
-
-WARNING: This is an experimental codemod to intended for codebases using unpublished types.
-Only use if you're using https://github.com/DefinitelyTyped/DefinitelyTyped/pull/64920.
+### `useRef-required-initial`
 
 `useRef` now always requires an initial value.
-Implicit `undefined` is forbidden
+Implicit `undefined` is forbidden.
 
 ```diff
  import * as React from "react";
@@ -321,7 +322,7 @@ Implicit `undefined` is forbidden
 +React.useRef(undefined)
 ```
 
-#### `experimental-useRef-required-initial` false-negative pattern A
+#### `useRef-required-initial` false-negative pattern A
 
 Importing `useRef` via aliased named import will result in the transform being skipped.
 
