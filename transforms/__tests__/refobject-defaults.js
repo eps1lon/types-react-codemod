@@ -1,7 +1,7 @@
 const { describe, expect, test } = require("@jest/globals");
 const dedent = require("dedent");
 const JscodeshiftTestUtils = require("jscodeshift/dist/testUtils");
-const refobjectDefaultsTransform = require("../experimental-refobject-defaults");
+const refobjectDefaultsTransform = require("../refobject-defaults");
 
 function applyTransform(source, options = {}) {
 	return JscodeshiftTestUtils.applyTransform(

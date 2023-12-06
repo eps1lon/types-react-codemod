@@ -1,7 +1,7 @@
 const { describe, expect, test } = require("@jest/globals");
 const dedent = require("dedent");
 const JscodeshiftTestUtils = require("jscodeshift/dist/testUtils");
-const useRefRequiredInitial = require("../experimental-useRef-required-initial");
+const useRefRequiredInitial = require("../useRef-required-initial");
 
 function applyTransform(source, options = {}) {
 	return JscodeshiftTestUtils.applyTransform(useRefRequiredInitial, options, {
