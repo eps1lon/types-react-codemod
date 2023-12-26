@@ -30,16 +30,15 @@ Time elapsed: 0.229seconds
 ## Usage
 
 ```bash
-$ npx types-react-codemod --help
-types-react-codemod <codemod> <paths...>
+$ npx types-react-codemod <codemod> <paths...>
 
 Positionals:
   codemod [string] [required] [choices: "context-any", "deprecated-react-child",
-     "deprecated-react-text", "deprecated-react-type", "deprecated-sfc-element",
-                             "deprecated-sfc", "deprecated-stateless-component",
-         "deprecated-void-function-component", "implicit-children", "preset-18",
-    "preset-19", "refobject-defaults", "scoped-jsx", "useCallback-implicit-any",
-                                                      "useRef-required-initial"]
+                         "deprecated-react-node-array", "deprecated-react-text",
+            "deprecated-react-type", "deprecated-sfc-element", "deprecated-sfc",
+         "deprecated-stateless-component", "deprecated-void-function-component",
+            "implicit-children", "preset-18", "preset-19", "refobject-defaults",
+            "scoped-jsx", "useCallback-implicit-any", "useRef-required-initial"]
   paths                                                      [string] [required]
 
 Options:
@@ -231,6 +230,28 @@ import { ReactChild as MyReactChild } from "react";
 interface Props {
 	// not transformed
 	label?: MyReactChild;
+}
+```
+
+### `deprecated-react-node-array`
+
+```diff
+ import * as React from "react";
+ interface Props {
+-  children?: React.ReactNodeArray;
++  children?: ReadonlyArray<React.reactNode>;
+ }
+```
+
+#### `deprecated-react-node-array` false-negative pattern A
+
+Importing `ReactNodeArray` via aliased named import will result in the transform being skipped.
+
+```tsx
+import { ReactNodeArray as MyReactNodeArray } from "react";
+interface Props {
+	// not transformed
+	children?: MyReactNodeArray;
 }
 ```
 
