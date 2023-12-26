@@ -30,10 +30,7 @@ const deprecatedReactChildTransform = (file, api) => {
 			return j.tsUnionType([
 				// React.ReactElement
 				j.tsTypeReference(
-					j.tsQualifiedName(
-						j.identifier("React"),
-						j.identifier("ReactElement"),
-					),
+					j.tsQualifiedName(j.identifier("React"), j.identifier("ReactElement"))
 				),
 				j.tsNumberKeyword(),
 				j.tsStringKeyword(),

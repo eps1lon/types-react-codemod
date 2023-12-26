@@ -10,7 +10,7 @@ function applyTransform(source, options = {}) {
 		{
 			path: "test.d.ts",
 			source: dedent(source),
-		},
+		}
 	);
 }
 
@@ -20,7 +20,7 @@ describe("transform deprecated-stateless-component", () => {
 			applyTransform(`
 				import { FunctionComponent } from 'react';
 				FunctionComponent;
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import { FunctionComponent } from 'react';
 		FunctionComponent;"
@@ -32,7 +32,7 @@ describe("transform deprecated-stateless-component", () => {
 			applyTransform(`
 				import { StatelessComponent } from 'react';
 				StatelessComponent;
-			`),
+			`)
 		).toMatchInlineSnapshot(`
 		"import { FunctionComponent } from 'react';
 		FunctionComponent;"
@@ -44,7 +44,7 @@ describe("transform deprecated-stateless-component", () => {
 			applyTransform(`
 				import { StatelessComponent as MyStatelessComponent } from 'react';
 				MyStatelessComponent;
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import { FunctionComponent as MyStatelessComponent } from 'react';
 		MyStatelessComponent;"
@@ -56,7 +56,7 @@ describe("transform deprecated-stateless-component", () => {
 			applyTransform(`
 				import * as React from 'react';
 				React.StatelessComponent;
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		React.FunctionComponent;"
@@ -68,7 +68,7 @@ describe("transform deprecated-stateless-component", () => {
 			applyTransform(`
 				import * as Preact from 'preact';
 				Preact.StatelessComponent;
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import * as Preact from 'preact';
 		Preact.FunctionComponent;"

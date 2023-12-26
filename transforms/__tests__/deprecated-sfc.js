@@ -16,7 +16,7 @@ describe("transform deprecated-sfc", () => {
 			applyTransform(`
 				import { FC } from 'react';
 				FC;
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import { FC } from 'react';
 		FC;"
@@ -28,7 +28,7 @@ describe("transform deprecated-sfc", () => {
 			applyTransform(`
 				import { SFC } from 'react';
 				SFC;
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import { FC } from 'react';
 		FC;"
@@ -40,7 +40,7 @@ describe("transform deprecated-sfc", () => {
 			applyTransform(`
 				import { SFC as MySFC } from 'react';
 				MySFCElement;
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import { FC as MySFC } from 'react';
 		MySFCElement;"
@@ -52,7 +52,7 @@ describe("transform deprecated-sfc", () => {
 			applyTransform(`
 				import * as React from 'react';
 				React.SFC;
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		React.FC;"
@@ -64,7 +64,7 @@ describe("transform deprecated-sfc", () => {
 			applyTransform(`
 				import * as Preact from 'preact';
 				Preact.SFC;
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import * as Preact from 'preact';
 		Preact.FC;"

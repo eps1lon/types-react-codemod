@@ -15,7 +15,7 @@ describe("transform context-any", () => {
 		expect(
 			applyTransform(`
         class A extends React.Component {}
-    `),
+    `)
 		).toMatchInlineSnapshot(`"class A extends React.Component {}"`);
 	});
 
@@ -23,7 +23,7 @@ describe("transform context-any", () => {
 		expect(
 			applyTransform(`
         class A extends React.PureComponent {}
-    `),
+    `)
 		).toMatchInlineSnapshot(`"class A extends React.PureComponent {}"`);
 	});
 
@@ -36,7 +36,7 @@ describe("transform context-any", () => {
             return this.context.value;
           }
         }
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"class A extends React.Component {
 		  context: any
@@ -55,7 +55,7 @@ describe("transform context-any", () => {
             return this.context.value;
           }
         }
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"class A extends PureComponent {
 		  context: any;
@@ -74,7 +74,7 @@ describe("transform context-any", () => {
             return this.context.value;
           }
         }
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"class A extends React.Component {
 		  context: any;
@@ -94,7 +94,7 @@ describe("transform context-any", () => {
             return this.context.value;
           }
         }
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"class A extends React.Component {}
 		class B extends A {
@@ -113,7 +113,7 @@ describe("transform context-any", () => {
 					return this.context.value;
 				}
 			}
-		`),
+		`)
 		).toMatchInlineSnapshot(`
 		"class Component {
 			render() {

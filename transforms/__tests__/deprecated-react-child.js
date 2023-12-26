@@ -10,7 +10,7 @@ function applyTransform(source, options = {}) {
 		{
 			path: "test.d.ts",
 			source: dedent(source),
-		},
+		}
 	);
 }
 
@@ -22,7 +22,7 @@ describe("transform deprecated-react-child", () => {
 			interface Props {
 				children?: ReactNode;
 			}
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		interface Props {
@@ -38,7 +38,7 @@ describe("transform deprecated-react-child", () => {
 		interface Props {
 				children?: ReactChild;
 			}
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import { ReactChild } from 'react';
 		interface Props {
@@ -54,7 +54,7 @@ describe("transform deprecated-react-child", () => {
       interface Props {
 				children?: MyReactChild;
 			}
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import { ReactChild as MyReactChild } from 'react';
 		   interface Props {
@@ -70,7 +70,7 @@ describe("transform deprecated-react-child", () => {
       interface Props {
 				children?: React.ReactChild;
 			}
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		   interface Props {

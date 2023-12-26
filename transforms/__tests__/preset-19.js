@@ -35,19 +35,19 @@ describe("preset-19", () => {
 
 		deprecatedReactChildTransform = mockTransform("../deprecated-react-child");
 		deprecatedReactNodeArrayTransform = mockTransform(
-			"../deprecated-react-node-array",
+			"../deprecated-react-node-array"
 		);
 		deprecatedReactFragmentTransform = mockTransform(
-			"../deprecated-react-fragment",
+			"../deprecated-react-fragment"
 		);
 		deprecatedReactTextTransform = mockTransform("../deprecated-react-text");
 		deprecatedVoidFunctionComponentTransform = mockTransform(
-			"../deprecated-void-function-component",
+			"../deprecated-void-function-component"
 		);
 		refobjectDefaultsTransform = mockTransform("../refobject-defaults");
 		scopedJSXTransform = mockTransform("../scoped-jsx");
 		useRefRequiredInitialTransform = mockTransform(
-			"../useRef-required-initial",
+			"../useRef-required-initial"
 		);
 
 		preset19Transform = require("../preset-19");

@@ -10,7 +10,7 @@ function applyTransform(source, options = {}) {
 		{
 			path: "test.d.ts",
 			source: dedent(source),
-		},
+		}
 	);
 }
 
@@ -20,7 +20,7 @@ describe("transform deprecated-void-function-component", () => {
 			applyTransform(`
 				import { FC } from 'react';
 				FC;
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import { FC } from 'react';
 		FC;"
@@ -33,7 +33,7 @@ describe("transform deprecated-void-function-component", () => {
 				import { VFC, VoidFunctionComponent } from 'react';
 				VFC;
 				VoidFunctionComponent;
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import { FC, FunctionComponent } from 'react';
 		FC;
@@ -47,7 +47,7 @@ describe("transform deprecated-void-function-component", () => {
 				import { VFC as MyVFC, VoidFunctionComponent as MyVoidFunctionComponent } from 'react';
 				MyVFC;
 				MyVoidFunctionComponent;
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import { FC as MyVFC, FunctionComponent as MyVoidFunctionComponent } from 'react';
 		MyVFC;
@@ -61,7 +61,7 @@ describe("transform deprecated-void-function-component", () => {
 				import * as React from 'react';
 				React.VFC;
 				React.VoidFunctionComponent;
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		React.FC;
@@ -75,7 +75,7 @@ describe("transform deprecated-void-function-component", () => {
 				import * as Preact from 'preact';
 				Preact.VFC;
 				Preact.VoidFunctionComponent;
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import * as Preact from 'preact';
 		Preact.FC;

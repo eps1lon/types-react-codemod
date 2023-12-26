@@ -18,7 +18,7 @@ describe("transform useRef-required-initial", () => {
 			interface Props {
 				children?: ReactNode;
 			}
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		interface Props {
@@ -32,7 +32,7 @@ describe("transform useRef-required-initial", () => {
 			applyTransform(`
         import { useRef } from 'react';
 				const myRef = useRef<number>();
-      `),
+      `)
 		).toMatchInlineSnapshot(`
 		"import { useRef } from 'react';
 		const myRef = useRef<number>(undefined);"
@@ -44,7 +44,7 @@ describe("transform useRef-required-initial", () => {
 			applyTransform(`
         import { useRef as useReactRef } from 'react';
         const myRef = useReactRef<number>();
-      `),
+      `)
 		).toMatchInlineSnapshot(`
 		"import { useRef as useReactRef } from 'react';
 		const myRef = useReactRef<number>();"
@@ -56,7 +56,7 @@ describe("transform useRef-required-initial", () => {
 			applyTransform(`
 				import * as React from 'react';
 				const myRef = React.useRef<number>();
-      `),
+      `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		const myRef = React.useRef<number>(undefined);"

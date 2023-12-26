@@ -10,7 +10,7 @@ function applyTransform(source, options = {}) {
 		{
 			path: "test.d.ts",
 			source: dedent(source),
-		},
+		}
 	);
 }
 
@@ -22,7 +22,7 @@ describe("transform refobject-defaults", () => {
 			interface Props {
 				children?: ReactNode;
 			}
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		interface Props {
@@ -36,7 +36,7 @@ describe("transform refobject-defaults", () => {
 			applyTransform(`
         import { RefObject } from 'react';
 				const myRef: RefObject<View> = createRef();
-      `),
+      `)
 		).toMatchInlineSnapshot(`
 		"import { RefObject } from 'react';
 		const myRef: RefObject<View | null> = createRef();"
@@ -48,7 +48,7 @@ describe("transform refobject-defaults", () => {
 			applyTransform(`
 				import { RefObject as MyRefObject } from 'react';
 				const myRef: MyRefObject<View> = createRef();
-      `),
+      `)
 		).toMatchInlineSnapshot(`
 		"import { RefObject as MyRefObject } from 'react';
 		const myRef: MyRefObject<View> = createRef();"
@@ -60,7 +60,7 @@ describe("transform refobject-defaults", () => {
 			applyTransform(`
 				import * as React from 'react';
 				const myRef: React.RefObject<View> = createRef();
-      `),
+      `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		const myRef: React.RefObject<View | null> = createRef();"
@@ -72,7 +72,7 @@ describe("transform refobject-defaults", () => {
 			applyTransform(`
         import * as React from 'react';
 				const myRef: React.RefObject<number | string> = createRef();
-      `),
+      `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		const myRef: React.RefObject<number | string | null> = createRef();"
@@ -84,7 +84,7 @@ describe("transform refobject-defaults", () => {
 			applyTransform(`
         import * as React from 'react';
 				const myRef: React.RefObject<null | number> = createRef();
-      `),
+      `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		const myRef: React.RefObject<null | number> = createRef();"
@@ -99,7 +99,7 @@ describe("transform refobject-defaults", () => {
 				const stillAnyRef: React.RefObject<any | number> = createRef();
 				type AnyAlias = any;
 				const notApparentAny: React.RefObject<AnyAlias> = createRef();
-      `),
+      `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		const anyRef: React.RefObject<any> = createRef();
@@ -111,9 +111,9 @@ describe("transform refobject-defaults", () => {
 
 	test("regression test discovered in Klarna klapp repo", () => {
 		expect(
-			applyTransform(`new Map<string, React.RefObject<HTMLDivElement>>()`),
+			applyTransform(`new Map<string, React.RefObject<HTMLDivElement>>()`)
 		).toMatchInlineSnapshot(
-			`"new Map<string, React.RefObject<HTMLDivElement | null>>()"`,
+			`"new Map<string, React.RefObject<HTMLDivElement | null>>()"`
 		);
 	});
 });

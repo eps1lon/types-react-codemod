@@ -18,7 +18,7 @@ describe("transform scoped-jsx", () => {
 			interface Props {
 				children?: ReactNode;
 			}
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		interface Props {
@@ -31,7 +31,7 @@ describe("transform scoped-jsx", () => {
 		expect(
 			applyTransform(`
 				declare const element: JSX.Element;
-			`),
+			`)
 		).toMatchInlineSnapshot(`
 		"import { JSX } from "react";
 		declare const element: JSX.Element;"
@@ -43,7 +43,7 @@ describe("transform scoped-jsx", () => {
 			applyTransform(`
 				import * as React from 'react';
 				declare const element: JSX.Element;
-			`),
+			`)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		declare const element: React.JSX.Element;"
@@ -55,7 +55,7 @@ describe("transform scoped-jsx", () => {
 			applyTransform(`
 				import type * as React from 'react';
 				declare const element: JSX.Element;
-			`),
+			`)
 		).toMatchInlineSnapshot(`
 		"import type * as React from 'react';
 		declare const element: React.JSX.Element;"
@@ -68,7 +68,7 @@ describe("transform scoped-jsx", () => {
 				import { ReactNode } from 'react';
 				declare const element: JSX.Element;
 				declare const node: ReactNode;
-			`),
+			`)
 		).toMatchInlineSnapshot(`
 		"import { ReactNode, JSX } from 'react';
 		declare const element: JSX.Element;
@@ -81,7 +81,7 @@ describe("transform scoped-jsx", () => {
 			applyTransform(`
 				import { JSX } from 'react';
 				declare const element: JSX.Element;
-			`),
+			`)
 		).toMatchInlineSnapshot(`
 		"import { JSX } from 'react';
 		declare const element: JSX.Element;"
@@ -93,7 +93,7 @@ describe("transform scoped-jsx", () => {
 			applyTransform(`
 				const React = require('react');
 				declare const element: JSX.Element;
-			`),
+			`)
 		).toMatchInlineSnapshot(`
 		"import { JSX } from "react";
 		const React = require('react');
@@ -108,7 +108,7 @@ describe("transform scoped-jsx", () => {
 				import {} from '@testing-library/react'
 
 				declare const element: JSX.Element;
-			`),
+			`)
 		).toMatchInlineSnapshot(`
 		"import {} from 'react-dom'
 		import {} from '@testing-library/react'
@@ -125,7 +125,7 @@ describe("transform scoped-jsx", () => {
 				import * as React from 'react'
 
 				declare const attributes: JSX.LibraryManagedAttributes<A, B>;
-			`),
+			`)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react'
 

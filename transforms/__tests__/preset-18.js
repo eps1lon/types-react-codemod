@@ -37,11 +37,11 @@ describe("preset-18", () => {
 		deprecatedSFCElementTransform = mockTransform("../deprecated-sfc-element");
 		deprecatedSFCTransform = mockTransform("../deprecated-sfc");
 		deprecatedStatelessComponentTransform = mockTransform(
-			"../deprecated-stateless-component",
+			"../deprecated-stateless-component"
 		);
 		implicitChildrenTransform = mockTransform("../implicit-children");
 		useCallbackImplicitAnyTransform = mockTransform(
-			"../useCallback-implicit-any",
+			"../useCallback-implicit-any"
 		);
 
 		preset18Transform = require("../preset-18");

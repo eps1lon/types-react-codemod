@@ -10,7 +10,7 @@ function applyTransform(source, options = {}) {
 		{
 			path: "test.d.ts",
 			source: dedent(source),
-		},
+		}
 	);
 }
 
@@ -22,7 +22,7 @@ describe("transform deprecated-react-node-array", () => {
 			interface Props {
 				children?: ReactNode;
 			}
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		interface Props {
@@ -38,7 +38,7 @@ describe("transform deprecated-react-node-array", () => {
 		interface Props {
 				children?: ReactFragment;
 			}
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import { ReactNode } from 'react';
 		interface Props {
@@ -54,7 +54,7 @@ describe("transform deprecated-react-node-array", () => {
 		interface Props {
 				children?: ReactFragment;
 			}
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import { ReactNode } from 'react';
 		interface Props {
@@ -70,7 +70,7 @@ describe("transform deprecated-react-node-array", () => {
       interface Props {
 				children?: MyReactFragment;
 			}
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import { ReactFragment as MyReactFragment } from 'react';
 		   interface Props {
@@ -86,7 +86,7 @@ describe("transform deprecated-react-node-array", () => {
       interface Props {
 				children?: React.ReactFragment;
 			}
-    `),
+    `)
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		   interface Props {
