@@ -6,6 +6,7 @@ describe("preset-19", () => {
 	let preset19Transform;
 	let deprecatedReactChildTransform;
 	let deprecatedReactNodeArrayTransform;
+	let deprecatedReactFragmentTransform;
 	let deprecatedReactTextTransform;
 	let deprecatedVoidFunctionComponentTransform;
 	let refobjectDefaultsTransform;
@@ -36,6 +37,9 @@ describe("preset-19", () => {
 		deprecatedReactNodeArrayTransform = mockTransform(
 			"../deprecated-react-node-array",
 		);
+		deprecatedReactFragmentTransform = mockTransform(
+			"../deprecated-react-fragment",
+		);
 		deprecatedReactTextTransform = mockTransform("../deprecated-react-text");
 		deprecatedVoidFunctionComponentTransform = mockTransform(
 			"../deprecated-void-function-component",
@@ -63,6 +67,7 @@ describe("preset-19", () => {
 		applyTransform("", {
 			preset19Transforms: [
 				"deprecated-react-child",
+				"deprecated-react-fragment",
 				"deprecated-react-node-array",
 				"deprecated-react-text",
 				"deprecated-void-function-component",
@@ -74,6 +79,7 @@ describe("preset-19", () => {
 
 		expect(deprecatedReactChildTransform).toHaveBeenCalled();
 		expect(deprecatedReactNodeArrayTransform).toHaveBeenCalled();
+		expect(deprecatedReactFragmentTransform).toHaveBeenCalled();
 		expect(deprecatedReactTextTransform).toHaveBeenCalled();
 		expect(deprecatedVoidFunctionComponentTransform).toHaveBeenCalled();
 		expect(refobjectDefaultsTransform).toHaveBeenCalled();

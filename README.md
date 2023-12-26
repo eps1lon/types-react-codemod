@@ -34,11 +34,12 @@ $ npx types-react-codemod <codemod> <paths...>
 
 Positionals:
   codemod [string] [required] [choices: "context-any", "deprecated-react-child",
-                         "deprecated-react-node-array", "deprecated-react-text",
-            "deprecated-react-type", "deprecated-sfc-element", "deprecated-sfc",
-         "deprecated-stateless-component", "deprecated-void-function-component",
-            "implicit-children", "preset-18", "preset-19", "refobject-defaults",
-            "scoped-jsx", "useCallback-implicit-any", "useRef-required-initial"]
+                     "deprecated-react-fragment", "deprecated-react-node-array",
+     "deprecated-react-text", "deprecated-react-type", "deprecated-sfc-element",
+                             "deprecated-sfc", "deprecated-stateless-component",
+         "deprecated-void-function-component", "implicit-children", "preset-18",
+    "preset-19", "refobject-defaults", "scoped-jsx", "useCallback-implicit-any",
+                                                      "useRef-required-initial"]
   paths                                                      [string] [required]
 
 Options:
@@ -252,6 +253,28 @@ import { ReactNodeArray as MyReactNodeArray } from "react";
 interface Props {
 	// not transformed
 	children?: MyReactNodeArray;
+}
+```
+
+### `deprecated-react-fragment`
+
+```diff
+ import * as React from "react";
+ interface Props {
+-  children?: React.ReactFragment;
++  children?: Iterable<React.ReactNode>;
+ }
+```
+
+#### `deprecated-react-fragment` false-negative pattern A
+
+Importing `ReactFragment` via aliased named import will result in the transform being skipped.
+
+```tsx
+import { ReactFragment as MyReactFragment } from "react";
+interface Props {
+	// not transformed
+	children?: MyReactFragment;
 }
 ```
 
