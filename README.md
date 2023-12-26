@@ -239,7 +239,7 @@ interface Props {
  import * as React from "react";
  interface Props {
 -  children?: React.ReactNodeArray;
-+  children?: ReadonlyArray<React.reactNode>;
++  children?: ReadonlyArray<React.ReactNode>;
  }
 ```
 
