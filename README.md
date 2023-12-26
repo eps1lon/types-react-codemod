@@ -316,7 +316,7 @@ const myRef: MyRefObject<View>;
 
 ### `scoped-jsx`
 
-Ensures access to global JSX namespace is now scoped to React (see TODO DT PR link).
+Ensures access to global JSX namespace is now scoped to React (see [DefinitelyTyped/DefinitelyTyped#64464](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/64464)).
 This codemod tries to match the existing import style but isn't perfect.
 If the import style doesn't match your preferences, you should set up auto-fixable lint rules to match this e.g. [`import/order`](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md).
 
