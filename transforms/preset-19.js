@@ -1,5 +1,6 @@
 const deprecatedReactChildTransform = require("./deprecated-react-child");
 const deprecatedReactNodeArrayTransform = require("./deprecated-react-node-array");
+const deprecatedReactFragmentTransform = require("./deprecated-react-fragment");
 const deprecatedReactTextTransform = require("./deprecated-react-text");
 const deprecatedVoidFunctionComponentTransform = require("./deprecated-void-function-component");
 const refobjectDefaultsTransform = require("./refobject-defaults");
@@ -22,6 +23,9 @@ const transform = (file, api, options) => {
 	}
 	if (transformNames.has("deprecated-react-node-array")) {
 		transforms.push(deprecatedReactNodeArrayTransform);
+	}
+	if (transformNames.has("deprecated-react-fragment")) {
+		transforms.push(deprecatedReactFragmentTransform);
 	}
 	if (transformNames.has("deprecated-react-text")) {
 		transforms.push(deprecatedReactTextTransform);
