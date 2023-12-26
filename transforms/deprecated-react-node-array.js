@@ -3,7 +3,7 @@ const parseSync = require("./utils/parseSync");
 /**
  * @type {import('jscodeshift').Transform}
  */
-const deprecatedReactChildTransform = (file, api) => {
+const deprecatedReactNodeArrayTransform = (file, api) => {
 	const j = api.jscodeshift;
 	const ast = parseSync(file);
 
@@ -89,4 +89,4 @@ const deprecatedReactChildTransform = (file, api) => {
 	return file.source;
 };
 
-module.exports = deprecatedReactChildTransform;
+module.exports = deprecatedReactNodeArrayTransform;
