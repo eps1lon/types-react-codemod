@@ -10,7 +10,7 @@ function applyTransform(source, options = {}) {
 		{
 			path: "test.d.ts",
 			source: dedent(source),
-		}
+		},
 	);
 }
 
@@ -20,7 +20,7 @@ describe("transform deprecated-sfc-element", () => {
 			applyTransform(`
 				import { FunctionComponentElement } from 'react';
 				FunctionComponentElement;
-    `)
+    `),
 		).toMatchInlineSnapshot(`
 		"import { FunctionComponentElement } from 'react';
 		FunctionComponentElement;"
@@ -32,7 +32,7 @@ describe("transform deprecated-sfc-element", () => {
 			applyTransform(`
 				import { SFCElement } from 'react';
 				SFCElement;
-    `)
+    `),
 		).toMatchInlineSnapshot(`
 		"import { FunctionComponentElement } from 'react';
 		FunctionComponentElement;"
@@ -44,7 +44,7 @@ describe("transform deprecated-sfc-element", () => {
 			applyTransform(`
 				import { SFCElement as MySFCElement } from 'react';
 				MySFCElement;
-    `)
+    `),
 		).toMatchInlineSnapshot(`
 		"import { FunctionComponentElement as MySFCElement } from 'react';
 		MySFCElement;"
@@ -56,7 +56,7 @@ describe("transform deprecated-sfc-element", () => {
 			applyTransform(`
 				import * as React from 'react';
 				React.SFCElement;
-    `)
+    `),
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		React.FunctionComponentElement;"
@@ -68,7 +68,7 @@ describe("transform deprecated-sfc-element", () => {
 			applyTransform(`
 				import * as Preact from 'preact';
 				Preact.SFCElement;
-    `)
+    `),
 		).toMatchInlineSnapshot(`
 		"import * as Preact from 'preact';
 		Preact.FunctionComponentElement;"

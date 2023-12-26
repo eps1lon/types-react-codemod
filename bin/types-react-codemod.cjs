@@ -47,7 +47,7 @@ async function main() {
 						// Ignoring `build`: https://www.digitalocean.com/community/tools/glob?comments=true&glob=%2A%2A%2F%7Bnode_modules%2Cbuild%7D%2F%2A%2A&matches=false&tests=package%2Fnode_modules%2Ftest.js&tests=package%2Fbuild%2Ftest.js&tests=package%2Ftest.js
 						.example(
 							'$0 preset-18 ./ --ignore-pattern "**/{node_modules,build}/**"',
-							"Ignores `node_modules` and `build` folders"
+							"Ignores `node_modules` and `build` folders",
 						)
 						.demandOption(["codemod", "paths"])
 				);
@@ -57,7 +57,7 @@ async function main() {
 
 				// TODO: npx instead?
 				const jscodeshiftExecutable = require.resolve(
-					"jscodeshift/bin/jscodeshift.js"
+					"jscodeshift/bin/jscodeshift.js",
 				);
 
 				/**
@@ -120,7 +120,7 @@ async function main() {
 				const command = `node ${jscodeshiftExecutable} ${args.join(" ")}`;
 				console.info(`executing "${command}"`);
 				childProcess.execSync(command, { stdio: "inherit" });
-			}
+			},
 		)
 		.version()
 		.strict(true)

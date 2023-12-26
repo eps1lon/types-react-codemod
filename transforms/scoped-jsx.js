@@ -48,11 +48,11 @@ const deprecatedReactChildTransform = (file, api) => {
 				j.tsQualifiedName(
 					j.tsQualifiedName(
 						j.identifier(/** @type {string} */ (reactNamespaceName)),
-						j.identifier("JSX")
+						j.identifier("JSX"),
 					),
-					j.identifier(namespaceMember)
+					j.identifier(namespaceMember),
 				),
-				typeReference.value.typeParameters
+				typeReference.value.typeParameters,
 			);
 		});
 	} else if (globalNamespaceReferences.length > 0) {
@@ -74,7 +74,7 @@ const deprecatedReactChildTransform = (file, api) => {
 			} else {
 				const jsxNamespaceImport = j.importDeclaration(
 					[j.importSpecifier(j.identifier("JSX"))],
-					j.stringLiteral("react")
+					j.stringLiteral("react"),
 				);
 
 				const lastImport = ast.find(j.ImportDeclaration).at(-1);

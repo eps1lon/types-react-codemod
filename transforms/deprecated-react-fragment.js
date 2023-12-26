@@ -48,7 +48,7 @@ const deprecatedReactFragmentTransform = (file, api) => {
 				j.identifier("Iterable"),
 				j.tsTypeParameterInstantiation([
 					j.tsTypeReference(j.identifier("ReactNode")),
-				])
+				]),
 			);
 		});
 
@@ -72,9 +72,9 @@ const deprecatedReactFragmentTransform = (file, api) => {
 				j.identifier("Iterable"),
 				j.tsTypeParameterInstantiation([
 					j.tsTypeReference(
-						j.tsQualifiedName(typeName.left, j.identifier("ReactNode"))
+						j.tsQualifiedName(typeName.left, j.identifier("ReactNode")),
 					),
-				])
+				]),
 			);
 		});
 

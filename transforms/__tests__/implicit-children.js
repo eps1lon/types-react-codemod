@@ -10,7 +10,7 @@ function applyTransform(source, options = {}) {
 		{
 			path: "test.d.ts",
 			source: dedent(source),
-		}
+		},
 	);
 }
 
@@ -19,9 +19,9 @@ describe("transform implicit-children", () => {
 		expect(
 			applyTransform(`
         const A: React.FC<{}>;
-    `)
+    `),
 		).toMatchInlineSnapshot(
-			`"const A: React.FC<React.PropsWithChildren<{}>>;"`
+			`"const A: React.FC<React.PropsWithChildren<{}>>;"`,
 		);
 	});
 
@@ -29,9 +29,9 @@ describe("transform implicit-children", () => {
 		expect(
 			applyTransform(`
       const A: React.SFC<{}>;
-    `)
+    `),
 		).toMatchInlineSnapshot(
-			`"const A: React.SFC<React.PropsWithChildren<{}>>;"`
+			`"const A: React.SFC<React.PropsWithChildren<{}>>;"`,
 		);
 	});
 
@@ -39,9 +39,9 @@ describe("transform implicit-children", () => {
 		expect(
 			applyTransform(`
       const A: React.StatelessComponent<{}>;
-    `)
+    `),
 		).toMatchInlineSnapshot(
-			`"const A: React.StatelessComponent<React.PropsWithChildren<{}>>;"`
+			`"const A: React.StatelessComponent<React.PropsWithChildren<{}>>;"`,
 		);
 	});
 
@@ -49,9 +49,9 @@ describe("transform implicit-children", () => {
 		expect(
 			applyTransform(`
       const A: React.ComponentType<{}>;
-    `)
+    `),
 		).toMatchInlineSnapshot(
-			`"const A: React.ComponentType<React.PropsWithChildren<{}>>;"`
+			`"const A: React.ComponentType<React.PropsWithChildren<{}>>;"`,
 		);
 	});
 
@@ -59,9 +59,9 @@ describe("transform implicit-children", () => {
 		expect(
 			applyTransform(`
         const A: React.FunctionComponent;
-    `)
+    `),
 		).toMatchInlineSnapshot(
-			`"const A: React.FunctionComponent<React.PropsWithChildren<unknown>>;"`
+			`"const A: React.FunctionComponent<React.PropsWithChildren<unknown>>;"`,
 		);
 	});
 
@@ -69,9 +69,9 @@ describe("transform implicit-children", () => {
 		expect(
 			applyTransform(`
         const A: FunctionComponent<unknown>;
-    `)
+    `),
 		).toMatchInlineSnapshot(
-			`"const A: FunctionComponent<React.PropsWithChildren<unknown>>;"`
+			`"const A: FunctionComponent<React.PropsWithChildren<unknown>>;"`,
 		);
 	});
 
@@ -79,9 +79,9 @@ describe("transform implicit-children", () => {
 		expect(
 			applyTransform(`
         const A: FunctionComponent<Props, B>;
-    `)
+    `),
 		).toMatchInlineSnapshot(
-			`"const A: FunctionComponent<React.PropsWithChildren<Props>, B>;"`
+			`"const A: FunctionComponent<React.PropsWithChildren<Props>, B>;"`,
 		);
 	});
 
@@ -89,9 +89,9 @@ describe("transform implicit-children", () => {
 		expect(
 			applyTransform(`
         const A: React.FunctionComponent<Props & OtherProps>;;
-    `)
+    `),
 		).toMatchInlineSnapshot(
-			`"const A: React.FunctionComponent<React.PropsWithChildren<Props & OtherProps>>;;"`
+			`"const A: React.FunctionComponent<React.PropsWithChildren<Props & OtherProps>>;;"`,
 		);
 	});
 
@@ -99,9 +99,9 @@ describe("transform implicit-children", () => {
 		expect(
 			applyTransform(`
         const A: FunctionComponent<React.PropsWithChildren<unknown>, {}>;
-    `)
+    `),
 		).toMatchInlineSnapshot(
-			`"const A: FunctionComponent<React.PropsWithChildren<React.PropsWithChildren<unknown>>, {}>;"`
+			`"const A: FunctionComponent<React.PropsWithChildren<React.PropsWithChildren<unknown>>, {}>;"`,
 		);
 	});
 
@@ -109,7 +109,7 @@ describe("transform implicit-children", () => {
 		expect(
 			applyTransform(`
         const A: React.JSXElementConstructor;
-    `)
+    `),
 		).toMatchInlineSnapshot(`"const A: React.JSXElementConstructor;"`);
 	});
 });

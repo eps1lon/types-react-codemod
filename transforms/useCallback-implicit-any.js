@@ -88,7 +88,7 @@ const useCallbackImplicitAnyTransform = (file, api) => {
 							// @ts-ignore
 							param.value.typeAnnotation = j.tsTypeAnnotation(j.tsAnyKeyword());
 						}
-					}
+					},
 				);
 		});
 
