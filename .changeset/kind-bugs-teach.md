@@ -9,6 +9,4 @@ Just removing their experimental prefix since we have increased confidence in th
 ```diff
 -experimental-refobject-defaults
 +refobject-defaults
--experimental-useRef-required-initial
-+useRef-required-initial
 ```
