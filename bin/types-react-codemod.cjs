@@ -99,8 +99,13 @@ async function main() {
 							type: "checkbox",
 							choices: [
 								{ checked: true, value: "deprecated-react-child" },
+								{ checked: true, value: "deprecated-react-node-array" },
+								{ checked: true, value: "deprecated-react-fragment" },
 								{ checked: true, value: "deprecated-react-text" },
 								{ checked: true, value: "deprecated-void-function-component" },
+								{ checked: true, value: "refobject-defaults" },
+								{ checked: true, value: "scoped-jsx" },
+								{ checked: true, value: "useRef-required-initial" },
 							],
 						},
 					]);
