@@ -4,5 +4,5 @@
 
 Add codemod for required initial value in `useRef`
 
-Added as `experimental-useRef-required-initial`.
+Added as `useRef-required-initial`.
 Can be used on 18.x types but only intended for once https://github.com/DefinitelyTyped/DefinitelyTyped/pull/64920 lands.
