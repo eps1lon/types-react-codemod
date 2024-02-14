@@ -15,6 +15,28 @@ Now we ensure new imports of types use the `type` modifier:
 +import { type ReactNode } from 'react'
 ```
 
+This also changes how we transform the deprecated global JSX namespace.
+Instead of rewriting each usage, we opt for adding another import.
+The guiding principle being that we keep the changes minimal in a codemod.
+
+Before:
+
+```diff
+import * as React from 'react'
+
+-const element: JSX.Element
++const element: React.JSX.Element
+```
+
+After:
+
+```diff
+import * as React from 'react'
++import { type JSX } from 'react'
+
+const element: JSX.Element
+```
+
 Note that rewriting of imports does not change the modifier.
 For example, the `deprecated-vfc-codemod` rewrites `VFC` identifiers to `FC`.
 If the import of `VFC` had no `type` modifier, the codemod will not add one.

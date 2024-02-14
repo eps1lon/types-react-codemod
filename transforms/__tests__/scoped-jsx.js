@@ -38,6 +38,31 @@ describe("transform scoped-jsx", () => {
 	`);
 	});
 
+	test("existing default import", () => {
+		expect(
+			applyTransform(`
+				import React from 'react';
+				declare const element: JSX.Element;
+			`),
+		).toMatchInlineSnapshot(`
+		"import React, { type JSX } from 'react';
+		declare const element: JSX.Element;"
+	`);
+	});
+
+	test("existing type default import", () => {
+		expect(
+			applyTransform(`
+				import type React from 'react';
+				declare const element: JSX.Element;
+			`),
+		).toMatchInlineSnapshot(`
+		"import type React from 'react';
+		import { type JSX } from "react";
+		declare const element: JSX.Element;"
+	`);
+	});
+
 	test("existing namespace import", () => {
 		expect(
 			applyTransform(`
@@ -46,7 +71,8 @@ describe("transform scoped-jsx", () => {
 			`),
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-		declare const element: React.JSX.Element;"
+		import { type JSX } from "react";
+		declare const element: JSX.Element;"
 	`);
 	});
 
@@ -58,7 +84,8 @@ describe("transform scoped-jsx", () => {
 			`),
 		).toMatchInlineSnapshot(`
 		"import type * as React from 'react';
-		declare const element: React.JSX.Element;"
+		import { type JSX } from "react";
+		declare const element: JSX.Element;"
 	`);
 	});
 
@@ -71,6 +98,20 @@ describe("transform scoped-jsx", () => {
 			`),
 		).toMatchInlineSnapshot(`
 		"import { ReactNode, type JSX } from 'react';
+		declare const element: JSX.Element;
+		declare const node: ReactNode;"
+	`);
+	});
+
+	test("existing named import with other named type imports", () => {
+		expect(
+			applyTransform(`
+				import type { ReactNode } from 'react';
+				declare const element: JSX.Element;
+				declare const node: ReactNode;
+			`),
+		).toMatchInlineSnapshot(`
+		"import type { ReactNode, JSX } from 'react';
 		declare const element: JSX.Element;
 		declare const node: ReactNode;"
 	`);
@@ -129,7 +170,9 @@ describe("transform scoped-jsx", () => {
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react'
 
-		declare const attributes: React.JSX.LibraryManagedAttributes<A, B>;"
+		import { type JSX } from "react";
+
+		declare const attributes: JSX.LibraryManagedAttributes<A, B>;"
 	`);
 	});
 });

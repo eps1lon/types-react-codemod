@@ -47,6 +47,22 @@ describe("transform deprecated-react-node-array", () => {
 	`);
 	});
 
+	test("named type import", () => {
+		expect(
+			applyTransform(`
+      import type { ReactFragment } from 'react';
+		interface Props {
+				children?: ReactFragment;
+			}
+    `),
+		).toMatchInlineSnapshot(`
+		"import type { ReactNode } from 'react';
+		interface Props {
+				children?: Iterable<ReactNode>;
+			}"
+	`);
+	});
+
 	test("named import with existing ReactNode import", () => {
 		expect(
 			applyTransform(`
@@ -57,6 +73,22 @@ describe("transform deprecated-react-node-array", () => {
     `),
 		).toMatchInlineSnapshot(`
 		"import { ReactNode } from 'react';
+		interface Props {
+				children?: Iterable<ReactNode>;
+			}"
+	`);
+	});
+
+	test("named import with existing ReactNode type import", () => {
+		expect(
+			applyTransform(`
+      import { ReactFragment, type ReactNode } from 'react';
+		interface Props {
+				children?: ReactFragment;
+			}
+    `),
+		).toMatchInlineSnapshot(`
+		"import { type ReactNode } from 'react';
 		interface Props {
 				children?: Iterable<ReactNode>;
 			}"

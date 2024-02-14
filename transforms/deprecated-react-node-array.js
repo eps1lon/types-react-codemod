@@ -29,10 +29,14 @@ const deprecatedReactNodeArrayTransform = (file, api) => {
 	if (hasReactNodeImport.length > 0) {
 		reactNodeArrayImports.remove();
 	} else {
-		reactNodeArrayImports.replaceWith(() => {
+		reactNodeArrayImports.replaceWith((path) => {
 			const importSpecifier = j.importSpecifier(j.identifier("ReactNode"));
-			// @ts-expect-error -- Missing types in jscodeshift. Babel uses `importKind`: https://astexplorer.net/#/gist/a76bd35f28483a467fef29d3c63aac9b/0e7ba6688fc09bd11b92197349b2384bb4c94574
-			importSpecifier.importKind = "type";
+
+			const importDeclaration = path.parentPath.parentPath.value;
+			if (importDeclaration.importKind !== "type") {
+				// @ts-expect-error -- Missing types in jscodeshift. Babel uses `importKind`: https://astexplorer.net/#/gist/a76bd35f28483a467fef29d3c63aac9b/0e7ba6688fc09bd11b92197349b2384bb4c94574
+				importSpecifier.importKind = "type";
+			}
 
 			return importSpecifier;
 		});
