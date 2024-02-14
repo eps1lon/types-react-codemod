@@ -39,11 +39,11 @@ const deprecatedReactChildTransform = (file, api) => {
 				addReactTypeImport(j, reactImport);
 			} else {
 				const importSpecifier = j.importSpecifier(j.identifier("JSX"));
-				// @ts-expect-error -- Missing types in jscodeshift. Babel uses `importKind`: https://astexplorer.net/#/gist/a76bd35f28483a467fef29d3c63aac9b/0e7ba6688fc09bd11b92197349b2384bb4c94574
-				importSpecifier.importKind = "type";
 				const jsxNamespaceImport = j.importDeclaration(
 					[importSpecifier],
 					j.stringLiteral("react"),
+					// Not using inline type import because it violates https://typescript-eslint.io/rules/no-import-type-side-effects/
+					"type",
 				);
 
 				const lastImport = ast.find(j.ImportDeclaration).at(-1);

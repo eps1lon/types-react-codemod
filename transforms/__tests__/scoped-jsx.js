@@ -33,7 +33,7 @@ describe("transform scoped-jsx", () => {
 				declare const element: JSX.Element;
 			`),
 		).toMatchInlineSnapshot(`
-		"import { type JSX } from "react";
+		"import type { JSX } from "react";
 		declare const element: JSX.Element;"
 	`);
 	});
@@ -58,7 +58,7 @@ describe("transform scoped-jsx", () => {
 			`),
 		).toMatchInlineSnapshot(`
 		"import type React from 'react';
-		import { type JSX } from "react";
+		import type { JSX } from "react";
 		declare const element: JSX.Element;"
 	`);
 	});
@@ -71,7 +71,7 @@ describe("transform scoped-jsx", () => {
 			`),
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-		import { type JSX } from "react";
+		import type { JSX } from "react";
 		declare const element: JSX.Element;"
 	`);
 	});
@@ -84,7 +84,7 @@ describe("transform scoped-jsx", () => {
 			`),
 		).toMatchInlineSnapshot(`
 		"import type * as React from 'react';
-		import { type JSX } from "react";
+		import type { JSX } from "react";
 		declare const element: JSX.Element;"
 	`);
 	});
@@ -136,7 +136,7 @@ describe("transform scoped-jsx", () => {
 				declare const element: JSX.Element;
 			`),
 		).toMatchInlineSnapshot(`
-		"import { type JSX } from "react";
+		"import type { JSX } from "react";
 		const React = require('react');
 		declare const element: JSX.Element;"
 	`);
@@ -154,7 +154,7 @@ describe("transform scoped-jsx", () => {
 		"import {} from 'react-dom'
 		import {} from '@testing-library/react'
 
-		import { type JSX } from "react";
+		import type { JSX } from "react";
 
 		declare const element: JSX.Element;"
 	`);
@@ -170,7 +170,7 @@ describe("transform scoped-jsx", () => {
 		).toMatchInlineSnapshot(`
 		"import * as React from 'react'
 
-		import { type JSX } from "react";
+		import type { JSX } from "react";
 
 		declare const attributes: JSX.LibraryManagedAttributes<A, B>;"
 	`);
