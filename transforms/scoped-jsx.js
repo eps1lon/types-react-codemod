@@ -66,14 +66,16 @@ const deprecatedReactChildTransform = (file, api) => {
 		if (jsxImportSpecifier.length === 0) {
 			hasChanges = true;
 
+			const importSpecifier = j.importSpecifier(j.identifier("JSX"));
+			// @ts-expect-error -- Missing types in jscodeshift. Babel uses `importKind`: https://astexplorer.net/#/gist/a76bd35f28483a467fef29d3c63aac9b/0e7ba6688fc09bd11b92197349b2384bb4c94574
+			importSpecifier.importKind = "type";
+
 			const hasExistingReactImport = reactImport.length > 0;
 			if (hasExistingReactImport) {
-				reactImport
-					.get("specifiers")
-					.value.push(j.importSpecifier(j.identifier("JSX")));
+				reactImport.get("specifiers").value.push(importSpecifier);
 			} else {
 				const jsxNamespaceImport = j.importDeclaration(
-					[j.importSpecifier(j.identifier("JSX"))],
+					[importSpecifier],
 					j.stringLiteral("react"),
 				);
 

@@ -35,6 +35,18 @@ describe("transform deprecated-sfc", () => {
 	`);
 	});
 
+	test("named type import", () => {
+		expect(
+			applyTransform(`
+				import { type SFC } from 'react';
+				SFC;
+    `),
+		).toMatchInlineSnapshot(`
+		"import { type FC } from 'react';
+		FC;"
+	`);
+	});
+
 	test("named renamed import", () => {
 		expect(
 			applyTransform(`

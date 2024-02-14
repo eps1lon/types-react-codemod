@@ -40,7 +40,7 @@ describe("transform deprecated-react-node-array", () => {
 			}
     `),
 		).toMatchInlineSnapshot(`
-		"import { ReactNode } from 'react';
+		"import { type ReactNode } from 'react';
 		interface Props {
 				children?: ReadonlyArray<ReactNode>;
 			}"
