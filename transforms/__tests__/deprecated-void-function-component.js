@@ -41,6 +41,20 @@ describe("transform deprecated-void-function-component", () => {
 	`);
 	});
 
+	test("named type import", () => {
+		expect(
+			applyTransform(`
+				import { type VFC, type VoidFunctionComponent } from 'react';
+				VFC;
+				VoidFunctionComponent;
+    `),
+		).toMatchInlineSnapshot(`
+		"import { type FC, type FunctionComponent } from 'react';
+		FC;
+		FunctionComponent;"
+	`);
+	});
+
 	test("named renamed import", () => {
 		expect(
 			applyTransform(`

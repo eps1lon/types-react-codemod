@@ -1,4 +1,8 @@
 const parseSync = require("./utils/parseSync");
+const {
+	addReactTypeImport,
+	findReactImportForNewImports,
+} = require("./utils/newReactImports");
 
 /**
  * @type {import('jscodeshift').Transform}
@@ -6,20 +10,6 @@ const parseSync = require("./utils/parseSync");
 const deprecatedReactChildTransform = (file, api) => {
 	const j = api.jscodeshift;
 	const ast = parseSync(file);
-
-	/**
-	 * @type {string | null}
-	 */
-	let reactNamespaceName = null;
-	ast.find(j.ImportDeclaration).forEach((importDeclaration) => {
-		const node = importDeclaration.value;
-		if (
-			node.source.value === "react" &&
-			node.specifiers?.[0]?.type === "ImportNamespaceSpecifier"
-		) {
-			reactNamespaceName = node.specifiers[0].local?.name ?? null;
-		}
-	});
 
 	const globalNamespaceReferences = ast.find(j.TSTypeReference, (node) => {
 		const { typeName } = node;
@@ -35,30 +25,8 @@ const deprecatedReactChildTransform = (file, api) => {
 	});
 
 	let hasChanges = false;
-	if (reactNamespaceName !== null && globalNamespaceReferences.length > 0) {
-		hasChanges = true;
-
-		globalNamespaceReferences.replaceWith((typeReference) => {
-			const namespaceMember = typeReference
-				.get("typeName")
-				.get("right")
-				.get("name").value;
-
-			return j.tsTypeReference(
-				j.tsQualifiedName(
-					j.tsQualifiedName(
-						j.identifier(/** @type {string} */ (reactNamespaceName)),
-						j.identifier("JSX"),
-					),
-					j.identifier(namespaceMember),
-				),
-				typeReference.value.typeParameters,
-			);
-		});
-	} else if (globalNamespaceReferences.length > 0) {
-		const reactImport = ast.find(j.ImportDeclaration, {
-			source: { value: "react" },
-		});
+	if (globalNamespaceReferences.length > 0) {
+		const reactImport = findReactImportForNewImports(j, ast);
 		const jsxImportSpecifier = reactImport.find(j.ImportSpecifier, {
 			imported: { name: "JSX" },
 		});
@@ -68,13 +36,14 @@ const deprecatedReactChildTransform = (file, api) => {
 
 			const hasExistingReactImport = reactImport.length > 0;
 			if (hasExistingReactImport) {
-				reactImport
-					.get("specifiers")
-					.value.push(j.importSpecifier(j.identifier("JSX")));
+				addReactTypeImport(j, reactImport);
 			} else {
+				const importSpecifier = j.importSpecifier(j.identifier("JSX"));
 				const jsxNamespaceImport = j.importDeclaration(
-					[j.importSpecifier(j.identifier("JSX"))],
+					[importSpecifier],
 					j.stringLiteral("react"),
+					// Not using inline type import because it violates https://typescript-eslint.io/rules/no-import-type-side-effects/
+					"type",
 				);
 
 				const lastImport = ast.find(j.ImportDeclaration).at(-1);

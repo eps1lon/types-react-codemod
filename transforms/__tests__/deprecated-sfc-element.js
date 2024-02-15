@@ -39,6 +39,18 @@ describe("transform deprecated-sfc-element", () => {
 	`);
 	});
 
+	test("named typew import", () => {
+		expect(
+			applyTransform(`
+				import { type SFCElement } from 'react';
+				SFCElement;
+    `),
+		).toMatchInlineSnapshot(`
+		"import { type FunctionComponentElement } from 'react';
+		FunctionComponentElement;"
+	`);
+	});
+
 	test("named renamed import", () => {
 		expect(
 			applyTransform(`

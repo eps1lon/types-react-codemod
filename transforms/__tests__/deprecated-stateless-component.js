@@ -39,6 +39,18 @@ describe("transform deprecated-stateless-component", () => {
 	`);
 	});
 
+	test("named type import", () => {
+		expect(
+			applyTransform(`
+				import { type StatelessComponent } from 'react';
+				StatelessComponent;
+			`),
+		).toMatchInlineSnapshot(`
+		"import { type FunctionComponent } from 'react';
+		FunctionComponent;"
+	`);
+	});
+
 	test("named renamed import", () => {
 		expect(
 			applyTransform(`
