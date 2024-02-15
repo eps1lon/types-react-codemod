@@ -1,10 +1,15 @@
 const parseSync = require("./utils/parseSync");
+const {
+	findTSTypeReferenceCollections,
+} = require("./utils/jscodeshift-bugfixes");
 /**
  * @type {import('jscodeshift').Transform}
  */
 const deprecatedReactFragmentTransform = (file, api) => {
 	const j = api.jscodeshift;
 	const ast = parseSync(file);
+
+	let hasChanges = false;
 
 	const hasReactNodeImport = ast.find(j.ImportSpecifier, (node) => {
 		const { imported, local } = node;
@@ -24,6 +29,9 @@ const deprecatedReactFragmentTransform = (file, api) => {
 			(local == null || local.name === "ReactFragment")
 		);
 	});
+	if (reactFragmentImports.length > 0) {
+		hasChanges = true;
+	}
 
 	if (hasReactNodeImport.length > 0) {
 		reactFragmentImports.remove();
@@ -40,15 +48,19 @@ const deprecatedReactFragmentTransform = (file, api) => {
 		});
 	}
 
-	const changedIdentifiers = ast
-		.find(j.TSTypeReference, (node) => {
+	const reactFragmentTypeReferences = findTSTypeReferenceCollections(
+		j,
+		ast,
+		(node) => {
 			const { typeName } = node;
 
 			return (
 				typeName.type === "Identifier" && typeName.name === "ReactFragment"
 			);
-		})
-		.replaceWith(() => {
+		},
+	);
+	for (const typeReferences of reactFragmentTypeReferences) {
+		const changedIdentifiers = typeReferences.replaceWith(() => {
 			// `Iterable<ReactNode>`
 			return j.tsTypeReference(
 				j.identifier("Iterable"),
@@ -57,9 +69,15 @@ const deprecatedReactFragmentTransform = (file, api) => {
 				]),
 			);
 		});
+		if (changedIdentifiers.length > 0) {
+			hasChanges = true;
+		}
+	}
 
-	const changedQualifiedNames = ast
-		.find(j.TSTypeReference, (node) => {
+	const reactFragmentQualifiedNamesReferences = findTSTypeReferenceCollections(
+		j,
+		ast,
+		(node) => {
 			const { typeName } = node;
 
 			return (
@@ -67,8 +85,10 @@ const deprecatedReactFragmentTransform = (file, api) => {
 				typeName.right.type === "Identifier" &&
 				typeName.right.name === "ReactFragment"
 			);
-		})
-		.replaceWith((path) => {
+		},
+	);
+	for (const typeReferences of reactFragmentQualifiedNamesReferences) {
+		const changedQualifiedNames = typeReferences.replaceWith((path) => {
 			const { node } = path;
 			const typeName = /** @type {import('jscodeshift').TSQualifiedName} */ (
 				node.typeName
@@ -83,13 +103,13 @@ const deprecatedReactFragmentTransform = (file, api) => {
 				]),
 			);
 		});
+		if (changedQualifiedNames.length > 0) {
+			hasChanges = true;
+		}
+	}
 
 	// Otherwise some files will be marked as "modified" because formatting changed
-	if (
-		changedIdentifiers.length > 0 ||
-		changedQualifiedNames.length > 0 ||
-		reactFragmentImports.length > 0
-	) {
+	if (hasChanges) {
 		return ast.toSource();
 	}
 	return file.source;

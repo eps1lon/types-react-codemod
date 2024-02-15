@@ -126,4 +126,16 @@ describe("transform deprecated-react-node-array", () => {
 		}"
 	`);
 	});
+
+	test("as type parameter", () => {
+		expect(
+			applyTransform(`
+      import * as React from 'react';
+      createComponent<React.ReactFragment>();
+    `),
+		).toMatchInlineSnapshot(`
+		"import * as React from 'react';
+		createComponent<Iterable<React.ReactNode>>();"
+	`);
+	});
 });

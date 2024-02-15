@@ -1,4 +1,7 @@
 const parseSync = require("./utils/parseSync");
+const {
+	findTSTypeReferenceCollections,
+} = require("./utils/jscodeshift-bugfixes");
 
 /**
  * @type {import('jscodeshift').Transform}
@@ -6,6 +9,8 @@ const parseSync = require("./utils/parseSync");
 const deprecatedReactNodeArrayTransform = (file, api) => {
 	const j = api.jscodeshift;
 	const ast = parseSync(file);
+
+	let hasChanges = false;
 
 	const hasReactNodeImport = ast.find(j.ImportSpecifier, (node) => {
 		const { imported, local } = node;
@@ -25,6 +30,9 @@ const deprecatedReactNodeArrayTransform = (file, api) => {
 			(local == null || local.name === "ReactNodeArray")
 		);
 	});
+	if (reactNodeArrayImports.length > 0) {
+		hasChanges = true;
+	}
 
 	if (hasReactNodeImport.length > 0) {
 		reactNodeArrayImports.remove();
@@ -42,15 +50,19 @@ const deprecatedReactNodeArrayTransform = (file, api) => {
 		});
 	}
 
-	const changedIdentifiers = ast
-		.find(j.TSTypeReference, (node) => {
+	const reactNodeArrayTypeReferences = findTSTypeReferenceCollections(
+		j,
+		ast,
+		(node) => {
 			const { typeName } = node;
 
 			return (
 				typeName.type === "Identifier" && typeName.name === "ReactNodeArray"
 			);
-		})
-		.replaceWith(() => {
+		},
+	);
+	for (const typeReferences of reactNodeArrayTypeReferences) {
+		const changedIdentifiers = typeReferences.replaceWith(() => {
 			// `ReadonlyArray<ReactNode>`
 			return j.tsTypeReference(
 				j.identifier("ReadonlyArray"),
@@ -60,8 +72,15 @@ const deprecatedReactNodeArrayTransform = (file, api) => {
 			);
 		});
 
-	const changedQualifiedNames = ast
-		.find(j.TSTypeReference, (node) => {
+		if (changedIdentifiers.length > 0) {
+			hasChanges = true;
+		}
+	}
+
+	const reactNodeArrayQualifiedTypeReferences = findTSTypeReferenceCollections(
+		j,
+		ast,
+		(node) => {
 			const { typeName } = node;
 
 			return (
@@ -69,8 +88,10 @@ const deprecatedReactNodeArrayTransform = (file, api) => {
 				typeName.right.type === "Identifier" &&
 				typeName.right.name === "ReactNodeArray"
 			);
-		})
-		.replaceWith((path) => {
+		},
+	);
+	for (const typeReferences of reactNodeArrayQualifiedTypeReferences) {
+		const changedQualifiedNames = typeReferences.replaceWith((path) => {
 			const { node } = path;
 			const typeName = /** @type {import('jscodeshift').TSQualifiedName} */ (
 				node.typeName
@@ -86,12 +107,13 @@ const deprecatedReactNodeArrayTransform = (file, api) => {
 			);
 		});
 
+		if (changedQualifiedNames.length > 0) {
+			hasChanges = true;
+		}
+	}
+
 	// Otherwise some files will be marked as "modified" because formatting changed
-	if (
-		changedIdentifiers.length > 0 ||
-		changedQualifiedNames.length > 0 ||
-		reactNodeArrayImports.length > 0
-	) {
+	if (hasChanges) {
 		return ast.toSource();
 	}
 	return file.source;

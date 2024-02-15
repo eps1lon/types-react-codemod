@@ -5,7 +5,7 @@ const scopedJSXTransform = require("../scoped-jsx");
 
 function applyTransform(source, options = {}) {
 	return JscodeshiftTestUtils.applyTransform(scopedJSXTransform, options, {
-		path: "test.d.ts",
+		path: "test.tsx",
 		source: dedent(source),
 	});
 }
@@ -173,6 +173,22 @@ describe("transform scoped-jsx", () => {
 		import type { JSX } from "react";
 
 		declare const attributes: JSX.LibraryManagedAttributes<A, B>;"
+	`);
+	});
+
+	test("detects usage in type parameters", () => {
+		expect(
+			applyTransform(`
+			import React, { useMemo } from 'react'
+
+			[].reduce<JSX.Element[]>((acc, component, i) => {});
+			[].reduce((acc, component, i) => {})
+			`),
+		).toMatchInlineSnapshot(`
+		"import React, { useMemo, type JSX } from 'react';
+
+		[].reduce<JSX.Element[]>((acc, component, i) => {});
+		[].reduce((acc, component, i) => {})"
 	`);
 	});
 });
