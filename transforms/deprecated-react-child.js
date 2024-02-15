@@ -1,4 +1,7 @@
 const parseSync = require("./utils/parseSync");
+const {
+	findTSTypeReferenceCollections,
+} = require("./utils/jscodeshift-bugfixes");
 
 /**
  * @type {import('jscodeshift').Transform}
@@ -7,8 +10,10 @@ const deprecatedReactChildTransform = (file, api) => {
 	const j = api.jscodeshift;
 	const ast = parseSync(file);
 
-	const changedIdentifiers = ast
-		.find(j.TSTypeReference, (node) => {
+	const reactChildTypeReferences = findTSTypeReferenceCollections(
+		j,
+		ast,
+		(node) => {
 			const { typeName } = node;
 			/**
 			 * @type {import('jscodeshift').Identifier | null}
@@ -24,8 +29,12 @@ const deprecatedReactChildTransform = (file, api) => {
 			}
 
 			return identifier !== null && identifier.name === "ReactChild";
-		})
-		.replaceWith(() => {
+		},
+	);
+
+	let didChangeIdentifiers = false;
+	for (const typeReferences of reactChildTypeReferences) {
+		const changedIdentifiers = typeReferences.replaceWith(() => {
 			// `React.ReactElement | number | string`
 			return j.tsUnionType([
 				// React.ReactElement
@@ -39,9 +48,13 @@ const deprecatedReactChildTransform = (file, api) => {
 				j.tsStringKeyword(),
 			]);
 		});
+		if (changedIdentifiers.length > 0) {
+			didChangeIdentifiers = true;
+		}
+	}
 
 	// Otherwise some files will be marked as "modified" because formatting changed
-	if (changedIdentifiers.length > 0) {
+	if (didChangeIdentifiers) {
 		return ast.toSource();
 	}
 	return file.source;

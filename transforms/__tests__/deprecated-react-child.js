@@ -78,4 +78,16 @@ describe("transform deprecated-react-child", () => {
 		}"
 	`);
 	});
+
+	test("as type parameter", () => {
+		expect(
+			applyTransform(`
+			import * as React from 'react';
+			createAction<React.ReactChild>()
+		`),
+		).toMatchInlineSnapshot(`
+		"import * as React from 'react';
+		createAction<React.ReactElement | number | string>()"
+	`);
+	});
 });

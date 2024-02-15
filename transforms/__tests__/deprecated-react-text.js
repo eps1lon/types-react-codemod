@@ -78,4 +78,16 @@ describe("transform deprecated-react-text", () => {
 		}"
 	`);
 	});
+
+	test("in type parameters", () => {
+		expect(
+			applyTransform(`
+      import * as React from 'react';
+      createComponent<React.ReactText>();
+    `),
+		).toMatchInlineSnapshot(`
+		"import * as React from 'react';
+		createComponent<number | string>();"
+	`);
+	});
 });

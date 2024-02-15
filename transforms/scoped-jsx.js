@@ -3,6 +3,7 @@ const {
 	addReactTypeImport,
 	findReactImportForNewImports,
 } = require("./utils/newReactImports");
+const traverse = require("@babel/traverse").default;
 
 /**
  * @type {import('jscodeshift').Transform}
@@ -11,21 +12,28 @@ const deprecatedReactChildTransform = (file, api) => {
 	const j = api.jscodeshift;
 	const ast = parseSync(file);
 
-	const globalNamespaceReferences = ast.find(j.TSTypeReference, (node) => {
-		const { typeName } = node;
+	let hasChanges = false;
+	let hasGlobalNamespaceReferences = false;
 
-		if (typeName.type === "TSQualifiedName") {
-			return (
-				typeName.left.type === "Identifier" &&
-				typeName.left.name === "JSX" &&
-				typeName.right.type === "Identifier"
-			);
-		}
-		return false;
+	// ast.get("program").value is sufficient for unit tests but not actually running it on files
+	// TODO: How to test?
+	const traverseRoot = ast.paths()[0].value;
+	traverse(traverseRoot, {
+		TSTypeReference({ node: typeReference }) {
+			const { typeName } = typeReference;
+			if (typeName.type === "TSQualifiedName") {
+				if (
+					typeName.left.type === "Identifier" &&
+					typeName.left.name === "JSX" &&
+					typeName.right.type === "Identifier"
+				) {
+					hasGlobalNamespaceReferences = true;
+				}
+			}
+		},
 	});
 
-	let hasChanges = false;
-	if (globalNamespaceReferences.length > 0) {
+	if (hasGlobalNamespaceReferences) {
 		const reactImport = findReactImportForNewImports(j, ast);
 		const jsxImportSpecifier = reactImport.find(j.ImportSpecifier, {
 			imported: { name: "JSX" },
