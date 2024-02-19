@@ -39,7 +39,7 @@ test("named import", () => {
 			}
     `),
 	).toMatchInlineSnapshot(`
-		"import { type ReactNode } from 'react';
+		"import { ReactNode } from 'react';
 		interface Props {
 				children?: ReadonlyArray<ReactNode>;
 			}"

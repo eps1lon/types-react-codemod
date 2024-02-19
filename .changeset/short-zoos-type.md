@@ -9,7 +9,5 @@ Now we properly detect that e.g. `JSX` is used in `someFunctionWithTypeParameter
 Affected codemods:
 
 - `deprecated-react-child`
-- `deprecated-react-fragment`
-- `deprecated-react-node-array`
 - `deprecated-react-text`
 - `scoped-jsx`

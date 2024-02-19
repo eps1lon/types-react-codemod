@@ -10,7 +10,7 @@ function applyTransform(source, options = {}) {
 		{
 			path: "test.d.ts",
 			source: dedent(source),
-		}
+		},
 	);
 }
 
@@ -21,7 +21,7 @@ test("not modified", () => {
 			interface Props {
 				children?: ReactNode;
 			}
-    `)
+    `),
 	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		interface Props {
@@ -37,11 +37,11 @@ test("named import", () => {
 		interface Props {
 				children?: ReactChild;
 			}
-    `)
+    `),
 	).toMatchInlineSnapshot(`
-		"import { ReactChild } from 'react';
+		"import { ReactElement } from 'react';
 		interface Props {
-				children?: React.ReactElement | number | string;
+				children?: ReactElement | number | string;
 			}"
 	`);
 });
@@ -53,11 +53,11 @@ test("named type import", () => {
 		interface Props {
 				children?: ReactChild;
 			}
-    `)
+    `),
 	).toMatchInlineSnapshot(`
-		"import { type ReactChild } from 'react';
+		"import { type ReactElement } from 'react';
 		interface Props {
-				children?: React.ReactElement | number | string;
+				children?: ReactElement | number | string;
 			}"
 	`);
 });
@@ -69,11 +69,11 @@ test("named type import with existing target import", () => {
 		interface Props {
 				children?: ReactChild;
 			}
-    `)
+    `),
 	).toMatchInlineSnapshot(`
-		"import { ReactChild, ReactElement } from 'react';
+		"import { ReactElement } from 'react';
 		interface Props {
-				children?: React.ReactElement | number | string;
+				children?: ReactElement | number | string;
 			}"
 	`);
 });
@@ -85,7 +85,7 @@ test("false-negative named renamed import", () => {
       interface Props {
 				children?: MyReactChild;
 			}
-    `)
+    `),
 	).toMatchInlineSnapshot(`
 		"import { ReactChild as MyReactChild } from 'react';
 		   interface Props {
@@ -101,7 +101,7 @@ test("namespace import", () => {
       interface Props {
 				children?: React.ReactChild;
 			}
-    `)
+    `),
 	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		   interface Props {
@@ -115,7 +115,7 @@ test("as type parameter", () => {
 		applyTransform(`
 			import * as React from 'react';
 			createAction<React.ReactChild>()
-		`)
+		`),
 	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		createAction<React.ReactElement | number | string>()"

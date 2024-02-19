@@ -1,4 +1,5 @@
 const parseSync = require("./utils/parseSync");
+const { renameType } = require("./utils/replaceType");
 
 /**
  * @type {import('jscodeshift').Transform}
@@ -7,16 +8,15 @@ const deprecatedStatelessComponentTransform = (file, api) => {
 	const j = api.jscodeshift;
 	const ast = parseSync(file);
 
-	const changedIdentifiers = ast
-		.find(j.Identifier, (node) => {
-			return node.name === "StatelessComponent";
-		})
-		.replaceWith(() => {
-			return j.identifier("FunctionComponent");
-		});
+	const hasChanges = renameType(
+		j,
+		ast,
+		"StatelessComponent",
+		"FunctionComponent",
+	);
 
 	// Otherwise some files will be marked as "modified" because formatting changed
-	if (changedIdentifiers.length > 0) {
+	if (hasChanges) {
 		return ast.toSource();
 	}
 	return file.source;

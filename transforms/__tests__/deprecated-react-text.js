@@ -39,7 +39,7 @@ test("named import", () => {
 			}
     `),
 	).toMatchInlineSnapshot(`
-		"import { ReactText } from 'react';
+		"import 'react';
 		interface Props {
 				children?: number | string;
 			}"
@@ -55,7 +55,7 @@ test("named type import", () => {
 			}
     `),
 	).toMatchInlineSnapshot(`
-		"import { type ReactText } from 'react';
+		"import 'react';
 		interface Props {
 				children?: number | string;
 			}"

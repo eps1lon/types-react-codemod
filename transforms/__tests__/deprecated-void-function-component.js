@@ -10,7 +10,7 @@ function applyTransform(source, options = {}) {
 		{
 			path: "test.d.ts",
 			source: dedent(source),
-		}
+		},
 	);
 }
 
@@ -18,11 +18,11 @@ test("not modified", () => {
 	expect(
 		applyTransform(`
 				import { FC } from 'react';
-				FC;
-    `)
+				declare const a: FC;
+    `),
 	).toMatchInlineSnapshot(`
 		"import { FC } from 'react';
-		FC;"
+		declare const a: FC;"
 	`);
 });
 
@@ -30,17 +30,17 @@ test("named import", () => {
 	expect(
 		applyTransform(`
 				import { VFC, VoidFunctionComponent } from 'react';
-				VFC;
-				VFC<T>;
-				VoidFunctionComponent;
-				VoidFunctionComponent<T>;
-    `)
+				declare const a: VFC;
+				declare const b: VFC<T>;
+				declare const c: VoidFunctionComponent;
+				declare const d: VoidFunctionComponent<T>;
+    `),
 	).toMatchInlineSnapshot(`
-		"import { FC, FunctionComponent } from 'react';
-		FC;
-		FC<T>;
-		FunctionComponent;
-		FunctionComponent<T>;"
+		"import { FC, VoidFunctionComponent } from 'react';
+		declare const a: FC;
+		declare const b: FC<T>;
+		declare const c: VoidFunctionComponent;
+		declare const d: VoidFunctionComponent<T>;"
 	`);
 });
 
@@ -48,17 +48,17 @@ test("named type import", () => {
 	expect(
 		applyTransform(`
 				import { type VFC, type VoidFunctionComponent } from 'react';
-				VFC;
-				VFC<T>;
-				VoidFunctionComponent;
-				VoidFunctionComponent<T>;
-    `)
+				declare const a: VFC;
+				declare const b: VFC<T>;
+				declare const c: VoidFunctionComponent;
+				declare const d: VoidFunctionComponent<T>;
+    `),
 	).toMatchInlineSnapshot(`
-		"import { type FC, type FunctionComponent } from 'react';
-		FC;
-		FC<T>;
-		FunctionComponent;
-		FunctionComponent<T>;"
+		"import { type FC, type VoidFunctionComponent } from 'react';
+		declare const a: FC;
+		declare const b: FC<T>;
+		declare const c: VoidFunctionComponent;
+		declare const d: VoidFunctionComponent<T>;"
 	`);
 });
 
@@ -66,17 +66,17 @@ test("named import with existing target import", () => {
 	expect(
 		applyTransform(`
 				import { VFC, VoidFunctionComponent, FC, FunctionComponent } from 'react';
-				VFC;
-				VFC<T>;
-				VoidFunctionComponent;
-				VoidFunctionComponent<T>;
-    `)
+				declare const a: VFC;
+				declare const b: VFC<T>;
+				declare const c: VoidFunctionComponent;
+				declare const d: VoidFunctionComponent<T>;
+    `),
 	).toMatchInlineSnapshot(`
-		"import { FC, FunctionComponent, FC, FunctionComponent } from 'react';
-		FC;
-		FC<T>;
-		FunctionComponent;
-		FunctionComponent<T>;"
+		"import { VoidFunctionComponent, FC, FunctionComponent } from 'react';
+		declare const a: FC;
+		declare const b: FC<T>;
+		declare const c: VoidFunctionComponent;
+		declare const d: VoidFunctionComponent<T>;"
 	`);
 });
 
@@ -84,13 +84,17 @@ test("false-negative named renamed import", () => {
 	expect(
 		applyTransform(`
 				import { VFC as MyVFC, VoidFunctionComponent as MyVoidFunctionComponent } from 'react';
-				MyVFC;
-				MyVoidFunctionComponent;
-    `)
+				declare const a: MyVFC;
+				declare const b: MyVFC<T>;
+				declare const c: MyVoidFunctionComponent;
+				declare const d: MyVoidFunctionComponent<T>;
+    `),
 	).toMatchInlineSnapshot(`
-		"import { FC as MyVFC, FunctionComponent as MyVoidFunctionComponent } from 'react';
-		MyVFC;
-		MyVoidFunctionComponent;"
+		"import { VFC as MyVFC, VoidFunctionComponent as MyVoidFunctionComponent } from 'react';
+		declare const a: MyVFC;
+		declare const b: MyVFC<T>;
+		declare const c: MyVoidFunctionComponent;
+		declare const d: MyVoidFunctionComponent<T>;"
 	`);
 });
 
@@ -98,13 +102,17 @@ test("namespace import", () => {
 	expect(
 		applyTransform(`
 				import * as React from 'react';
-				React.VFC;
-				React.VoidFunctionComponent;
-    `)
+				declare const a: React.VFC;
+				declare const b: React.VFC<T>;
+				declare const c: React.VoidFunctionComponent;
+				declare const d: React.VoidFunctionComponent<T>;
+    `),
 	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-		React.FC;
-		React.FunctionComponent;"
+		declare const a: React.FC;
+		declare const b: React.FC<T>;
+		declare const c: React.VoidFunctionComponent;
+		declare const d: React.VoidFunctionComponent<T>;"
 	`);
 });
 
@@ -112,13 +120,13 @@ test("false-positive rename on different namespace", () => {
 	expect(
 		applyTransform(`
 				import * as Preact from 'preact';
-				Preact.VFC;
-				Preact.VoidFunctionComponent;
-    `)
+				declare const a: Preact.VFC;
+				declare const b: Preact.VoidFunctionComponent;
+    `),
 	).toMatchInlineSnapshot(`
 		"import * as Preact from 'preact';
-		Preact.FC;
-		Preact.FunctionComponent;"
+		declare const a: Preact.FC;
+		declare const b: Preact.VoidFunctionComponent;"
 	`);
 });
 
@@ -130,11 +138,11 @@ test("as type parameter", () => {
       createComponent<React.VFC<T>>();
       createComponent<React.VoidFunctionComponent>();
       createComponent<React.VoidFunctionComponent<T>>();
-    `)
+    `),
 	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-		createComponent<React.VFC>();
-		createComponent<React.VFC<T>>();
+		createComponent<React.FC>();
+		createComponent<React.FC<T>>();
 		createComponent<React.VoidFunctionComponent>();
 		createComponent<React.VoidFunctionComponent<T>>();"
 	`);

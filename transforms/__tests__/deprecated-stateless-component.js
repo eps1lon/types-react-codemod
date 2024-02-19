@@ -10,7 +10,7 @@ function applyTransform(source, options = {}) {
 		{
 			path: "test.d.ts",
 			source: dedent(source),
-		}
+		},
 	);
 }
 
@@ -18,11 +18,11 @@ test("not modified", () => {
 	expect(
 		applyTransform(`
 				import { FunctionComponent } from 'react';
-				FunctionComponent;
-    `)
+				declare const a: FunctionComponent;
+    `),
 	).toMatchInlineSnapshot(`
 		"import { FunctionComponent } from 'react';
-		FunctionComponent;"
+		declare const a: FunctionComponent;"
 	`);
 });
 
@@ -30,13 +30,13 @@ test("named import", () => {
 	expect(
 		applyTransform(`
 				import { StatelessComponent } from 'react';
-				StatelessComponent;
-				StatelessComponent<T>;
-			`)
+				declare const a: StatelessComponent;
+				declare const b: StatelessComponent<T>;
+			`),
 	).toMatchInlineSnapshot(`
 		"import { FunctionComponent } from 'react';
-		FunctionComponent;
-		FunctionComponent<T>;"
+		declare const a: FunctionComponent;
+		declare const b: FunctionComponent<T>;"
 	`);
 });
 
@@ -44,13 +44,13 @@ test("named type import", () => {
 	expect(
 		applyTransform(`
 				import { type StatelessComponent } from 'react';
-				StatelessComponent;
-				StatelessComponent<T>;
-			`)
+				declare const a: StatelessComponent;
+				declare const b: StatelessComponent<T>;
+			`),
 	).toMatchInlineSnapshot(`
 		"import { type FunctionComponent } from 'react';
-		FunctionComponent;
-		FunctionComponent<T>;"
+		declare const a: FunctionComponent;
+		declare const b: FunctionComponent<T>;"
 	`);
 });
 
@@ -58,13 +58,13 @@ test("named import with existing target import", () => {
 	expect(
 		applyTransform(`
 				import { StatelessComponent, FunctionComponent } from 'react';
-				StatelessComponent;
-				StatelessComponent<T>;
-			`)
+				declare const a: StatelessComponent;
+				declare const b: StatelessComponent<T>;
+			`),
 	).toMatchInlineSnapshot(`
-		"import { FunctionComponent, FunctionComponent } from 'react';
-		FunctionComponent;
-		FunctionComponent<T>;"
+		"import { FunctionComponent } from 'react';
+		declare const a: FunctionComponent;
+		declare const b: FunctionComponent<T>;"
 	`);
 });
 
@@ -72,13 +72,13 @@ test("named renamed import", () => {
 	expect(
 		applyTransform(`
 				import { StatelessComponent as MyStatelessComponent } from 'react';
-				MyStatelessComponent;
-				MyStatelessComponent<T>;
-    `)
+				declare const a: MyStatelessComponent;
+				declare const b: MyStatelessComponent<T>;
+    `),
 	).toMatchInlineSnapshot(`
-		"import { FunctionComponent as MyStatelessComponent } from 'react';
-		MyStatelessComponent;
-		MyStatelessComponent<T>;"
+		"import { StatelessComponent as MyStatelessComponent } from 'react';
+		declare const a: MyStatelessComponent;
+		declare const b: MyStatelessComponent<T>;"
 	`);
 });
 
@@ -86,11 +86,11 @@ test("namespace import", () => {
 	expect(
 		applyTransform(`
 				import * as React from 'react';
-				React.StatelessComponent;
-    `)
+				declare const a: React.StatelessComponent;
+    `),
 	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-		React.FunctionComponent;"
+		declare const a: React.FunctionComponent;"
 	`);
 });
 
@@ -98,11 +98,11 @@ test("false-positive rename on different namespace", () => {
 	expect(
 		applyTransform(`
 				import * as Preact from 'preact';
-				Preact.StatelessComponent;
-    `)
+				declare const a: Preact.StatelessComponent;
+    `),
 	).toMatchInlineSnapshot(`
 		"import * as Preact from 'preact';
-		Preact.FunctionComponent;"
+		declare const a: Preact.FunctionComponent;"
 	`);
 });
 
@@ -112,10 +112,10 @@ test("as type parameter", () => {
       import * as React from 'react';
       createComponent<React.StatelessComponent>();
       createComponent<React.StatelessComponent<T>>();
-    `)
+    `),
 	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-		createComponent<React.StatelessComponent>();
-		createComponent<React.StatelessComponent<T>>();"
+		createComponent<React.FunctionComponent>();
+		createComponent<React.FunctionComponent<T>>();"
 	`);
 });
