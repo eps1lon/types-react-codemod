@@ -98,6 +98,7 @@ async function main() {
 							name: "presets",
 							type: "checkbox",
 							choices: [
+								{ checked: true, value: "deprecated-legacy-ref" },
 								{ checked: true, value: "deprecated-react-child" },
 								{ checked: true, value: "deprecated-react-node-array" },
 								{ checked: true, value: "deprecated-react-fragment" },

@@ -1,3 +1,4 @@
+const deprecatedLegacyRefTransform = require("./deprecated-legacy-ref");
 const deprecatedReactChildTransform = require("./deprecated-react-child");
 const deprecatedReactNodeArrayTransform = require("./deprecated-react-node-array");
 const deprecatedReactFragmentTransform = require("./deprecated-react-fragment");
@@ -18,6 +19,9 @@ const transform = (file, api, options) => {
 	 * @type {import('jscodeshift').Transform[]}
 	 */
 	const transforms = [];
+	if (transformNames.has("deprecated-legacy-ref")) {
+		transforms.push(deprecatedLegacyRefTransform);
+	}
 	if (transformNames.has("deprecated-react-child")) {
 		transforms.push(deprecatedReactChildTransform);
 	}

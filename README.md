@@ -33,13 +33,13 @@ Time elapsed: 0.229seconds
 $ npx types-react-codemod <codemod> <paths...>
 
 Positionals:
-  codemod [string] [required] [choices: "context-any", "deprecated-react-child",
-                     "deprecated-react-fragment", "deprecated-react-node-array",
-     "deprecated-react-text", "deprecated-react-type", "deprecated-sfc-element",
-                             "deprecated-sfc", "deprecated-stateless-component",
-         "deprecated-void-function-component", "implicit-children", "preset-18",
-    "preset-19", "refobject-defaults", "scoped-jsx", "useCallback-implicit-any",
-                                                      "useRef-required-initial"]
+  codemod  [string] [required] [choices: "context-any", "deprecated-legacy-ref",
+                          "deprecated-react-child", "deprecated-react-fragment",
+                         "deprecated-react-node-array", "deprecated-react-text",
+            "deprecated-react-type", "deprecated-sfc-element", "deprecated-sfc",
+         "deprecated-stateless-component", "deprecated-void-function-component",
+            "implicit-children", "preset-18", "preset-19", "refobject-defaults",
+            "scoped-jsx", "useCallback-implicit-any", "useRef-required-initial"]
   paths                                                      [string] [required]
 
 Options:
@@ -71,6 +71,7 @@ The reason being that a false-positive can be reverted easily (assuming you have
 - `implicit-children`
 - `useCallback-implicit-any`
 - `preset-19`
+- `deprecated-legacy-ref`
 - `deprecated-react-child`
 - `deprecated-react-text`
 - `deprecated-void-function-component`
@@ -211,6 +212,28 @@ You can interactively pick the codemods included.
 By default, the codemods that are definitely required to upgrade to `@types/react@^19.0.0` are selected.
 The other codemods may or may not be required.
 You should select all and audit the changed files regardless.
+
+### `deprecated-legacy-ref`
+
+```diff
+ import * as React from "react";
+ interface Props {
+-  ref?: React.LegacyRef;
++  ref?: React.Ref;
+ }
+```
+
+#### `deprecated-legacy-ref false-negative pattern A
+
+Importing `LegacyRef` via aliased named import will result in the transform being skipped.
+
+```tsx
+import { LegacyRef as MyLegacyRef } from "react";
+interface Props {
+	// not transformed
+	ref?: MyLegacyRef;
+}
+```
 
 ### `deprecated-react-child`
 
