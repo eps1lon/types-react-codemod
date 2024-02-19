@@ -48,6 +48,24 @@ test("named import", () => {
 	`);
 });
 
+test("named type import", () => {
+	expect(
+		applyTransform(`
+      import { type LegacyRef } from 'react';
+		interface Props<T> {
+				legacyRef?: LegacyRef;
+				legacyRefTyped?: LegacyRef<T>;
+			}
+    `),
+	).toMatchInlineSnapshot(`
+		"import { type Ref } from 'react';
+		interface Props<T> {
+				legacyRef?: Ref;
+				legacyRefTyped?: Ref<T>;
+			}"
+	`);
+});
+
 test("named import with existing target import", () => {
 	expect(
 		applyTransform(`

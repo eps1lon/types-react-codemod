@@ -35,8 +35,12 @@ const deprecatedLegacyRefTransform = (file, api) => {
 		sourceIdentifierImports.remove();
 	} else if (sourceIdentifierImports.length > 0) {
 		hasChanges = true;
-		sourceIdentifierImports.replaceWith(() => {
+		sourceIdentifierImports.replaceWith((path) => {
 			const importSpecifier = j.importSpecifier(j.identifier("Ref"));
+			if ("importKind" in path.node) {
+				// @ts-expect-error -- Missing types in jscodeshift. Babel uses `importKind`: https://astexplorer.net/#/gist/a76bd35f28483a467fef29d3c63aac9b/0e7ba6688fc09bd11b92197349b2384bb4c94574
+				importSpecifier.importKind = path.node.importKind;
+			}
 
 			return importSpecifier;
 		});
