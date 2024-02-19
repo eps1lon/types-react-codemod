@@ -1,4 +1,4 @@
-const { describe, expect, test } = require("@jest/globals");
+const { expect, test } = require("@jest/globals");
 const dedent = require("dedent");
 const JscodeshiftTestUtils = require("jscodeshift/dist/testUtils");
 const deprecatedSFCElementTransform = require("../deprecated-sfc-element");
@@ -14,76 +14,94 @@ function applyTransform(source, options = {}) {
 	);
 }
 
-describe("transform deprecated-sfc-element", () => {
-	test("not modified", () => {
-		expect(
-			applyTransform(`
+test("not modified", () => {
+	expect(
+		applyTransform(`
 				import { FunctionComponentElement } from 'react';
-				FunctionComponentElement;
+				declare const a: FunctionComponentElement;
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import { FunctionComponentElement } from 'react';
-		FunctionComponentElement;"
+		declare const a: FunctionComponentElement;"
 	`);
-	});
+});
 
-	test("named import", () => {
-		expect(
-			applyTransform(`
+test("named import", () => {
+	expect(
+		applyTransform(`
 				import { SFCElement } from 'react';
-				SFCElement;
+				declare const a: SFCElement;
+				declare const b: SFCElement<T>;
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import { FunctionComponentElement } from 'react';
-		FunctionComponentElement;"
+		declare const a: FunctionComponentElement;
+		declare const b: FunctionComponentElement<T>;"
 	`);
-	});
+});
 
-	test("named typew import", () => {
-		expect(
-			applyTransform(`
+test("named type import", () => {
+	expect(
+		applyTransform(`
 				import { type SFCElement } from 'react';
-				SFCElement;
+				declare const a: SFCElement;
+				declare const b: SFCElement<T>;
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import { type FunctionComponentElement } from 'react';
-		FunctionComponentElement;"
+		declare const a: FunctionComponentElement;
+		declare const b: FunctionComponentElement<T>;"
 	`);
-	});
+});
 
-	test("named renamed import", () => {
-		expect(
-			applyTransform(`
+test("false-negative named renamed import", () => {
+	expect(
+		applyTransform(`
 				import { SFCElement as MySFCElement } from 'react';
 				MySFCElement;
     `),
-		).toMatchInlineSnapshot(`
-		"import { FunctionComponentElement as MySFCElement } from 'react';
+	).toMatchInlineSnapshot(`
+		"import { SFCElement as MySFCElement } from 'react';
 		MySFCElement;"
 	`);
-	});
+});
 
-	test("namespace import", () => {
-		expect(
-			applyTransform(`
+test("namespace import", () => {
+	expect(
+		applyTransform(`
 				import * as React from 'react';
-				React.SFCElement;
+				declare const a: React.SFCElement;
+				declare const b: React.SFCElement<T>;
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-		React.FunctionComponentElement;"
+		declare const a: React.FunctionComponentElement;
+		declare const b: React.FunctionComponentElement<T>;"
 	`);
-	});
+});
 
-	test("false-positive rename on different namespace", () => {
-		expect(
-			applyTransform(`
+test("false-positive rename on different namespace", () => {
+	expect(
+		applyTransform(`
 				import * as Preact from 'preact';
-				Preact.SFCElement;
+				declare const b: Preact.SFCElement;
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import * as Preact from 'preact';
-		Preact.FunctionComponentElement;"
+		declare const b: Preact.FunctionComponentElement;"
 	`);
-	});
+});
+
+test("as type parameter", () => {
+	expect(
+		applyTransform(`
+      import * as React from 'react';
+      createComponent<React.SFCElement>();
+      createComponent<React.SFCElement<T>>();
+    `),
+	).toMatchInlineSnapshot(`
+		"import * as React from 'react';
+		createComponent<React.FunctionComponentElement>();
+		createComponent<React.FunctionComponentElement<T>>();"
+	`);
 });

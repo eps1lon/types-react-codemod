@@ -1,4 +1,4 @@
-const { describe, expect, test } = require("@jest/globals");
+const { expect, test } = require("@jest/globals");
 const dedent = require("dedent");
 const JscodeshiftTestUtils = require("jscodeshift/dist/testUtils");
 const deprecatedSFCTransform = require("../deprecated-sfc");
@@ -10,76 +10,112 @@ function applyTransform(source, options = {}) {
 	});
 }
 
-describe("transform deprecated-sfc", () => {
-	test("not modified", () => {
-		expect(
-			applyTransform(`
+test("not modified", () => {
+	expect(
+		applyTransform(`
 				import { FC } from 'react';
-				FC;
+				declare const a: FC;
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import { FC } from 'react';
-		FC;"
+		declare const a: FC;"
 	`);
-	});
+});
 
-	test("named import", () => {
-		expect(
-			applyTransform(`
+test("named import", () => {
+	expect(
+		applyTransform(`
 				import { SFC } from 'react';
-				SFC;
+				declare const a: SFC;
+				declare const b: SFC<T>;
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import { FC } from 'react';
-		FC;"
+		declare const a: FC;
+		declare const b: FC<T>;"
 	`);
-	});
+});
 
-	test("named type import", () => {
-		expect(
-			applyTransform(`
+test("named type import", () => {
+	expect(
+		applyTransform(`
 				import { type SFC } from 'react';
-				SFC;
+				declare const a: SFC;
+				declare const b: SFC<T>;
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import { type FC } from 'react';
-		FC;"
+		declare const a: FC;
+		declare const b: FC<T>;"
 	`);
-	});
+});
 
-	test("named renamed import", () => {
-		expect(
-			applyTransform(`
+test("named import with existing target import", () => {
+	expect(
+		applyTransform(`
+				import { SFC } from 'react';
+				declare const a: SFC;
+				declare const b: SFC<T>;
+    `),
+	).toMatchInlineSnapshot(`
+		"import { FC } from 'react';
+		declare const a: FC;
+		declare const b: FC<T>;"
+	`);
+});
+
+test("false-negative named renamed import", () => {
+	expect(
+		applyTransform(`
 				import { SFC as MySFC } from 'react';
-				MySFCElement;
+				declare const a: MySFC;
+				declare const b: MySFC<T>;
     `),
-		).toMatchInlineSnapshot(`
-		"import { FC as MySFC } from 'react';
-		MySFCElement;"
+	).toMatchInlineSnapshot(`
+		"import { SFC as MySFC } from 'react';
+		declare const a: MySFC;
+		declare const b: MySFC<T>;"
 	`);
-	});
+});
 
-	test("namespace import", () => {
-		expect(
-			applyTransform(`
+test("namespace import", () => {
+	expect(
+		applyTransform(`
 				import * as React from 'react';
-				React.SFC;
+				declare const a: React.SFC;
+				declare const b: React.SFC<T>;
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-		React.FC;"
+		declare const a: React.FC;
+		declare const b: React.FC<T>;"
 	`);
-	});
+});
 
-	test("false-positive rename on different namespace", () => {
-		expect(
-			applyTransform(`
+test("false-positive rename on different namespace", () => {
+	expect(
+		applyTransform(`
 				import * as Preact from 'preact';
-				Preact.SFC;
+				declare const a: Preact.SFC;
+				declare const b: Preact.SFC<T>;
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import * as Preact from 'preact';
-		Preact.FC;"
+		declare const a: Preact.FC;
+		declare const b: Preact.FC<T>;"
 	`);
-	});
+});
+
+test("as type parameter", () => {
+	expect(
+		applyTransform(`
+      import * as React from 'react';
+      createComponent<React.SFC>();
+      createComponent<React.SFC<T>>();
+    `),
+	).toMatchInlineSnapshot(`
+		"import * as React from 'react';
+		createComponent<React.FC>();
+		createComponent<React.FC<T>>();"
+	`);
 });

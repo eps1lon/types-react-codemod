@@ -1,4 +1,4 @@
-const { describe, expect, test } = require("@jest/globals");
+const { expect, test } = require("@jest/globals");
 const dedent = require("dedent");
 const JscodeshiftTestUtils = require("jscodeshift/dist/testUtils");
 const deprecatedReactTextTransform = require("../deprecated-react-text");
@@ -14,80 +14,94 @@ function applyTransform(source, options = {}) {
 	);
 }
 
-describe("transform deprecated-react-text", () => {
-	test("not modified", () => {
-		expect(
-			applyTransform(`
+test("not modified", () => {
+	expect(
+		applyTransform(`
 			import * as React from 'react';
 			interface Props {
 				children?: ReactNode;
 			}
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		interface Props {
 			children?: ReactNode;
 		}"
 	`);
-	});
+});
 
-	test("named import", () => {
-		expect(
-			applyTransform(`
+test("named import", () => {
+	expect(
+		applyTransform(`
       import { ReactText } from 'react';
 		interface Props {
 				children?: ReactText;
 			}
     `),
-		).toMatchInlineSnapshot(`
-		"import { ReactText } from 'react';
+	).toMatchInlineSnapshot(`
+		"import 'react';
 		interface Props {
 				children?: number | string;
 			}"
 	`);
-	});
+});
 
-	test("false-negative named renamed import", () => {
-		expect(
-			applyTransform(`
+test("named type import", () => {
+	expect(
+		applyTransform(`
+      import { type ReactText } from 'react';
+		interface Props {
+				children?: ReactText;
+			}
+    `),
+	).toMatchInlineSnapshot(`
+		"import 'react';
+		interface Props {
+				children?: number | string;
+			}"
+	`);
+});
+
+test("false-negative named renamed import", () => {
+	expect(
+		applyTransform(`
       import { ReactText as MyReactText } from 'react';
       interface Props {
 				children?: MyReactText;
 			}
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import { ReactText as MyReactText } from 'react';
 		   interface Props {
 			children?: MyReactText;
 		}"
 	`);
-	});
+});
 
-	test("namespace import", () => {
-		expect(
-			applyTransform(`
+test("namespace import", () => {
+	expect(
+		applyTransform(`
       import * as React from 'react';
       interface Props {
 				children?: React.ReactText;
 			}
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		   interface Props {
 			children?: number | string;
 		}"
 	`);
-	});
+});
 
-	test("in type parameters", () => {
-		expect(
-			applyTransform(`
+test("in type parameters", () => {
+	expect(
+		applyTransform(`
       import * as React from 'react';
       createComponent<React.ReactText>();
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		createComponent<number | string>();"
 	`);
-	});
 });

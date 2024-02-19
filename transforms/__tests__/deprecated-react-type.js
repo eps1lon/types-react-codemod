@@ -1,4 +1,4 @@
-const { describe, expect, test } = require("@jest/globals");
+const { expect, test } = require("@jest/globals");
 const dedent = require("dedent");
 const JscodeshiftTestUtils = require("jscodeshift/dist/testUtils");
 const deprecatedReactTypeTransform = require("../deprecated-react-type");
@@ -14,64 +14,110 @@ function applyTransform(source, options = {}) {
 	);
 }
 
-describe("transform deprecated-react-type", () => {
-	test("not modified", () => {
-		expect(
-			applyTransform(`
+test("not modified", () => {
+	expect(
+		applyTransform(`
 				import { ElementType } from 'react';
-				ElementType;
+				declare const a: ElementType;
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import { ElementType } from 'react';
-		ElementType;"
+		declare const a: ElementType;"
 	`);
-	});
+});
 
-	test("named import", () => {
-		expect(
-			applyTransform(`
-      import { ReactType } from 'react';
-      ReactType;
+test("named import", () => {
+	expect(
+		applyTransform(`
+			import { ReactType } from 'react';
+			declare const a: ReactType;
+			declare const b: ReactType<T>;
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import { ElementType } from 'react';
-		ElementType;"
+		declare const a: ElementType;
+		declare const b: ElementType<T>;"
 	`);
-	});
+});
 
-	test("named renamed import", () => {
-		expect(
-			applyTransform(`
-      import { ReactType as MyReactType } from 'react';
-      MyReactType;
+test("named type import", () => {
+	expect(
+		applyTransform(`
+			import { type ReactType } from 'react';
+			declare const a: ReactType;
+			declare const b: ReactType<T>;
     `),
-		).toMatchInlineSnapshot(`
-		"import { ElementType as MyReactType } from 'react';
-		MyReactType;"
+	).toMatchInlineSnapshot(`
+		"import { type ElementType } from 'react';
+		declare const a: ElementType;
+		declare const b: ElementType<T>;"
 	`);
-	});
+});
 
-	test("namespace import", () => {
-		expect(
-			applyTransform(`
+test("named type import with existing target import", () => {
+	expect(
+		applyTransform(`
+			import { type ReactType, ElementType } from 'react';
+			declare const a: ReactType;
+			declare const b: ReactType<T>;
+    `),
+	).toMatchInlineSnapshot(`
+		"import { ElementType } from 'react';
+		declare const a: ElementType;
+		declare const b: ElementType<T>;"
+	`);
+});
+
+test("false-negative named renamed import", () => {
+	expect(
+		applyTransform(`
+			import { ReactType as MyReactType } from 'react';
+			declare const a: MyReactType;
+			declare const b: MyReactType<T>;
+    `),
+	).toMatchInlineSnapshot(`
+		"import { ReactType as MyReactType } from 'react';
+		declare const a: MyReactType;
+		declare const b: MyReactType<T>;"
+	`);
+});
+
+test("namespace import", () => {
+	expect(
+		applyTransform(`
       import * as React from 'react';
-      React.ReactType;
+      declare const a: React.ReactType;
+      declare const b: React.ReactType<T>;
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-		React.ElementType;"
+		declare const a: React.ElementType;
+		declare const b: React.ElementType<T>;"
 	`);
-	});
+});
 
-	test("false-positive rename on different namespace", () => {
-		expect(
-			applyTransform(`
+test("false-positive rename on different namespace", () => {
+	expect(
+		applyTransform(`
       import * as Preact from 'preact';
-      Preact.ReactType;
+      declare const a: Preact.ReactType;
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import * as Preact from 'preact';
-		Preact.ElementType;"
+		declare const a: Preact.ElementType;"
 	`);
-	});
+});
+
+test("as type parameter", () => {
+	expect(
+		applyTransform(`
+      import * as React from 'react';
+      createComponent<React.ReactType>();
+      createComponent<React.ReactType<T>>();
+    `),
+	).toMatchInlineSnapshot(`
+		"import * as React from 'react';
+		createComponent<React.ElementType>();
+		createComponent<React.ElementType<T>>();"
+	`);
 });
