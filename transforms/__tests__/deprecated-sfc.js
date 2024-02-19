@@ -1,4 +1,4 @@
-const { describe, expect, test } = require("@jest/globals");
+const { expect, test } = require("@jest/globals");
 const dedent = require("dedent");
 const JscodeshiftTestUtils = require("jscodeshift/dist/testUtils");
 const deprecatedSFCTransform = require("../deprecated-sfc");
@@ -10,76 +10,112 @@ function applyTransform(source, options = {}) {
 	});
 }
 
-describe("transform deprecated-sfc", () => {
-	test("not modified", () => {
-		expect(
-			applyTransform(`
+test("not modified", () => {
+	expect(
+		applyTransform(`
 				import { FC } from 'react';
 				FC;
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import { FC } from 'react';
 		FC;"
 	`);
-	});
+});
 
-	test("named import", () => {
-		expect(
-			applyTransform(`
+test("named import", () => {
+	expect(
+		applyTransform(`
 				import { SFC } from 'react';
 				SFC;
+				SFC<T>;
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import { FC } from 'react';
-		FC;"
+		FC;
+		FC<T>;"
 	`);
-	});
+});
 
-	test("named type import", () => {
-		expect(
-			applyTransform(`
+test("named type import", () => {
+	expect(
+		applyTransform(`
 				import { type SFC } from 'react';
 				SFC;
+				SFC<T>;
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import { type FC } from 'react';
-		FC;"
+		FC;
+		FC<T>;"
 	`);
-	});
+});
 
-	test("named renamed import", () => {
-		expect(
-			applyTransform(`
-				import { SFC as MySFC } from 'react';
-				MySFCElement;
+test("named import with existing target import", () => {
+	expect(
+		applyTransform(`
+				import { SFC } from 'react';
+				SFC;
+				SFC<T>;
     `),
-		).toMatchInlineSnapshot(`
-		"import { FC as MySFC } from 'react';
-		MySFCElement;"
+	).toMatchInlineSnapshot(`
+		"import { FC } from 'react';
+		FC;
+		FC<T>;"
 	`);
-	});
+});
 
-	test("namespace import", () => {
-		expect(
-			applyTransform(`
+test("false-negative named renamed import", () => {
+	expect(
+		applyTransform(`
+				import { SFC as MySFC } from 'react';
+				MySFC;
+				MySFC<T>;
+    `),
+	).toMatchInlineSnapshot(`
+		"import { FC as MySFC } from 'react';
+		MySFC;
+		MySFC<T>;"
+	`);
+});
+
+test("namespace import", () => {
+	expect(
+		applyTransform(`
 				import * as React from 'react';
 				React.SFC;
+				React.SFC<T>;
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-		React.FC;"
+		React.FC;
+		React.FC<T>;"
 	`);
-	});
+});
 
-	test("false-positive rename on different namespace", () => {
-		expect(
-			applyTransform(`
+test("false-positive rename on different namespace", () => {
+	expect(
+		applyTransform(`
 				import * as Preact from 'preact';
 				Preact.SFC;
+				Preact.SFC<T>;
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import * as Preact from 'preact';
-		Preact.FC;"
+		Preact.FC;
+		Preact.FC<T>;"
 	`);
-	});
+});
+
+test("as type parameter", () => {
+	expect(
+		applyTransform(`
+      import * as React from 'react';
+      createComponent<React.SFC>();
+      createComponent<React.SFC<T>>();
+    `),
+	).toMatchInlineSnapshot(`
+		"import * as React from 'react';
+		createComponent<React.SFC>();
+		createComponent<React.SFC<T>>();"
+	`);
 });

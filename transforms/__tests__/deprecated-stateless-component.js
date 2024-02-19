@@ -1,4 +1,4 @@
-const { describe, expect, test } = require("@jest/globals");
+const { expect, test } = require("@jest/globals");
 const dedent = require("dedent");
 const JscodeshiftTestUtils = require("jscodeshift/dist/testUtils");
 const deprecatedStatelessComponent = require("../deprecated-stateless-component");
@@ -10,80 +10,112 @@ function applyTransform(source, options = {}) {
 		{
 			path: "test.d.ts",
 			source: dedent(source),
-		},
+		}
 	);
 }
 
-describe("transform deprecated-stateless-component", () => {
-	test("not modified", () => {
-		expect(
-			applyTransform(`
+test("not modified", () => {
+	expect(
+		applyTransform(`
 				import { FunctionComponent } from 'react';
 				FunctionComponent;
-    `),
-		).toMatchInlineSnapshot(`
+    `)
+	).toMatchInlineSnapshot(`
 		"import { FunctionComponent } from 'react';
 		FunctionComponent;"
 	`);
-	});
+});
 
-	test("named import", () => {
-		expect(
-			applyTransform(`
+test("named import", () => {
+	expect(
+		applyTransform(`
 				import { StatelessComponent } from 'react';
 				StatelessComponent;
-			`),
-		).toMatchInlineSnapshot(`
+				StatelessComponent<T>;
+			`)
+	).toMatchInlineSnapshot(`
 		"import { FunctionComponent } from 'react';
-		FunctionComponent;"
+		FunctionComponent;
+		FunctionComponent<T>;"
 	`);
-	});
+});
 
-	test("named type import", () => {
-		expect(
-			applyTransform(`
+test("named type import", () => {
+	expect(
+		applyTransform(`
 				import { type StatelessComponent } from 'react';
 				StatelessComponent;
-			`),
-		).toMatchInlineSnapshot(`
+				StatelessComponent<T>;
+			`)
+	).toMatchInlineSnapshot(`
 		"import { type FunctionComponent } from 'react';
-		FunctionComponent;"
+		FunctionComponent;
+		FunctionComponent<T>;"
 	`);
-	});
+});
 
-	test("named renamed import", () => {
-		expect(
-			applyTransform(`
+test("named import with existing target import", () => {
+	expect(
+		applyTransform(`
+				import { StatelessComponent, FunctionComponent } from 'react';
+				StatelessComponent;
+				StatelessComponent<T>;
+			`)
+	).toMatchInlineSnapshot(`
+		"import { FunctionComponent, FunctionComponent } from 'react';
+		FunctionComponent;
+		FunctionComponent<T>;"
+	`);
+});
+
+test("named renamed import", () => {
+	expect(
+		applyTransform(`
 				import { StatelessComponent as MyStatelessComponent } from 'react';
 				MyStatelessComponent;
-    `),
-		).toMatchInlineSnapshot(`
+				MyStatelessComponent<T>;
+    `)
+	).toMatchInlineSnapshot(`
 		"import { FunctionComponent as MyStatelessComponent } from 'react';
-		MyStatelessComponent;"
+		MyStatelessComponent;
+		MyStatelessComponent<T>;"
 	`);
-	});
+});
 
-	test("namespace import", () => {
-		expect(
-			applyTransform(`
+test("namespace import", () => {
+	expect(
+		applyTransform(`
 				import * as React from 'react';
 				React.StatelessComponent;
-    `),
-		).toMatchInlineSnapshot(`
+    `)
+	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		React.FunctionComponent;"
 	`);
-	});
+});
 
-	test("false-positive rename on different namespace", () => {
-		expect(
-			applyTransform(`
+test("false-positive rename on different namespace", () => {
+	expect(
+		applyTransform(`
 				import * as Preact from 'preact';
 				Preact.StatelessComponent;
-    `),
-		).toMatchInlineSnapshot(`
+    `)
+	).toMatchInlineSnapshot(`
 		"import * as Preact from 'preact';
 		Preact.FunctionComponent;"
 	`);
-	});
+});
+
+test("as type parameter", () => {
+	expect(
+		applyTransform(`
+      import * as React from 'react';
+      createComponent<React.StatelessComponent>();
+      createComponent<React.StatelessComponent<T>>();
+    `)
+	).toMatchInlineSnapshot(`
+		"import * as React from 'react';
+		createComponent<React.StatelessComponent>();
+		createComponent<React.StatelessComponent<T>>();"
+	`);
 });

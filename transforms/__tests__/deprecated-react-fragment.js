@@ -1,4 +1,4 @@
-const { describe, expect, test } = require("@jest/globals");
+const { expect, test } = require("@jest/globals");
 const dedent = require("dedent");
 const JscodeshiftTestUtils = require("jscodeshift/dist/testUtils");
 const deprecatedReactFragmentTransform = require("../deprecated-react-fragment");
@@ -14,128 +14,126 @@ function applyTransform(source, options = {}) {
 	);
 }
 
-describe("transform deprecated-react-node-array", () => {
-	test("not modified", () => {
-		expect(
-			applyTransform(`
+test("not modified", () => {
+	expect(
+		applyTransform(`
 			import * as React from 'react';
 			interface Props {
 				children?: ReactNode;
 			}
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		interface Props {
 			children?: ReactNode;
 		}"
 	`);
-	});
+});
 
-	test("named import", () => {
-		expect(
-			applyTransform(`
+test("named import", () => {
+	expect(
+		applyTransform(`
       import { ReactFragment } from 'react';
 		interface Props {
 				children?: ReactFragment;
 			}
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import { type ReactNode } from 'react';
 		interface Props {
 				children?: Iterable<ReactNode>;
 			}"
 	`);
-	});
+});
 
-	test("named type import", () => {
-		expect(
-			applyTransform(`
-      import type { ReactFragment } from 'react';
+test("named type import", () => {
+	expect(
+		applyTransform(`
+      import { type ReactFragment } from 'react';
 		interface Props {
 				children?: ReactFragment;
 			}
     `),
-		).toMatchInlineSnapshot(`
-		"import type { ReactNode } from 'react';
+	).toMatchInlineSnapshot(`
+		"import { type ReactNode } from 'react';
 		interface Props {
 				children?: Iterable<ReactNode>;
 			}"
 	`);
-	});
+});
 
-	test("named import with existing ReactNode import", () => {
-		expect(
-			applyTransform(`
+test("named import with existing target import", () => {
+	expect(
+		applyTransform(`
       import { ReactFragment, ReactNode } from 'react';
 		interface Props {
 				children?: ReactFragment;
 			}
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import { ReactNode } from 'react';
 		interface Props {
 				children?: Iterable<ReactNode>;
 			}"
 	`);
-	});
+});
 
-	test("named import with existing ReactNode type import", () => {
-		expect(
-			applyTransform(`
+test("named import with existing ReactNode type import", () => {
+	expect(
+		applyTransform(`
       import { ReactFragment, type ReactNode } from 'react';
 		interface Props {
 				children?: ReactFragment;
 			}
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import { type ReactNode } from 'react';
 		interface Props {
 				children?: Iterable<ReactNode>;
 			}"
 	`);
-	});
+});
 
-	test("false-negative named renamed import", () => {
-		expect(
-			applyTransform(`
+test("false-negative named renamed import", () => {
+	expect(
+		applyTransform(`
       import { ReactFragment as MyReactFragment } from 'react';
       interface Props {
 				children?: MyReactFragment;
 			}
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import { ReactFragment as MyReactFragment } from 'react';
 		   interface Props {
 			children?: MyReactFragment;
 		}"
 	`);
-	});
+});
 
-	test("namespace import", () => {
-		expect(
-			applyTransform(`
+test("namespace import", () => {
+	expect(
+		applyTransform(`
       import * as React from 'react';
       interface Props {
 				children?: React.ReactFragment;
 			}
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		   interface Props {
 			children?: Iterable<React.ReactNode>;
 		}"
 	`);
-	});
+});
 
-	test("as type parameter", () => {
-		expect(
-			applyTransform(`
+test("as type parameter", () => {
+	expect(
+		applyTransform(`
       import * as React from 'react';
       createComponent<React.ReactFragment>();
     `),
-		).toMatchInlineSnapshot(`
+	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
 		createComponent<Iterable<React.ReactNode>>();"
 	`);
-	});
 });
