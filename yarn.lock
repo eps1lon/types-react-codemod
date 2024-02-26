@@ -4344,8 +4344,8 @@ __metadata:
   linkType: hard
 
 "inquirer@npm:^9.0.0":
-  version: 9.2.14
-  resolution: "inquirer@npm:9.2.14"
+  version: 9.2.15
+  resolution: "inquirer@npm:9.2.15"
   dependencies:
     "@ljharb/through": ^2.3.12
     ansi-escapes: ^4.3.2
@@ -4362,7 +4362,7 @@ __metadata:
     string-width: ^4.2.3
     strip-ansi: ^6.0.1
     wrap-ansi: ^6.2.0
-  checksum: a4e4d6eaa295dee1a4e658f51646a19644f7a747566fc445ca14ba4401dbbf1819edb6832d8b1f5c3fb2baa3d1bf26251ea33fe087ee45a7ae45381911443833
+  checksum: 98e385ef2900a6071e6576ab9fbf0b04e908ed386aaae5163bd467d32dc80a76bcd33bd03d34cd35a93ce99e47cbd52d62ae48ace9bfb20aff4a45e9bc1323d3
   languageName: node
   linkType: hard
 
