@@ -11,7 +11,7 @@ const { findTSTypeReferenceCollections } = require("./jscodeshift-bugfixes");
  * @returns {boolean}
  */
 function renameType(j, ast, sourceIdentifier, targetIdentifier) {
-	return replaceType(
+	return replaceReactType(
 		j,
 		ast,
 		sourceIdentifier,
@@ -47,7 +47,7 @@ function renameType(j, ast, sourceIdentifier, targetIdentifier) {
  * @param {(sourcePath: import("jscodeshift").TSTypeReference) => import("jscodeshift").TSTypeReference | import("jscodeshift").TSUnionType} buildTargetTypeReference
  * @param {string | null} addedType - `null` if no type was added
  */
-function replaceType(
+function replaceReactType(
 	j,
 	ast,
 	sourceIdentifier,
@@ -66,15 +66,19 @@ function replaceType(
 			(local == null || local.name === addedType)
 		);
 	});
-	const sourceIdentifierImports = ast.find(j.ImportSpecifier, (node) => {
-		const { imported, local } = node;
-		return (
-			imported.type === "Identifier" &&
-			imported.name === sourceIdentifier &&
-			// We don't support renames generally, so we don't handle them here
-			(local == null || local.name === sourceIdentifier)
-		);
-	});
+	const sourceIdentifierImports = ast
+		.find(j.ImportDeclaration, (declaration) => {
+			return declaration.source.value === "react";
+		})
+		.find(j.ImportSpecifier, (node) => {
+			const { imported, local } = node;
+			return (
+				imported.type === "Identifier" &&
+				imported.name === sourceIdentifier &&
+				// We don't support renames generally, so we don't handle them here
+				(local == null || local.name === sourceIdentifier)
+			);
+		});
 	if (sourceIdentifierImports.length > 0) {
 		hasChanges = true;
 
@@ -120,4 +124,4 @@ function replaceType(
 	return hasChanges;
 }
 
-module.exports = { replaceType, renameType };
+module.exports = { replaceReactType, renameType };

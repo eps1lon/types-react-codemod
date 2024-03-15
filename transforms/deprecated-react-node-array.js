@@ -1,5 +1,5 @@
 const parseSync = require("./utils/parseSync");
-const { replaceType } = require("./utils/replaceType");
+const { replaceReactType } = require("./utils/replaceType");
 
 /**
  * @type {import('jscodeshift').Transform}
@@ -8,7 +8,7 @@ const deprecatedReactNodeArrayTransform = (file, api) => {
 	const j = api.jscodeshift;
 	const ast = parseSync(file);
 
-	const hasChanges = replaceType(
+	const hasChanges = replaceReactType(
 		j,
 		ast,
 		"ReactNodeArray",
