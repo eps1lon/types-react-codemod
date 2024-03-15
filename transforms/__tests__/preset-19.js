@@ -4,6 +4,7 @@ const JscodeshiftTestUtils = require("jscodeshift/dist/testUtils");
 
 describe("preset-19", () => {
 	let preset19Transform;
+	let deprecatedPropTypesTypes;
 	let deprecatedLegacyRefTransform;
 	let deprecatedReactChildTransform;
 	let deprecatedReactNodeArrayTransform;
@@ -34,6 +35,7 @@ describe("preset-19", () => {
 			return transform;
 		}
 
+		deprecatedPropTypesTypes = mockTransform("../deprecated-prop-types-types");
 		deprecatedLegacyRefTransform = mockTransform("../deprecated-legacy-ref");
 		deprecatedReactChildTransform = mockTransform("../deprecated-react-child");
 		deprecatedReactNodeArrayTransform = mockTransform(
@@ -68,6 +70,7 @@ describe("preset-19", () => {
 	test("applies all", () => {
 		applyTransform("", {
 			preset19Transforms: [
+				"deprecated-prop-types-types",
 				"deprecated-legacy-ref",
 				"deprecated-react-child",
 				"deprecated-react-fragment",
@@ -80,6 +83,7 @@ describe("preset-19", () => {
 			].join(","),
 		});
 
+		expect(deprecatedPropTypesTypes).toHaveBeenCalled();
 		expect(deprecatedLegacyRefTransform).toHaveBeenCalled();
 		expect(deprecatedReactChildTransform).toHaveBeenCalled();
 		expect(deprecatedReactNodeArrayTransform).toHaveBeenCalled();

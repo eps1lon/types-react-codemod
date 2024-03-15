@@ -22,12 +22,13 @@ describe("types-react-codemod", () => {
 
 		Positionals:
 		  codemod  [string] [required] [choices: "context-any", "deprecated-legacy-ref",
-		                          "deprecated-react-child", "deprecated-react-fragment",
-		                         "deprecated-react-node-array", "deprecated-react-text",
-		            "deprecated-react-type", "deprecated-sfc-element", "deprecated-sfc",
-		         "deprecated-stateless-component", "deprecated-void-function-component",
-		            "implicit-children", "preset-18", "preset-19", "refobject-defaults",
-		            "scoped-jsx", "useCallback-implicit-any", "useRef-required-initial"]
+		                        "deprecated-prop-types-types", "deprecated-react-child",
+		                     "deprecated-react-fragment", "deprecated-react-node-array",
+		     "deprecated-react-text", "deprecated-react-type", "deprecated-sfc-element",
+		                             "deprecated-sfc", "deprecated-stateless-component",
+		         "deprecated-void-function-component", "implicit-children", "preset-18",
+		    "preset-19", "refobject-defaults", "scoped-jsx", "useCallback-implicit-any",
+		                                                      "useRef-required-initial"]
 		  paths                                                      [string] [required]
 
 		Options:

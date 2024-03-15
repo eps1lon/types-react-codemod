@@ -34,12 +34,13 @@ $ npx types-react-codemod <codemod> <paths...>
 
 Positionals:
   codemod  [string] [required] [choices: "context-any", "deprecated-legacy-ref",
-                          "deprecated-react-child", "deprecated-react-fragment",
-                         "deprecated-react-node-array", "deprecated-react-text",
-            "deprecated-react-type", "deprecated-sfc-element", "deprecated-sfc",
-         "deprecated-stateless-component", "deprecated-void-function-component",
-            "implicit-children", "preset-18", "preset-19", "refobject-defaults",
-            "scoped-jsx", "useCallback-implicit-any", "useRef-required-initial"]
+                        "deprecated-prop-types-types", "deprecated-react-child",
+                     "deprecated-react-fragment", "deprecated-react-node-array",
+     "deprecated-react-text", "deprecated-react-type", "deprecated-sfc-element",
+                             "deprecated-sfc", "deprecated-stateless-component",
+         "deprecated-void-function-component", "implicit-children", "preset-18",
+    "preset-19", "refobject-defaults", "scoped-jsx", "useCallback-implicit-any",
+                                                      "useRef-required-initial"]
   paths                                                      [string] [required]
 
 Options:
@@ -71,6 +72,7 @@ The reason being that a false-positive can be reverted easily (assuming you have
 - `implicit-children`
 - `useCallback-implicit-any`
 - `preset-19`
+- `deprecated-prop-types-types`
 - `deprecated-legacy-ref`
 - `deprecated-react-child`
 - `deprecated-react-text`
@@ -212,6 +214,21 @@ You can interactively pick the codemods included.
 By default, the codemods that are definitely required to upgrade to `@types/react@^19.0.0` are selected.
 The other codemods may or may not be required.
 You should select all and audit the changed files regardless.
+
+### `deprecated-prop-types-types`
+
+```diff
++import * as PropTypes from "prop-types";
+ import * as React from "react";
+-declare const requireable: React.Requireable<React.ReactNode>;
++declare const requireable: PropTypes.Requireable<React.ReactNode>;
+-declare const validator: React.Validator<React.ReactNode>;
++declare const requireable: PropTypes.Validator<React.ReactNode>;
+-declare const validationMap: React.ValidationMap<{}>;
++declare const requireable: PropTypes.ValidationMap<React.ReactNode>;
+-declare const weakValidationMap: React.WeakValidationMap<{}>;
++declare const requireable: PropTypes.WeakValidationMap<React.ReactNode>;
+```
 
 ### `deprecated-legacy-ref`
 
