@@ -1,5 +1,131 @@
 # types-react-codemod
 
+## 3.1.0
+
+### Minor Changes
+
+- Add codemod to replace deprecated `ReactFragment` by inlining its actual type ([#326](https://github.com/eps1lon/types-react-codemod/pull/326) [`ed97a70`](https://github.com/eps1lon/types-react-codemod/commit/ed97a701c9802b5b53e0a3b9da04f519793eddf3) by [@eps1lon](https://github.com/eps1lon))
+
+  ```diff
+  import * as React from 'react';
+
+  -const node: React.ReactFragment
+  +const node: Iterable<React.ReactNode>
+  ```
+
+- Add codemod to replace deprecated React types related to propTypes with their counterpart from the `prop-types` package ([#357](https://github.com/eps1lon/types-react-codemod/pull/357) [`1751318`](https://github.com/eps1lon/types-react-codemod/commit/1751318d6189fd2d44875292b6b6c23af5678d6a) by [@eps1lon](https://github.com/eps1lon))
+
+  ```diff
+  +import * as PropTypes from "prop-types";
+   import * as React from "react";
+  -declare const requireable: React.Requireable<React.ReactNode>;
+  +declare const requireable: PropTypes.Requireable<React.ReactNode>;
+  -declare const validator: React.Validator<React.ReactNode>;
+  +declare const requireable: PropTypes.Validator<React.ReactNode>;
+  -declare const validationMap: React.ValidationMap<{}>;
+  +declare const requireable: PropTypes.ValidationMap<React.ReactNode>;
+  -declare const weakValidationMap: React.WeakValidationMap<{}>;
+  +declare const requireable: PropTypes.WeakValidationMap<React.ReactNode>;
+  ```
+
+- Add codemod for required initial value in `useRef` ([#217](https://github.com/eps1lon/types-react-codemod/pull/217) [`0047404`](https://github.com/eps1lon/types-react-codemod/commit/0047404d18665a2b18c0859e013d643022fc23e5) by [@eps1lon](https://github.com/eps1lon))
+
+  Added as `useRef-required-initial`.
+  Can be used on 18.x types but only intended for once https://github.com/DefinitelyTyped/DefinitelyTyped/pull/64920 lands.
+
+- Unflag codemods for new refs ([#319](https://github.com/eps1lon/types-react-codemod/pull/319) [`80fe29c`](https://github.com/eps1lon/types-react-codemod/commit/80fe29c4bde096d5f18ec5d7bac55ad27c5c9718) by [@eps1lon](https://github.com/eps1lon))
+
+  Just removing their experimental prefix since we have increased confidence in these changes after seeing their impact internally.
+
+  ```diff
+  -experimental-refobject-defaults
+  +refobject-defaults
+  ```
+
+- Add codemod to replace `LegacyRef` with `Ref` ([#347](https://github.com/eps1lon/types-react-codemod/pull/347) [`e928761`](https://github.com/eps1lon/types-react-codemod/commit/e9287614259225cab789ed4cbf570c2940050cab) by [@eps1lon](https://github.com/eps1lon))
+
+- Add codemod to replace deprecated `ReactNodeArray` by inlining its actual type. ([#325](https://github.com/eps1lon/types-react-codemod/pull/325) [`b7f757c`](https://github.com/eps1lon/types-react-codemod/commit/b7f757c08c1bbfa5ceecf47c937cfd588b37d1db) by [@eps1lon](https://github.com/eps1lon))
+
+  ```diff
+  import * as React from 'react';
+
+  -const node: React.ReactNodeArray
+  +const node: ReadonlyArray<React.ReactNode>
+  ```
+
+### Patch Changes
+
+- Added missing transforms as choices to preset-19 ([#341](https://github.com/eps1lon/types-react-codemod/pull/341) [`dc10a3d`](https://github.com/eps1lon/types-react-codemod/commit/dc10a3de2fccc7fcc31e73bd655fac0f45977392) by [@eps1lon](https://github.com/eps1lon))
+
+- Ensure added imports of types use the `type` modifier ([#343](https://github.com/eps1lon/types-react-codemod/pull/343) [`f05624f`](https://github.com/eps1lon/types-react-codemod/commit/f05624f41f66504293066d36b07a9b1f22b62ea2) by [@eps1lon](https://github.com/eps1lon))
+
+  If we'd previously add an import to `JSX` (e.g. in `scoped-jsx`),
+  the codemod would import it as a value.
+  This breaks TypeScript projects using `verbatimModuleSyntax` as well as projects enforcing `type` imports for types.
+
+  Now we ensure new imports of types use the `type` modifier:
+
+  ```diff
+  -import { JSX } from 'react'
+  +import { type JSX } from 'react'
+  ```
+
+  This also changes how we transform the deprecated global JSX namespace.
+  Instead of rewriting each usage, we opt for adding another import.
+  The guiding principle being that we keep the changes minimal in a codemod.
+
+  Before:
+
+  ```diff
+  import * as React from 'react'
+
+  -const element: JSX.Element
+  +const element: React.JSX.Element
+  ```
+
+  After:
+
+  ```diff
+  import * as React from 'react'
+  +import { type JSX } from 'react'
+
+  const element: JSX.Element
+  ```
+
+  Note that rewriting of imports does not change the modifier.
+  For example, the `deprecated-vfc-codemod` rewrites `VFC` identifiers to `FC`.
+  If the import of `VFC` had no `type` modifier, the codemod will not add one.
+
+  `type` modifiers for import specifiers require [TypeScript 4.5 which has reached EOL](https://github.com/DefinitelyTyped/DefinitelyTyped#support-window in DefinitelyTyped) which is a strong signal that you should upgrade to at least TypeScript 4.6 by now.
+
+- Ensure replace and rename codemods have consistent behavior ([#348](https://github.com/eps1lon/types-react-codemod/pull/348) [`a62832e`](https://github.com/eps1lon/types-react-codemod/commit/a62832e496b4c0a77119d3115cf1c157c1c04e29) by [@eps1lon](https://github.com/eps1lon))
+
+  Fixes multiple incorrect transform patterns that were supported by some transforms but not others.
+  We no longer switch to `type` imports if the original type wasn't imported with that modifier.
+  Type parameters are now consistently preserved.
+  We don't add a reference to the `React` namespace anymore if we can just add a type import.
+
+  This affects the following codemods:
+
+  - `deprecated-legacy-ref`
+  - `deprecated-react-child`
+  - `deprecated-react-text`
+  - `deprecated-react-type`
+  - `deprecated-sfc-element`
+  - `deprecated-sfc`
+  - `deprecated-stateless-component`
+  - `deprecated-void-function-component`
+
+- Find and replace type usage in type parameters of call expressions ([#344](https://github.com/eps1lon/types-react-codemod/pull/344) [`8c27551`](https://github.com/eps1lon/types-react-codemod/commit/8c275511d46cd2320c9075e9e15b82f9f3aa1309) by [@eps1lon](https://github.com/eps1lon))
+
+  Now we properly detect that e.g. `JSX` is used in `someFunctionWithTypeParameters<JSX>()`.
+
+  Affected codemods:
+
+  - `deprecated-react-child`
+  - `deprecated-react-text`
+  - `scoped-jsx`
+
 ## 3.0.0
 
 ### Major Changes
