@@ -93,10 +93,12 @@ const changelogFunctions = {
 			: links.user;
 
 		const suffix = [
-			links.pull === null ? "" : ` ${links.pull}`,
-			links.commit === null ? "" : ` ${links.commit}`,
-			users === null ? "" : ` by ${users}`,
-		].join("");
+			links.pull === null ? null : `${links.pull}`,
+			links.commit === null ? null : `${links.commit}`,
+			users === null ? null : `by ${users}`,
+		]
+			.filter((part) => part !== null)
+			.join(" ");
 
 		return `\n\n- ${firstLine}${suffix ? ` (${suffix})` : ""}\n${futureLines
 			.map((l) => `  ${l}`)
