@@ -206,7 +206,7 @@ describe("transform deprecated-prop-types-types", () => {
         declare const weakValidationMap: WeakValidationMap<{}>;
 			`),
 		).toMatchInlineSnapshot(`
-		"import { checkPropTypes } from 'prop-types';
+		"import { checkPropTypes, Requireable, Validator, ValidationMap, WeakValidationMap } from 'prop-types';
 		import { type ReactNode } from 'react';
 
 		declare const requireable: Requireable<ReactNode>;

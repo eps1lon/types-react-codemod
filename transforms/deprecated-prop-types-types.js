@@ -1,5 +1,5 @@
 const parseSync = require("./utils/parseSync");
-const { replaceType } = require("./utils/replaceType");
+const { replaceReactType } = require("./utils/replaceType");
 
 /**
  * @type {import('jscodeshift').Transform}
@@ -69,7 +69,7 @@ const deprecatedPropTypesTypes = (file, api) => {
 		"ValidationMap",
 		"WeakValidationMap",
 	]) {
-		const changedType = replaceType(
+		const changedType = replaceReactType(
 			j,
 			ast,
 			movedType,
