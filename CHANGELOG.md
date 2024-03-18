@@ -1,5 +1,11 @@
 # types-react-codemod
 
+## 3.1.1
+
+### Patch Changes
+
+- Include `deprecated-prop-types-types` transform in `preset-19` ([#365](https://github.com/eps1lon/types-react-codemod/pull/365) [`ce68c56`](https://github.com/eps1lon/types-react-codemod/commit/ce68c5693c8028e2449132f8b7223fcdcc379b7e) by [@eps1lon](https://github.com/eps1lon))
+
 ## 3.1.0
 
 ### Minor Changes
