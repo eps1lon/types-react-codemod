@@ -11,3 +11,5 @@ With ref cleanups, this is no longer the case and flagged in types to avoid mist
 -<div ref={current => (instance = current)} />
 +<div ref={current => {instance = current}} />
 ```
+
+The transform is opt-in in the `preset-19` in case you already used ref cleanups in Canary releases.
