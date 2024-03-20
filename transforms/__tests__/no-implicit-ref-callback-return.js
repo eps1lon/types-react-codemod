@@ -27,7 +27,11 @@ test("replaces implicit return of assignment expression with block", () => {
 		applyTransform(`
 				<div ref={current => (instance = current)} />
     `),
-	).toMatchInlineSnapshot(`"<div ref={current => (instance = current)} />"`);
+	).toMatchInlineSnapshot(`
+		"<div ref={current => {
+		  (instance = current);
+		}} />"
+	`);
 });
 
 test("replaces implicit return of identifier with block", () => {
@@ -35,7 +39,11 @@ test("replaces implicit return of identifier with block", () => {
 		applyTransform(`
 				<div ref={current => current} />
     `),
-	).toMatchInlineSnapshot(`"<div ref={current => current} />"`);
+	).toMatchInlineSnapshot(`
+		"<div ref={current => {
+		  current;
+		}} />"
+	`);
 });
 
 test("function expression", () => {
