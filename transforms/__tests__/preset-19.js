@@ -11,6 +11,7 @@ describe("preset-19", () => {
 	let deprecatedReactFragmentTransform;
 	let deprecatedReactTextTransform;
 	let deprecatedVoidFunctionComponentTransform;
+	let noImplicitRefCallbackReturnTransform;
 	let refobjectDefaultsTransform;
 	let scopedJSXTransform;
 	let useRefRequiredInitialTransform;
@@ -48,6 +49,9 @@ describe("preset-19", () => {
 		deprecatedVoidFunctionComponentTransform = mockTransform(
 			"../deprecated-void-function-component",
 		);
+		noImplicitRefCallbackReturnTransform = mockTransform(
+			"../no-implicit-ref-callback-return",
+		);
 		refobjectDefaultsTransform = mockTransform("../refobject-defaults");
 		scopedJSXTransform = mockTransform("../scoped-jsx");
 		useRefRequiredInitialTransform = mockTransform(
@@ -77,6 +81,7 @@ describe("preset-19", () => {
 				"deprecated-react-node-array",
 				"deprecated-react-text",
 				"deprecated-void-function-component",
+				"no-implicit-ref-callback-return",
 				"refobject-defaults",
 				"scoped-jsx",
 				"useRef-required-initial",
@@ -90,6 +95,7 @@ describe("preset-19", () => {
 		expect(deprecatedReactFragmentTransform).toHaveBeenCalled();
 		expect(deprecatedReactTextTransform).toHaveBeenCalled();
 		expect(deprecatedVoidFunctionComponentTransform).toHaveBeenCalled();
+		expect(noImplicitRefCallbackReturnTransform).toHaveBeenCalled();
 		expect(refobjectDefaultsTransform).toHaveBeenCalled();
 		expect(scopedJSXTransform).toHaveBeenCalled();
 		expect(useRefRequiredInitialTransform).toHaveBeenCalled();
