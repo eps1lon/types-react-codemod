@@ -5,6 +5,7 @@ const deprecatedReactNodeArrayTransform = require("./deprecated-react-node-array
 const deprecatedReactFragmentTransform = require("./deprecated-react-fragment");
 const deprecatedReactTextTransform = require("./deprecated-react-text");
 const deprecatedVoidFunctionComponentTransform = require("./deprecated-void-function-component");
+const noImplicitRefCallbackReturnTransform = require("./no-implicit-ref-callback-return");
 const refobjectDefaultsTransform = require("./refobject-defaults");
 const scopedJsxTransform = require("./scoped-jsx");
 const useRefRequiredInitialTransform = require("./useRef-required-initial");
@@ -40,6 +41,9 @@ const transform = (file, api, options) => {
 	}
 	if (transformNames.has("deprecated-void-function-component")) {
 		transforms.push(deprecatedVoidFunctionComponentTransform);
+	}
+	if (transformNames.has("no-implicit-ref-callback-return")) {
+		transforms.push(noImplicitRefCallbackReturnTransform);
 	}
 	if (transformNames.has("refobject-defaults")) {
 		transforms.push(refobjectDefaultsTransform);

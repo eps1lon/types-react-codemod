@@ -38,8 +38,9 @@ Positionals:
                      "deprecated-react-fragment", "deprecated-react-node-array",
      "deprecated-react-text", "deprecated-react-type", "deprecated-sfc-element",
                              "deprecated-sfc", "deprecated-stateless-component",
-         "deprecated-void-function-component", "implicit-children", "preset-18",
-    "preset-19", "refobject-defaults", "scoped-jsx", "useCallback-implicit-any",
+                      "deprecated-void-function-component", "implicit-children",
+                    "no-implicit-ref-callback-return", "preset-18", "preset-19",
+                 "refobject-defaults", "scoped-jsx", "useCallback-implicit-any",
                                                       "useRef-required-initial"]
   paths                                                      [string] [required]
 
@@ -352,6 +353,23 @@ In earlier versions of `@types/react` this codemod would change the typings.
 -const Component: React.VoidFunctionComponent = () => {}
 +const Component: React.FunctionComponent = () => {}
 ```
+
+### `no-implicit-ref-callback-return`
+
+Off by default in `preset-19`. Can be enabled when running `preset-19`.
+
+WARNING: Manually review changes in case you already used ref cleanups in Canary builds.
+
+Ensures you don't accidentally return anything from ref callbacks since the return value was always ignored.
+With ref cleanups, this is no longer the case and flagged in types to avoid mistakes.
+
+```diff
+-<div ref={current => (instance = current)} />
++<div ref={current => {instance = current}} />
+```
+
+This only works for the `ref` prop.
+The codemod will not apply to other props that take refs (e.g. `innerRef`).
 
 ### `refobject-defaults`
 
