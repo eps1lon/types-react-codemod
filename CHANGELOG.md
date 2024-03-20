@@ -1,5 +1,21 @@
 # types-react-codemod
 
+## 3.2.0
+
+### Minor Changes
+
+- Add `no-implicit-ref-callback-return` transform ([#369](https://github.com/eps1lon/types-react-codemod/pull/369) [`7535bfc`](https://github.com/eps1lon/types-react-codemod/commit/7535bfcd568806578460f97390a88368b25bdeb8) by [@eps1lon](https://github.com/eps1lon))
+
+  Ensures you don't accidentally return anything from ref callbacks since the return value was always ignored.
+  With ref cleanups, this is no longer the case and flagged in types to avoid mistakes.
+
+  ```diff
+  -<div ref={current => (instance = current)} />
+  +<div ref={current => {instance = current}} />
+  ```
+
+  The transform is opt-in in the `preset-19` in case you already used ref cleanups in Canary releases.
+
 ## 3.1.1
 
 ### Patch Changes
