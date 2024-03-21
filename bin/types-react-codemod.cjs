@@ -106,6 +106,7 @@ async function main() {
 								{ checked: true, value: "deprecated-react-text" },
 								{ checked: true, value: "deprecated-void-function-component" },
 								{ checked: false, value: "no-implicit-ref-callback-return" },
+								{ checked: false, value: "react-element-default-any-props" },
 								{ checked: true, value: "refobject-defaults" },
 								{ checked: true, value: "scoped-jsx" },
 								{ checked: true, value: "useRef-required-initial" },
