@@ -373,6 +373,14 @@ The codemod will not apply to other props that take refs (e.g. `innerRef`).
 
 ### `react-element-default-any-props`
 
+> [!CAUTION]
+> This codemod is only meant as a migration helper for old code.
+> The new default for props of `React.ReactElement` is `unknown` but a lot of existing code relied on `any`.
+> The codemod should only be used if you have a lot of code relying on the old default.
+> Typing out the expected shape of the props is recommended.
+> It's also likely that manually fixing is sufficient.
+> On vercel/nextjs we only had to fix one file while the codemod would've changed 15 files.
+
 Off by default in `preset-19`. Can be enabled when running `preset-19`.
 
 Defaults the props of a `React.ReactElement` value to `any` if it has the explicit type.
@@ -383,11 +391,6 @@ Defaults the props of a `React.ReactElement` value to `any` if it has the explic
 ```
 
 Does not overwrite existing type parameters.
-
-This codemod is only meant as a migration helper for old code.
-The new default is `unknown` but a lot of existing code relied on `any`.
-The codemod should only be used if you have a lot of code relying on the old default.
-Typing out the expected shape of the props is recommended.
 
 The codemod does not work when the a value has the `React.ReactElement` type from 3rd party dependencies e.g. in `const: element: React.ReactNode`, the element would still have `unknown` props.
 
