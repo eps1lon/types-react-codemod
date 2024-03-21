@@ -34,7 +34,7 @@ test("named import", () => {
     `),
 	).toMatchInlineSnapshot(`
 		"import { ReactElement } from 'react';
-		declare const element: ReactElement"
+		declare const element: ReactElement<any>"
 	`);
 });
 
@@ -46,7 +46,7 @@ test("named type import", () => {
     `),
 	).toMatchInlineSnapshot(`
 		"import { type ReactElement } from 'react';
-		declare const element: ReactElement"
+		declare const element: ReactElement<any>"
 	`);
 });
 
@@ -70,7 +70,7 @@ test("namespace import", () => {
     `),
 	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-		declare const element: React.ReactElement"
+		declare const element: React.ReactElement<any>"
 	`);
 });
 
@@ -83,7 +83,7 @@ test("as type parameter", () => {
 		`),
 	).toMatchInlineSnapshot(`
 		"import * as React from 'react';
-		createAction<React.ReactElement>()
+		createAction<React.ReactElement<any>>()
 		createAction<React.ReactElement<unknown>>()"
 	`);
 });
