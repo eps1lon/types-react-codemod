@@ -379,7 +379,7 @@ The codemod will not apply to other props that take refs (e.g. `innerRef`).
 > The codemod should only be used if you have a lot of code relying on the old default.
 > Typing out the expected shape of the props is recommended.
 > It's also likely that manually fixing is sufficient.
-> On vercel/nextjs we only had to fix one file while the codemod would've changed 15 files.
+> In [vercel/nextjs we only had to fix one file](https://github.com/eps1lon/next.js/pull/1/commits/97fcba326ef465d134862feb1990f875d360675e) while the codemod would've changed 15 files.
 
 Off by default in `preset-19`. Can be enabled when running `preset-19`.
 
