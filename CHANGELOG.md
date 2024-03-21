@@ -1,5 +1,21 @@
 # types-react-codemod
 
+## 3.3.0
+
+### Minor Changes
+
+- Add `react-element-default-any-props` codemod ([#371](https://github.com/eps1lon/types-react-codemod/pull/371) [`4191845`](https://github.com/eps1lon/types-react-codemod/commit/41918453f8479d09f2ce8f9f0a6ca95a1b8f99d3) by [@eps1lon](https://github.com/eps1lon))
+
+  Opt-in codemod in `preset-19`.
+
+  ```diff
+   // implies `React.ReactElement<unknown>` in React 19 as opposed to `React.ReactElement<any>` in prior versions.
+  -declare const element: React.ReactElement
+  +declare const element: React.ReactElement<any>
+  ```
+
+  Only meant to migrate old code not a recommendation for how to type React elements.
+
 ## 3.2.0
 
 ### Minor Changes
