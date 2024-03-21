@@ -40,8 +40,8 @@ Positionals:
                              "deprecated-sfc", "deprecated-stateless-component",
                       "deprecated-void-function-component", "implicit-children",
                     "no-implicit-ref-callback-return", "preset-18", "preset-19",
-                 "refobject-defaults", "scoped-jsx", "useCallback-implicit-any",
-                                                      "useRef-required-initial"]
+          "react-element-default-any-props", "refobject-defaults", "scoped-jsx",
+                          "useCallback-implicit-any", "useRef-required-initial"]
   paths                                                      [string] [required]
 
 Options:
@@ -370,6 +370,40 @@ With ref cleanups, this is no longer the case and flagged in types to avoid mist
 
 This only works for the `ref` prop.
 The codemod will not apply to other props that take refs (e.g. `innerRef`).
+
+### `react-element-default-any-props`
+
+> [!CAUTION]
+> This codemod is only meant as a migration helper for old code.
+> The new default for props of `React.ReactElement` is `unknown` but a lot of existing code relied on `any`.
+> The codemod should only be used if you have a lot of code relying on the old default.
+> Typing out the expected shape of the props is recommended.
+> It's also likely that manually fixing is sufficient.
+> In [vercel/nextjs we only had to fix one file](https://github.com/eps1lon/next.js/pull/1/commits/97fcba326ef465d134862feb1990f875d360675e) while the codemod would've changed 15 files.
+
+Off by default in `preset-19`. Can be enabled when running `preset-19`.
+
+Defaults the props of a `React.ReactElement` value to `any` if it has the explicit type.
+
+```diff
+-declare const element: React.ReactElement
++declare const element: React.ReactElement<any>
+```
+
+Does not overwrite existing type parameters.
+
+The codemod does not work when the a value has the `React.ReactElement` type from 3rd party dependencies e.g. in `const: element: React.ReactNode`, the element would still have `unknown` props.
+
+The codemod also does not work on type narrowing e.g.
+
+```tsx
+if (React.isValidElement(node)) {
+	element.props.foo;
+	//            ^^^ Cannot access propertiy 'any' of `unknown`
+}
+```
+
+The props would need to be cast to `any` (e.g. `(element.props as any).foo`) to preserve the old runtime behavior.
 
 ### `refobject-defaults`
 

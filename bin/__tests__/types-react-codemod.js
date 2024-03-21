@@ -28,8 +28,8 @@ describe("types-react-codemod", () => {
 		                             "deprecated-sfc", "deprecated-stateless-component",
 		                      "deprecated-void-function-component", "implicit-children",
 		                    "no-implicit-ref-callback-return", "preset-18", "preset-19",
-		                 "refobject-defaults", "scoped-jsx", "useCallback-implicit-any",
-		                                                      "useRef-required-initial"]
+		          "react-element-default-any-props", "refobject-defaults", "scoped-jsx",
+		                          "useCallback-implicit-any", "useRef-required-initial"]
 		  paths                                                      [string] [required]
 
 		Options:
