@@ -2075,12 +2075,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ljharb/through@npm:^2.3.12":
-  version: 2.3.12
-  resolution: "@ljharb/through@npm:2.3.12"
+"@ljharb/through@npm:^2.3.13":
+  version: 2.3.13
+  resolution: "@ljharb/through@npm:2.3.13"
   dependencies:
-    call-bind: ^1.0.5
-  checksum: d5a78568cd3025c03264a9f9c61b30511d27cb9611fae7575cb1339a1baa1a263b6af03e28505b821324f3c6285086ee5add612b8b0155d1f253ed5159cd3f56
+    call-bind: ^1.0.7
+  checksum: 0255464a0ec7901b08cff3e99370b87e66663f46249505959c0cb4f6121095d533bbb7c7cda338063d3e134cbdd721e2705bc18eac7611b4f9ead6e7935d13ba
   languageName: node
   linkType: hard
 
@@ -4346,10 +4346,10 @@ __metadata:
   linkType: hard
 
 "inquirer@npm:^9.0.0":
-  version: 9.2.15
-  resolution: "inquirer@npm:9.2.15"
+  version: 9.2.17
+  resolution: "inquirer@npm:9.2.17"
   dependencies:
-    "@ljharb/through": ^2.3.12
+    "@ljharb/through": ^2.3.13
     ansi-escapes: ^4.3.2
     chalk: ^5.3.0
     cli-cursor: ^3.1.0
@@ -4364,7 +4364,7 @@ __metadata:
     string-width: ^4.2.3
     strip-ansi: ^6.0.1
     wrap-ansi: ^6.2.0
-  checksum: 98e385ef2900a6071e6576ab9fbf0b04e908ed386aaae5163bd467d32dc80a76bcd33bd03d34cd35a93ce99e47cbd52d62ae48ace9bfb20aff4a45e9bc1323d3
+  checksum: be5afe4f7008afb8057ee2b30c83708100a467a898ca741f136c1226c321dda4ea169cf1782e01b1b977f4cdd2bed6e47c1db5ae728cadf97ba64995cebc1f91
   languageName: node
   linkType: hard
 
