@@ -3922,8 +3922,8 @@ __metadata:
   linkType: hard
 
 "inquirer@npm:^9.0.0":
-  version: 9.3.5
-  resolution: "inquirer@npm:9.3.5"
+  version: 9.3.6
+  resolution: "inquirer@npm:9.3.6"
   dependencies:
     "@inquirer/figures": ^1.0.3
     ansi-escapes: ^4.3.2
@@ -3937,7 +3937,7 @@ __metadata:
     strip-ansi: ^6.0.1
     wrap-ansi: ^6.2.0
     yoctocolors-cjs: ^2.1.2
-  checksum: 83480ebbf52b2e42fce50cf701eaf10ba682ce3063c8acec8da3710e707dc646d609743247c7061a06169aa1a1e64d02babeab1707022d820ad46799afed75ec
+  checksum: f1fd086585e301ec17ce016355e9eb6eb87329c6de578cde35b10d5e4b57443b9f8f1f304d3ab570e5dad2cbc55851c476480296e15793f76836c0c33cf2e713
   languageName: node
   linkType: hard
 
