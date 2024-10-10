@@ -49,6 +49,8 @@ Options:
   --help            Show help                                          [boolean]
   --dry                                               [boolean] [default: false]
   --ignore-pattern                      [string] [default: "**/node_modules/**"]
+  --yes             Automatically accepts all prompts. Useful when no user input
+                    is available or desired.          [boolean] [default: false]
   --verbose                                           [boolean] [default: false]
 
 Examples:
