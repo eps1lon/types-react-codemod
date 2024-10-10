@@ -59,28 +59,33 @@ Examples:
 
 ## Available transforms
 
+The transforms are meant to migrate old code.
+The transformed code is not intended to be used as a pattern for new code.
+
 Some transforms change code they shouldn't actually change.
 Fixing all of these requires a lot of implementation effort.
 When considering false-positives vs false-negatives, codemods opt for false-positives.
 The reason being that a false-positive can be reverted easily (assuming you have the changed code in Version Control e.g. git) while a false-negative requires manual input.
 
 - `preset-18`
-- `deprecated-react-type`
-- `deprecated-sfc-element`
-- `deprecated-sfc`
-- `deprecated-stateless-component`
-- `context-any`
-- `implicit-children`
-- `useCallback-implicit-any`
+  - `deprecated-react-type`
+  - `deprecated-sfc-element`
+  - `deprecated-sfc`
+  - `deprecated-stateless-component`
+  - `context-any`
+  - `implicit-children`
+  - `useCallback-implicit-any`
 - `preset-19`
-- `deprecated-prop-types-types`
-- `deprecated-legacy-ref`
-- `deprecated-react-child`
-- `deprecated-react-text`
-- `deprecated-void-function-component`
-- `refobject-defaults`
-- `scoped-jsx`
-- `useRef-required-initial`
+  - `deprecated-prop-types-types`
+  - `deprecated-legacy-ref`
+  - `deprecated-react-child`
+  - `deprecated-react-text`
+  - `deprecated-void-function-component`
+  - `no-implicit-ref-callback-return` (off by default)
+  - `react-element-default-any` (off by default)
+  - `refobject-defaults`
+  - `scoped-jsx`
+  - `useRef-required-initial`
 
 ### `preset-18`
 
@@ -90,7 +95,7 @@ By default, the codemods that are definitely required to upgrade to `@types/reac
 The other codemods may or may not be required.
 You should select all and audit the changed files regardless.
 
-### `context-any`
+### `context-any` (React 18)
 
 ```diff
  class Component extends React.Component<Props> {
@@ -160,7 +165,7 @@ They simply rename identifiers with a specific name.
 If you have a type with the same name from a different package, then the rename results in a false positive.
 For example, `ink` also has a `StatelessComponent` but you don't need to rename that type since it's not deprecated.
 
-### `implicit-children`
+### `implicit-children` (React 18)
 
 ```diff
 -React.FunctionComponent<Props>
@@ -187,7 +192,7 @@ Redundant `PropsWithChildren` are only problematic stylistically.
 In other words, the transform will not wrap `Props` in `React.PropsWithChildren`.
 The transform would need to implement scope tracking for this pattern to get fixed.
 
-### `useCallback-implicit-any`
+### `useCallback-implicit-any` (React 18)
 
 ```diff
 -React.useCallback((event) => {})
@@ -216,7 +221,7 @@ By default, the codemods that are definitely required to upgrade to `@types/reac
 The other codemods may or may not be required.
 You should select all and audit the changed files regardless.
 
-### `deprecated-prop-types-types`
+### `deprecated-prop-types-types` (React 19)
 
 ```diff
 +import * as PropTypes from "prop-types";
@@ -231,7 +236,7 @@ You should select all and audit the changed files regardless.
 +declare const requireable: PropTypes.WeakValidationMap<React.ReactNode>;
 ```
 
-### `deprecated-legacy-ref`
+### `deprecated-legacy-ref` (React 19)
 
 ```diff
  import * as React from "react";
@@ -253,7 +258,7 @@ interface Props {
 }
 ```
 
-### `deprecated-react-child`
+### `deprecated-react-child` (React 19)
 
 ```diff
  import * as React from "react";
@@ -275,7 +280,7 @@ interface Props {
 }
 ```
 
-### `deprecated-react-node-array`
+### `deprecated-react-node-array` (React 19)
 
 ```diff
  import * as React from "react";
@@ -297,7 +302,7 @@ interface Props {
 }
 ```
 
-### `deprecated-react-fragment`
+### `deprecated-react-fragment` (React 19)
 
 ```diff
  import * as React from "react";
@@ -319,7 +324,7 @@ interface Props {
 }
 ```
 
-### `deprecated-react-text`
+### `deprecated-react-text` (React 19)
 
 ```diff
  import * as React from "react";
@@ -341,7 +346,7 @@ interface Props {
 }
 ```
 
-### `deprecated-void-function-component`
+### `deprecated-void-function-component` (React 19)
 
 WARNING: Only apply to codebases using `@types/react@^18.0.0`.
 In earlier versions of `@types/react` this codemod would change the typings.
@@ -354,7 +359,7 @@ In earlier versions of `@types/react` this codemod would change the typings.
 +const Component: React.FunctionComponent = () => {}
 ```
 
-### `no-implicit-ref-callback-return`
+### `no-implicit-ref-callback-return` (React 19)
 
 Off by default in `preset-19`. Can be enabled when running `preset-19`.
 
@@ -371,7 +376,7 @@ With ref cleanups, this is no longer the case and flagged in types to avoid mist
 This only works for the `ref` prop.
 The codemod will not apply to other props that take refs (e.g. `innerRef`).
 
-### `react-element-default-any-props`
+### `react-element-default-any-props` (React 19)
 
 > [!CAUTION]
 > This codemod is only meant as a migration helper for old code.
@@ -405,10 +410,7 @@ if (React.isValidElement(node)) {
 
 The props would need to be cast to `any` (e.g. `(element.props as any).foo`) to preserve the old runtime behavior.
 
-### `refobject-defaults`
-
-WARNING: This is an experimental codemod to intended for codebases using unpublished types.
-Only use if you're using https://github.com/DefinitelyTyped/DefinitelyTyped/pull/64896.
+### `refobject-defaults` (React 19)
 
 `RefObject` no longer makes `current` nullable by default
 
@@ -418,7 +420,7 @@ Only use if you're using https://github.com/DefinitelyTyped/DefinitelyTyped/pull
 +const myRef: React.RefObject<View | null>
 ```
 
-#### `experimental-refobject-defaults` false-negative pattern A
+#### `refobject-defaults` false-negative pattern A
 
 Importing `RefObject` via aliased named import will result in the transform being skipped.
 
@@ -429,7 +431,7 @@ import { RefObject as MyRefObject } from "react";
 const myRef: MyRefObject<View>;
 ```
 
-### `scoped-jsx`
+### `scoped-jsx` (React 19)
 
 Ensures access to global JSX namespace is now scoped to React (see [DefinitelyTyped/DefinitelyTyped#64464](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/64464)).
 This codemod tries to match the existing import style but isn't perfect.
@@ -447,7 +449,7 @@ If the import style doesn't match your preferences, you should set up auto-fixab
 +const element: React.JSX.Element = <div />;
 ```
 
-### `useRef-required-initial`
+### `useRef-required-initial` (React 19)
 
 `useRef` now always requires an initial value.
 Implicit `undefined` is forbidden.
