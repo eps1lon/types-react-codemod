@@ -8,6 +8,33 @@ const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 const path = require("path");
 
+/** @type {import('inquirer').CheckboxChoiceOptions[]} */
+const preset18Choices = [
+	{ checked: false, value: "context-any" },
+	{ checked: true, value: "deprecated-react-type" },
+	{ checked: true, value: "deprecated-sfc-element" },
+	{ checked: true, value: "deprecated-sfc" },
+	{ checked: true, value: "deprecated-stateless-component" },
+	{ checked: false, value: "implicit-children" },
+	{ checked: false, value: "useCallback-implicit-any" },
+];
+
+/** @type {import('inquirer').CheckboxChoiceOptions[]} */
+const preset19Choices = [
+	{ checked: true, value: "deprecated-legacy-ref" },
+	{ checked: true, value: "deprecated-prop-types-types" },
+	{ checked: true, value: "deprecated-react-child" },
+	{ checked: true, value: "deprecated-react-node-array" },
+	{ checked: true, value: "deprecated-react-fragment" },
+	{ checked: true, value: "deprecated-react-text" },
+	{ checked: true, value: "deprecated-void-function-component" },
+	{ checked: false, value: "no-implicit-ref-callback-return" },
+	{ checked: false, value: "react-element-default-any-props" },
+	{ checked: true, value: "refobject-defaults" },
+	{ checked: true, value: "scoped-jsx" },
+	{ checked: true, value: "useRef-required-initial" },
+];
+
 async function main() {
 	const transformsRoot = path.join(__dirname, "../transforms");
 	const transforms = fs
@@ -43,6 +70,12 @@ async function main() {
 							default: "**/node_modules/**",
 							type: "string",
 						})
+						.option("yes", {
+							description:
+								"Automatically accepts all prompts. Useful when no user input is available or desired.",
+							default: false,
+							type: "boolean",
+						})
 						.option("verbose", { default: false, type: "boolean" })
 						// Ignoring `build`: https://www.digitalocean.com/community/tools/glob?comments=true&glob=%2A%2A%2F%7Bnode_modules%2Cbuild%7D%2F%2A%2A&matches=false&tests=package%2Fnode_modules%2Ftest.js&tests=package%2Fbuild%2Ftest.js&tests=package%2Ftest.js
 						.example(
@@ -53,7 +86,7 @@ async function main() {
 				);
 			},
 			async (argv) => {
-				const { codemod, dry, paths, verbose } = argv;
+				const { codemod, dry, paths, verbose, yes } = argv;
 
 				// TODO: npx instead?
 				const jscodeshiftExecutable = require.resolve(
@@ -73,46 +106,46 @@ async function main() {
 
 				if (codemod === "preset-18") {
 					const { default: inquirer } = await inquirerImport;
-					const { presets } = await inquirer.prompt([
-						{
-							message: "Pick transforms to apply",
-							name: "presets",
-							type: "checkbox",
-							choices: [
-								{ checked: false, value: "context-any" },
-								{ checked: true, value: "deprecated-react-type" },
-								{ checked: true, value: "deprecated-sfc-element" },
-								{ checked: true, value: "deprecated-sfc" },
-								{ checked: true, value: "deprecated-stateless-component" },
-								{ checked: false, value: "implicit-children" },
-								{ checked: false, value: "useCallback-implicit-any" },
-							],
-						},
-					]);
+
+					const { presets } = yes
+						? {
+								presets: preset18Choices
+									.filter((choice) => {
+										return choice.checked;
+									})
+									.map((choice) => {
+										return choice.value;
+									}),
+							}
+						: await inquirer.prompt([
+								{
+									message: "Pick transforms to apply",
+									name: "presets",
+									type: "checkbox",
+									choices: preset18Choices,
+								},
+							]);
 					args.push(`--preset18Transforms="${presets.join(",")}"`);
 				} else if (codemod === "preset-19") {
 					const { default: inquirer } = await inquirerImport;
-					const { presets } = await inquirer.prompt([
-						{
-							message: "Pick transforms to apply",
-							name: "presets",
-							type: "checkbox",
-							choices: [
-								{ checked: true, value: "deprecated-legacy-ref" },
-								{ checked: true, value: "deprecated-prop-types-types" },
-								{ checked: true, value: "deprecated-react-child" },
-								{ checked: true, value: "deprecated-react-node-array" },
-								{ checked: true, value: "deprecated-react-fragment" },
-								{ checked: true, value: "deprecated-react-text" },
-								{ checked: true, value: "deprecated-void-function-component" },
-								{ checked: false, value: "no-implicit-ref-callback-return" },
-								{ checked: false, value: "react-element-default-any-props" },
-								{ checked: true, value: "refobject-defaults" },
-								{ checked: true, value: "scoped-jsx" },
-								{ checked: true, value: "useRef-required-initial" },
-							],
-						},
-					]);
+					const { presets } = yes
+						? {
+								presets: preset19Choices
+									.filter((choice) => {
+										return choice.checked;
+									})
+									.map((choice) => {
+										return choice.value;
+									}),
+							}
+						: await inquirer.prompt([
+								{
+									message: "Pick transforms to apply",
+									name: "presets",
+									type: "checkbox",
+									choices: preset19Choices,
+								},
+							]);
 					args.push(`--preset19Transforms="${presets.join(",")}"`);
 				}
 

@@ -37,6 +37,8 @@ describe("types-react-codemod", () => {
 		  --help            Show help                                          [boolean]
 		  --dry                                               [boolean] [default: false]
 		  --ignore-pattern                      [string] [default: "**/node_modules/**"]
+		  --yes             Automatically accepts all prompts. Useful when no user input
+		                    is available or desired.          [boolean] [default: false]
 		  --verbose                                           [boolean] [default: false]
 
 		Examples:
@@ -61,5 +63,33 @@ describe("types-react-codemod", () => {
 
 		// Everything ok
 		expect(stderr).toMatchInlineSnapshot(`""`);
+	});
+
+	test("can execute all default preset-18 codemods without prompt", async () => {
+		const fixture = path.resolve(__dirname, "./__fixtures__/smoke-test");
+		// Does't matter which transform as long as it is one that doesn't change code in the fixture
+		const { stderr, stdout } = await execTypesReactCodemod(
+			`--yes preset-18 ${fixture}`,
+		);
+
+		// Everything ok
+		expect(stderr).toMatchInlineSnapshot(`""`);
+		expect(stdout).toContain(
+			`--preset18Transforms="deprecated-react-type,deprecated-sfc-element,deprecated-sfc,deprecated-stateless-component"`,
+		);
+	});
+
+	test("can execute all default preset-19 codemods without prompt", async () => {
+		const fixture = path.resolve(__dirname, "./__fixtures__/smoke-test");
+		// Does't matter which transform as long as it is one that doesn't change code in the fixture
+		const { stderr, stdout } = await execTypesReactCodemod(
+			`--yes preset-19 ${fixture}`,
+		);
+
+		// Everything ok
+		expect(stderr).toMatchInlineSnapshot(`""`);
+		expect(stdout).toContain(
+			`--preset19Transforms="deprecated-legacy-ref,deprecated-prop-types-types,deprecated-react-child,deprecated-react-node-array,deprecated-react-fragment,deprecated-react-text,deprecated-void-function-component,refobject-defaults,scoped-jsx,useRef-required-initial"`,
+		);
 	});
 });
