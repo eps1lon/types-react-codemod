@@ -1,5 +1,13 @@
 # types-react-codemod
 
+## 3.4.0
+
+### Minor Changes
+
+- Add `--yes` option to skip prompts ([#432](https://github.com/eps1lon/types-react-codemod/pull/432) [`f0b075f`](https://github.com/eps1lon/types-react-codemod/commit/f0b075f5d36a5da307caca4451f19a12b21fb24b) by [@eps1lon](https://github.com/eps1lon))
+
+  Useful when applying presets when no user input is available or desired.
+
 ## 3.3.0
 
 ### Minor Changes
