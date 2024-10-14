@@ -1,5 +1,13 @@
 # types-react-codemod
 
+## 3.4.1
+
+### Patch Changes
+
+- Declare dependency on `@babel/types` ([#435](https://github.com/eps1lon/types-react-codemod/pull/435) [`a7cc3ce`](https://github.com/eps1lon/types-react-codemod/commit/a7cc3ce07a5a7a2a6cbac36987c1b0ba4069343f) by [@huozhi](https://github.com/huozhi))
+
+  Fixes `types-react-codemod tried to access @babel/types, but it isn't declared in its dependencies; this makes the require call ambiguous and unsound`
+
 ## 3.4.0
 
 ### Minor Changes
