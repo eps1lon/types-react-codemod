@@ -1,5 +1,4 @@
 const parseSync = require("./utils/parseSync");
-const t = require("@babel/types");
 const traverse = require("@babel/traverse").default;
 
 /**
@@ -8,7 +7,8 @@ const traverse = require("@babel/traverse").default;
  * Summary for Klarna's klapp@?
  * TODO
  */
-const useRefRequiredInitialTransform = (file) => {
+const useRefRequiredInitialTransform = (file, api) => {
+	const j = api.jscodeshift;
 	const ast = parseSync(file);
 
 	let changedSome = false;
@@ -27,7 +27,7 @@ const useRefRequiredInitialTransform = (file) => {
 
 			if (isUseRefCall && callExpression.arguments.length === 0) {
 				changedSome = true;
-				callExpression.arguments = [t.identifier("undefined")];
+				callExpression.arguments = [j.identifier("undefined")];
 			}
 		},
 	});

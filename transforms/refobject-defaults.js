@@ -1,5 +1,4 @@
 const parseSync = require("./utils/parseSync");
-const t = require("@babel/types");
 const traverse = require("@babel/traverse").default;
 
 /**
@@ -12,7 +11,8 @@ const traverse = require("@babel/traverse").default;
  * 82 ok
  * Fixes all remaining issues outside of n_m
  */
-const refObjectDefaultsTransform = (file) => {
+const refObjectDefaultsTransform = (file, api) => {
+	const j = api.jscodeshift;
 	const ast = parseSync(file);
 
 	let changedSome = false;
@@ -21,7 +21,7 @@ const refObjectDefaultsTransform = (file) => {
 	// TODO: How to test?
 	const traverseRoot = ast.paths()[0].value;
 	/**
-	 * @type {import('@babel/types').TSTypeReference[]}
+	 * @type {import('jscodeshift').TSTypeReference[]}
 	 */
 	const refObjectTypeReferences = [];
 	traverse(traverseRoot, {
@@ -58,18 +58,18 @@ const refObjectDefaultsTransform = (file) => {
 
 					nullableType = unionIsApparentlyNullable
 						? typeNode
-						: t.tsUnionType([...typeNode.types, t.tsNullKeyword()]);
+						: j.tsUnionType([...typeNode.types, j.tsNullKeyword()]);
 				}
 			} else {
 				if (typeNode.type !== "TSAnyKeyword") {
-					nullableType = t.tsUnionType([typeNode, t.tsNullKeyword()]);
+					nullableType = j.tsUnionType([typeNode, j.tsNullKeyword()]);
 				}
 			}
 
 			if (nullableType !== undefined && nullableType !== typeNode) {
 				// Ideally we'd clone the `typeReference` path and add `typeParameters`.
 				// But I don't know if there's an API or better pattern for it.
-				typeReference.typeParameters = t.tsTypeParameterInstantiation([
+				typeReference.typeParameters = j.tsTypeParameterInstantiation([
 					nullableType,
 				]);
 				changedSome = true;
