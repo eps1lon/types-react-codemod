@@ -12,7 +12,7 @@
 		"test:unit": "jest"
 	},
 	"engines": {
-		"node": "18.x || 20.x"
+		"node": "22.x"
 	},
 	"dependencies": {
 		"@babel/core": "^7.17.8",
@@ -29,7 +29,7 @@
 		"@jest/globals": "^29.0.0",
 		"@types/inquirer": "^9.0.0",
 		"@types/jscodeshift": "^0.11.3",
-		"@types/node": "^20.0.0",
+		"@types/node": "^22.0.0",
 		"@types/yargs": "^17.0.10",
 		"dedent": "^1.0.0",
 		"eslint": "^8.12.0",
@@ -47,6 +47,6 @@
 		"access": "public"
 	},
 	"volta": {
-		"node": "20.18.0"
+		"node": "22.11.0"
 	}
 }
