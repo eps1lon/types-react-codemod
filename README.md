@@ -480,4 +480,4 @@ Please file an issue for runtimes that are not included in this list.
 
 <!-- #nodejs-suppport Should match CI test matrix -->
 
-- Node.js `16.x || 18.x || 20.x`
+- Node.js `18.x || 20.x || 22.x`
