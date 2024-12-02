@@ -8,7 +8,13 @@ const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 const path = require("path");
 
-/** @type {import('inquirer').CheckboxChoiceOptions[]} */
+/**
+ * @typedef {object} CheckboxChoice
+ * @property {boolean} checked
+ * @property {string} value
+ */
+
+/** @type {CheckboxChoice[]} */
 const preset18Choices = [
 	{ checked: false, value: "context-any" },
 	{ checked: true, value: "deprecated-react-type" },
@@ -19,7 +25,7 @@ const preset18Choices = [
 	{ checked: false, value: "useCallback-implicit-any" },
 ];
 
-/** @type {import('inquirer').CheckboxChoiceOptions[]} */
+/** @type {CheckboxChoice[]} */
 const preset19Choices = [
 	{ checked: true, value: "deprecated-legacy-ref" },
 	{ checked: true, value: "deprecated-prop-types-types" },
