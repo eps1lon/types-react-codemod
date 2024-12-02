@@ -1,5 +1,17 @@
 # types-react-codemod
 
+## 3.5.0
+
+### Minor Changes
+
+- Add support for Node.js 22.x ([#448](https://github.com/eps1lon/types-react-codemod/pull/448) [`702012e`](https://github.com/eps1lon/types-react-codemod/commit/702012ee660e701bc5dd7f77d8a1a7198c542bc5) by [@eps1lon](https://github.com/eps1lon))
+
+- Run `no-implicit-ref-callback-return` and `react-element-default-any` by default in `preset-19` ([#433](https://github.com/eps1lon/types-react-codemod/pull/433) [`10085c8`](https://github.com/eps1lon/types-react-codemod/commit/10085c8c476b55eebde412aa322da6950f785906) by [@eps1lon](https://github.com/eps1lon))
+
+  The transformed code is not meant to be used as a pattern for new code.
+  It really is about migrating existing code with as little friction.
+  Changes can always be reverted and a subset chosen.
+
 ## 3.4.1
 
 ### Patch Changes
