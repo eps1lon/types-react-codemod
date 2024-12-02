@@ -7,7 +7,9 @@ const implicitChildrenTransform = require("./implicit-children");
 const implicitAnyTransform = require("./useCallback-implicit-any");
 
 /**
- * @type {import('jscodeshift').Transform}
+ * @param {import('jscodeshift').FileInfo} file
+ * @param {import('jscodeshift').API} api
+ * @param {import('jscodeshift').Options} options
  *
  * Summary for Klarna's klapp@19fc4dafed84670398644298bf19c8c2a781dcf8/clients
  * 28172 Files unmodified
@@ -22,7 +24,7 @@ const transform = (file, api, options) => {
 
 	const transformNames = new Set(preset18Transforms.split(","));
 	/**
-	 * @type {import('jscodeshift').Transform[]}
+	 * @type {Array<(file: import('jscodeshift').FileInfo, api: import('jscodeshift').API, options: import('jscodeshift').Options) => string>}
 	 */
 	const transforms = [];
 	if (transformNames.has("context-any")) {

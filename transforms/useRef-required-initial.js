@@ -3,7 +3,7 @@ const t = require("@babel/types");
 const traverse = require("@babel/traverse").default;
 
 /**
- * @type {import('jscodeshift').Transform}
+ * @param {import('jscodeshift').FileInfo} file
  *
  * Summary for Klarna's klapp@?
  * TODO
