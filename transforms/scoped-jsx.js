@@ -6,7 +6,8 @@ const {
 const traverse = require("@babel/traverse").default;
 
 /**
- * @type {import('jscodeshift').Transform}
+ * @param {import('jscodeshift').FileInfo} file
+ * @param {import('jscodeshift').API} api
  */
 const deprecatedReactChildTransform = (file, api) => {
 	const j = api.jscodeshift;

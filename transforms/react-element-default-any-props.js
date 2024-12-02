@@ -4,7 +4,8 @@ const {
 } = require("./utils/jscodeshift-bugfixes");
 
 /**
- * @type {import('jscodeshift').Transform}
+ * @param {import('jscodeshift').FileInfo} file
+ * @param {import('jscodeshift').API} api
  */
 const reactElementDefaultAnyPropsTransform = (file, api) => {
 	const j = api.jscodeshift;

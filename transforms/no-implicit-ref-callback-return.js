@@ -1,7 +1,8 @@
 const parseSync = require("./utils/parseSync");
 
 /**
- * @type {import('jscodeshift').Transform}
+ * @param {import('jscodeshift').FileInfo} file
+ * @param {import('jscodeshift').API} api
  */
 const noImplicitRefCallbackReturnTransform = (file, api) => {
 	const j = api.jscodeshift;

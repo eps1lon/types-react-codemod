@@ -2,7 +2,8 @@ const parseSync = require("./utils/parseSync");
 const { renameType } = require("./utils/replaceType");
 
 /**
- * @type {import('jscodeshift').Transform}
+ * @param {import('jscodeshift').FileInfo} file
+ * @param {import('jscodeshift').API} api
  */
 const deprecatedVoidFunctionComponentTransform = (file, api) => {
 	const j = api.jscodeshift;

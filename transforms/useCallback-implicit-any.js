@@ -1,7 +1,8 @@
 const parseSync = require("./utils/parseSync");
 
 /**
- * @type {import('jscodeshift').Transform}
+ * @param {import('jscodeshift').FileInfo} file
+ * @param {import('jscodeshift').API} api
  *
  * Summary for Klarna's klapp@19fc4dafed84670398644298bf19c8c2a781dcf8/clients
  * 23154 Files unmodified

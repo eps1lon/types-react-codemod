@@ -12,14 +12,16 @@ const scopedJsxTransform = require("./scoped-jsx");
 const useRefRequiredInitialTransform = require("./useRef-required-initial");
 
 /**
- * @type {import('jscodeshift').Transform}
+ * @param {import('jscodeshift').FileInfo} file
+ * @param {import('jscodeshift').API} api
+ * @param {import('jscodeshift').Options} options
  */
 const transform = (file, api, options) => {
 	const { preset19Transforms } = options;
 
 	const transformNames = new Set(preset19Transforms.split(","));
 	/**
-	 * @type {import('jscodeshift').Transform[]}
+	 * @type {Array<(file: import('jscodeshift').FileInfo, api: import('jscodeshift').API, options: import('jscodeshift').Options) => string>}
 	 */
 	const transforms = [];
 	if (transformNames.has("deprecated-prop-types-types")) {
