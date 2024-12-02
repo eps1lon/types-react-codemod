@@ -83,8 +83,8 @@ The reason being that a false-positive can be reverted easily (assuming you have
   - `deprecated-react-child`
   - `deprecated-react-text`
   - `deprecated-void-function-component`
-  - `no-implicit-ref-callback-return` (off by default)
-  - `react-element-default-any` (off by default)
+  - `no-implicit-ref-callback-return`
+  - `react-element-default-any`
   - `refobject-defaults`
   - `scoped-jsx`
   - `useRef-required-initial`

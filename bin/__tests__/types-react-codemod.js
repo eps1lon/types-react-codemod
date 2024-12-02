@@ -89,7 +89,7 @@ describe("types-react-codemod", () => {
 		// Everything ok
 		expect(stderr).toMatchInlineSnapshot(`""`);
 		expect(stdout).toContain(
-			`--preset19Transforms="deprecated-legacy-ref,deprecated-prop-types-types,deprecated-react-child,deprecated-react-node-array,deprecated-react-fragment,deprecated-react-text,deprecated-void-function-component,refobject-defaults,scoped-jsx,useRef-required-initial"`,
+			`--preset19Transforms="deprecated-legacy-ref,deprecated-prop-types-types,deprecated-react-child,deprecated-react-node-array,deprecated-react-fragment,deprecated-react-text,deprecated-void-function-component,no-implicit-ref-callback-return,react-element-default-any-props,refobject-defaults,scoped-jsx,useRef-required-initial"`,
 		);
 	});
 });
