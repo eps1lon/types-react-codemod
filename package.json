@@ -20,7 +20,7 @@
 		"@babel/preset-env": "^7.16.11",
 		"@babel/types": "^7.17.8",
 		"inquirer": "^9.0.0",
-		"jscodeshift": "^0.16.0",
+		"jscodeshift": "^17.0.0",
 		"yargs": "^17.4.0"
 	},
 	"devDependencies": {
