@@ -113,8 +113,16 @@ function replaceReactType(
 		},
 	);
 	for (const typeReferences of sourceIdentifierTypeReferences) {
-		const changedIdentifiers = typeReferences.replaceWith((path) => {
-			return buildTargetTypeReference(path.value);
+		const changedIdentifiers = typeReferences.forEach((path) => {
+			const targetNode = buildTargetTypeReference(path.value);
+			if (
+				targetNode.type === "TSUnionType" &&
+				path.parentPath.value.type === "TSArrayType"
+			) {
+				path.replace(j.tsParenthesizedType(targetNode));
+			} else {
+				path.replace(targetNode);
+			}
 		});
 		if (changedIdentifiers.length > 0) {
 			hasChanges = true;
