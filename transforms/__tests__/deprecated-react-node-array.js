@@ -129,11 +129,29 @@ test("namespace import", () => {
 test("in type parameters", () => {
 	expect(
 		applyTransform(`
-      import * as React from 'react';
+      import { ReactNodeArray } from 'react';
       createComponent<ReactNodeArray>();
     `),
 	).toMatchInlineSnapshot(`
-		"import * as React from 'react';
+		"import { ReactNode } from 'react';
 		createComponent<ReadonlyArray<ReactNode>>();"
+	`);
+});
+
+test("import from 'prop-types'", () => {
+	expect(
+		applyTransform(`
+      import { ReactNodeArray} from 'prop-types';
+      interface Props {
+  			href: string;
+  			children: ReactNodeArray;
+			};
+    `),
+	).toMatchInlineSnapshot(`
+		"import { ReactNodeArray} from 'prop-types';
+		   interface Props {
+				href: string;
+				children: ReactNodeArray;
+		};"
 	`);
 });
