@@ -104,7 +104,7 @@ function replaceReactType(
 			const { typeName } = node;
 
 			return (
-				(sourceIdentifierImports.length &&
+				(sourceIdentifierImports.length > 0 &&
 					typeName.type === "Identifier" &&
 					typeName.name === sourceIdentifier) ||
 				(typeName.type === "TSQualifiedName" &&
