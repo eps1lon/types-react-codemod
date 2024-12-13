@@ -121,3 +121,35 @@ test("as type parameter", () => {
 		createAction<React.ReactElement | number | string>()"
 	`);
 });
+
+test("array type syntax", () => {
+	expect(
+		applyTransform(`
+			import { ReactChild } from 'react';
+			interface Props {
+				children?: ReactChild[];
+			}
+		`),
+	).toMatchInlineSnapshot(`
+		"import { ReactElement } from 'react';
+		interface Props {
+			children?: (ReactElement | number | string)[];
+		}"
+	`);
+});
+
+test("Array generic", () => {
+	expect(
+		applyTransform(`
+			import { ReactChild } from 'react';
+			interface Props {
+				children?: Array<ReactChild>;
+			}
+		`),
+	).toMatchInlineSnapshot(`
+		"import { ReactElement } from 'react';
+		interface Props {
+			children?: Array<ReactElement | number | string>;
+		}"
+	`);
+});
