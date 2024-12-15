@@ -1,5 +1,15 @@
 # types-react-codemod
 
+## 3.5.1
+
+### Patch Changes
+
+- Avoid modifying import not from `'react'` when replacing types. ([#456](https://github.com/eps1lon/types-react-codemod/pull/456) [`5614a5f`](https://github.com/eps1lon/types-react-codemod/commit/5614a5f3964d1fb6614a9b72ff578f3225ff1656) by [@henryqdineen](https://github.com/henryqdineen))
+
+- Fix a bug when replacing types in shorthand array type notations. ([#455](https://github.com/eps1lon/types-react-codemod/pull/455) [`70a1ea5`](https://github.com/eps1lon/types-react-codemod/commit/70a1ea5e3e402f5a9ff199dcb6a96b35398b7a89) by [@henryqdineen](https://github.com/henryqdineen))
+
+  For example, replacing `ReactText` in `ReactText[]` should now result in `(number | string)[]` instead of `number | string[]`.
+
 ## 3.5.0
 
 ### Minor Changes
