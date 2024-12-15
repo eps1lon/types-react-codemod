@@ -191,4 +191,16 @@ describe("transform scoped-jsx", () => {
 		[].reduce((acc, component, i) => {})"
 	`);
 	});
+
+	test("existing JSX import from jsx-runtime", () => {
+		expect(
+			applyTransform(`
+				import { JSX } from 'react/jsx-runtime';
+				declare const element: JSX.Element;
+			`),
+		).toMatchInlineSnapshot(`
+		"import { JSX } from 'react/jsx-runtime';
+		declare const element: JSX.Element;"
+	`);
+	});
 });
