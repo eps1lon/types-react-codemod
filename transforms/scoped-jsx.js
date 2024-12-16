@@ -34,7 +34,7 @@ const scopedJsxTransform = (file, api) => {
 		},
 	});
 
-	if (hasGlobalNamespaceReferences && !jsxImportedFromJsxRuntime(j, ast)) {
+	if (hasGlobalNamespaceReferences && !isJsxAlreadyImported(j, ast)) {
 		const reactImport = findReactImportForNewImports(j, ast);
 		const jsxImportSpecifier = reactImport.find(j.ImportSpecifier, {
 			imported: { name: "JSX" },
@@ -77,21 +77,11 @@ const scopedJsxTransform = (file, api) => {
  * @param {import('jscodeshift').API['jscodeshift']} j
  * @param {import('jscodeshift').Collection} ast
  */
-function jsxImportedFromJsxRuntime(j, ast) {
+function isJsxAlreadyImported(j, ast) {
 	return (
-		ast
-			.find(j.ImportSpecifier, {
-				imported: { name: "JSX" },
-				local: { name: "JSX" },
-			})
-			.filter((path) => {
-				return (
-					path.parent &&
-					path.parent.node.type === "ImportDeclaration" &&
-					(path.parent.node.source.value === "react/jsx-runtime" ||
-						path.parent.node.source.value === "react/jsx-dev-runtime")
-				);
-			}).length > 0
+		ast.find(j.ImportSpecifier, {
+			local: { name: "JSX" },
+		}).length > 0
 	);
 }
 
