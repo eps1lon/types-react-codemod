@@ -9,7 +9,7 @@ const traverse = require("@babel/traverse").default;
  * @param {import('jscodeshift').FileInfo} file
  * @param {import('jscodeshift').API} api
  */
-const deprecatedReactChildTransform = (file, api) => {
+const scopedJsxTransform = (file, api) => {
 	const j = api.jscodeshift;
 	const ast = parseSync(file);
 
@@ -34,7 +34,7 @@ const deprecatedReactChildTransform = (file, api) => {
 		},
 	});
 
-	if (hasGlobalNamespaceReferences) {
+	if (hasGlobalNamespaceReferences && !isJsxAlreadyImported(j, ast)) {
 		const reactImport = findReactImportForNewImports(j, ast);
 		const jsxImportSpecifier = reactImport.find(j.ImportSpecifier, {
 			imported: { name: "JSX" },
@@ -73,4 +73,16 @@ const deprecatedReactChildTransform = (file, api) => {
 	return file.source;
 };
 
-module.exports = deprecatedReactChildTransform;
+/**
+ * @param {import('jscodeshift').API['jscodeshift']} j
+ * @param {import('jscodeshift').Collection} ast
+ */
+function isJsxAlreadyImported(j, ast) {
+	return (
+		ast.find(j.ImportSpecifier, {
+			local: { name: "JSX" },
+		}).length > 0
+	);
+}
+
+module.exports = scopedJsxTransform;
