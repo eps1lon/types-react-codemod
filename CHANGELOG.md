@@ -1,5 +1,11 @@
 # types-react-codemod
 
+## 3.5.2
+
+### Patch Changes
+
+- fix(scoped-jsx): Don't add `JSX` import if `JSX` is already imported ([#458](https://github.com/eps1lon/types-react-codemod/pull/458) [`f5152b6`](https://github.com/eps1lon/types-react-codemod/commit/f5152b6d3bab015a7332bc52cfc3bdd052cbd0c5) by [@henryqdineen](https://github.com/henryqdineen))
+
 ## 3.5.1
 
 ### Patch Changes
