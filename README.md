@@ -78,13 +78,15 @@ The reason being that a false-positive can be reverted easily (assuming you have
   - `implicit-children`
   - `useCallback-implicit-any`
 - `preset-19`
-  - `deprecated-prop-types-types`
   - `deprecated-legacy-ref`
+  - `deprecated-prop-types-types`
   - `deprecated-react-child`
+  - `deprecated-react-fragment`
+  - `deprecated-react-node-array`
   - `deprecated-react-text`
   - `deprecated-void-function-component`
   - `no-implicit-ref-callback-return`
-  - `react-element-default-any`
+  - `react-element-default-any-props`
   - `refobject-defaults`
   - `scoped-jsx`
   - `useRef-required-initial`
