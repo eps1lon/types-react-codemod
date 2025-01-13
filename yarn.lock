@@ -4527,8 +4527,8 @@ __metadata:
   linkType: hard
 
 "jscodeshift@npm:^17.0.0":
-  version: 17.1.1
-  resolution: "jscodeshift@npm:17.1.1"
+  version: 17.1.2
+  resolution: "jscodeshift@npm:17.1.2"
   dependencies:
     "@babel/core": ^7.24.7
     "@babel/parser": ^7.24.7
@@ -4555,7 +4555,7 @@ __metadata:
       optional: true
   bin:
     jscodeshift: bin/jscodeshift.js
-  checksum: 8694d512808cf5aa852046b515b54ea8948b641f36a6670833ed6b49316c41d77e25f9b2007853da61508b3a81a0340bfd8f6b7d9b6f0ce1fb26d0a847dec118
+  checksum: b4e04a950c416a3f071d847d3c9446996ddef67876cec18d99acbf3a640e9d5a18982bb8da306b454ad16ab63206aac31d16c16e8042fda85025b7366847984e
   languageName: node
   linkType: hard
 
