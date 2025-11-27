@@ -1,5 +1,11 @@
 # types-react-codemod
 
+## 3.5.3
+
+### Patch Changes
+
+- Switch to trusted publishing ([#492](https://github.com/eps1lon/types-react-codemod/pull/492) [`18d0cef`](https://github.com/eps1lon/types-react-codemod/commit/18d0cef7b7235cc896ab6babd2f2e7439da5ea7e) by [@eps1lon](https://github.com/eps1lon))
+
 ## 3.5.2
 
 ### Patch Changes
