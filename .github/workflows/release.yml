@@ -8,6 +8,12 @@ on:
 jobs:
   release:
     name: Release
+    environment: production
+    permissions:
+      id-token: write # Required for OIDC
+      # Changesets creates a commit and PR for the release
+      contents: write
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -31,7 +37,6 @@ jobs:
           publish: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}
 
       - name: Debug release
         # Shows files included in release
