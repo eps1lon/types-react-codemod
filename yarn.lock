@@ -1408,14 +1408,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@changesets/changelog-github@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "@changesets/changelog-github@npm:0.5.0"
+"@changesets/changelog-github@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@changesets/changelog-github@npm:0.6.0"
   dependencies:
-    "@changesets/get-github-info": ^0.6.0
-    "@changesets/types": ^6.0.0
+    "@changesets/get-github-info": ^0.8.0
+    "@changesets/types": ^6.1.0
     dotenv: ^8.1.0
-  checksum: 4ab43d8104693f970d878f2b1657ff67b4d4dcb7452ddf118575153bab74286cdfd125381c2ab92b205bce4b2c653c36552138bf2900f7165ac39a868b7fe22c
+  checksum: ba9c99c02fd121692f7235277a5ee67d4392336dc8d3301e1d2ef3f18caea57f300e800ec883d440caaf78a04468164fc7eda9f0a12ce949faf3918115117a98
   languageName: node
   linkType: hard
 
@@ -1493,13 +1493,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@changesets/get-github-info@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "@changesets/get-github-info@npm:0.6.0"
+"@changesets/get-github-info@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "@changesets/get-github-info@npm:0.8.0"
   dependencies:
     dataloader: ^1.4.0
     node-fetch: ^2.5.0
-  checksum: 753173bda536aa79cb0502f59ce13889b23ae8463d04893d43ff22966818060837d9db4052b6cbfbd95dfb242fbfd38890a38c56832948e83bf358a47812b708
+  checksum: e3bf3a2e318f51b488447aea81ddddc11c3adcd96c01b3505df78a0781c2f148ed954d2809c53fc269688db06550b5facac7f4262e69a34b9acc717a593dac26
   languageName: node
   linkType: hard
 
@@ -1600,10 +1600,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@changesets/types@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "@changesets/types@npm:6.0.0"
-  checksum: d528b5d712f62c26ea422c7d34ccf6eac57a353c0733d96716db3c796ecd9bba5d496d48b37d5d46b784dc45b69c06ce3345fa3515df981bb68456cad68e6465
+"@changesets/types@npm:^6.0.0, @changesets/types@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "@changesets/types@npm:6.1.0"
+  checksum: 2d01231ddb835b48f9c7963a92ffee7ff347be407cdd52b2a9dcfd2a6e75f2ba13d3009d954a8bca4b622d4cac369f86b496ee9c55f5b788e295ca2d3cba4b94
   languageName: node
   linkType: hard
 
@@ -6024,7 +6024,7 @@ __metadata:
     "@babel/parser": ^7.17.8
     "@babel/preset-env": ^7.16.11
     "@babel/types": ^7.17.8
-    "@changesets/changelog-github": ^0.5.0
+    "@changesets/changelog-github": ^0.6.0
     "@changesets/cli": ^2.22.0
     "@jest/globals": ^29.0.0
     "@types/inquirer": ^9.0.0
